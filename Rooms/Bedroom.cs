@@ -27,8 +27,8 @@ From your closet, you see the [attic].
                     }
                     else
                     {
+                        Game.Transition<LivingRoom>();
                         Console.WriteLine("You open the door with the key and leave your bedroom.");
-                        Game.Finish();
                     }
                     break;
                 case "attic":
