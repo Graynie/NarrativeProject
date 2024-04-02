@@ -27,9 +27,16 @@ namespace NarrativeProject.Rooms
 
         internal override string CreateDescription() { 
 
-return @"You are in the Living Room.
-Do you want to [finish] the game
-or go back to the [bedroom]";
+return @"You are Mary Maloney, waiting for her husband to
+come home from work.You are in the Living Room.
+Do you want to sit on your [chair]
+Sit on your husbands [sofa]
+Aproach the drinks car [bedroom]
+Go to the [closet]
+Go to the [kitchen]
+Go to the [bathroom]
+Aproach the [fireplace]
+or go to the [bedroom]";
         }
         internal override void ReceiveChoice(string choice)
         {
@@ -44,18 +51,25 @@ or go back to the [bedroom]";
                     Game.Finish();
                     break;
                 case "drinks":
+                    Console.WriteLine("Drinks car");
                     break;
                 case "closet":
+                    Console.WriteLine("You are looking at the closed is a little dirty");
                     break;
                 case "chair":
+                    Console.WriteLine("you are sitting you can start sewing or read something");
                     break;
                 case "sofa":
+                    Console.WriteLine("You are sitting in your husbands chair, Will he get mad?");
                     break;
                 case "kitchen":
+                    Console.WriteLine("You can cook here");
                     break;
                 case "bathroom":
+                    Console.WriteLine("Take a pee");
                     break;
                 case "fireplace":
+                    Console.WriteLine("Lit the fire place");
                     break;
                 default:
                     Console.WriteLine("Invalid command.");
