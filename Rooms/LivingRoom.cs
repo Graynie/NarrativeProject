@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace NarrativeProject.Rooms
 {
+    
     internal class LivingRoom : Room
     {
+
+        
         // You start the game here, there is a fire place,
         // a table with alcohol drinks, the door to the closet,
         // to the kitchen, to the bedroom, and to the bathroom.
@@ -25,18 +28,16 @@ namespace NarrativeProject.Rooms
         // letting you do anything, or if after killing him you get caugth
 
 
-        internal override string CreateDescription() { 
+        internal override string CreateDescription() {
+            
 
-return @"You are Mary Maloney, waiting for her husband to
-come home from work.You are in the Living Room.
-Do you want to sit on your [chair]
-Sit on your husbands [sofa]
-Aproach the drinks car [bedroom]
-Go to the [closet]
-Go to the [kitchen]
-Go to the [bathroom]
-Aproach the [fireplace]
-or go to the [bedroom]";
+            return @"You are in the Living Room.
+Do you want to sit on your [chair], sit on
+your husbands [sofa], aproach the [drinks] 
+car, aproach the [fireplace],go outtside to
+the [Grocery] store, or go to one 
+of the other rooms: [closet], [kitchen], 
+[bathroom], [bedroom]";
         }
         internal override void ReceiveChoice(string choice)
         {

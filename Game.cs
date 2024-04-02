@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NarrativeProject.Rooms;
+using System;
+using System.Collections.Generic;
 
 namespace NarrativeProject
 {
@@ -7,6 +9,7 @@ namespace NarrativeProject
         List<Room> rooms = new List<Room>();
         Room currentRoom;
         internal bool IsGameOver() => isFinished;
+        public static bool IsStartMenu;
         static bool isFinished;
         static string nextRoom = "";
         static int story;
@@ -38,6 +41,18 @@ namespace NarrativeProject
             isFinished = true;
         }
 
+        internal void InformationMenubar()
+        {if (Start.IsStartMenu) {
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("             Lamb to Slaugther - The Game                    ");
+                Console.WriteLine("         Inspired by Roald Dahl (Short Story)                ");
+            }
+            else
+            {
+                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine(@"Room: Living Room     Time: 24H00      Sanity:100%");
+            }
+        }
         internal void CheckTransition()
         {
             foreach (var room in rooms)

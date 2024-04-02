@@ -10,7 +10,7 @@ namespace NarrativeProject.Rooms
     {
         internal override string CreateDescription()
         {
-            throw new NotImplementedException();
+            return @"The closet is filled with coats, and it's somewhat messy and dusty";
         }
 
         internal override void ReceiveChoice(string choice)

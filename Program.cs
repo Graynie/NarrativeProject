@@ -9,6 +9,7 @@ namespace NarrativeProject
         static void Main(string[] args)
         {
             var game = new Game();
+            game.Add(new Start());
             game.Add(new LivingRoom());
             game.Add(new Kitchen());
             game.Add(new Bedroom());
@@ -22,7 +23,8 @@ namespace NarrativeProject
 
             while (!game.IsGameOver())
             {
-                Console.WriteLine("--");
+                game.InformationMenubar();
+                Console.WriteLine("------------------------------------------------------------");
                 Console.WriteLine(game.CurrentRoomDescription);
                 string choice = Console.ReadLine().ToLower() ?? "";
                 Console.Clear();
