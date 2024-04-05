@@ -15,7 +15,14 @@ namespace NarrativeProject.Rooms
 
         internal override void ReceiveChoice(string choice)
         {
-            throw new NotImplementedException();
+            switch(choice){
+                case "Freezer":
+                    break;
+                default:
+                    Console.WriteLine("Invalid command.");
+                    break;
+
+            }
         }
     }
 }

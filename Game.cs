@@ -51,6 +51,7 @@ namespace NarrativeProject
             {
                 Console.WriteLine("------------------------------------------------------------");
                 Console.WriteLine(@"Room: Living Room     Time: 24H00      Sanity:100%");
+
             }
         }
         internal void CheckTransition()

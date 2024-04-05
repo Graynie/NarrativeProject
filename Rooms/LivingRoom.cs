@@ -10,7 +10,6 @@ namespace NarrativeProject.Rooms
     internal class LivingRoom : Room
     {
 
-        
         // You start the game here, there is a fire place,
         // a table with alcohol drinks, the door to the closet,
         // to the kitchen, to the bedroom, and to the bathroom.

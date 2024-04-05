@@ -15,7 +15,22 @@ namespace NarrativeProject.Rooms
 
         internal override void ReceiveChoice(string choice)
         {
-            throw new NotImplementedException();
+            switch (choice)
+            {
+                case "Fridge":
+                    Console.WriteLine("Frizzing");
+                    break;
+                case "Phone":
+                    Console.WriteLine("Call your mom or the police");
+                    break;
+                case "oven":
+                    Console.WriteLine("Ovening, haha , no, joke, XD");
+                    break;
+                default:
+                    Console.WriteLine("Invalid command.");
+                    break;
+
+            }
         }
     }
 }
