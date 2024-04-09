@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.Remoting.Channels;
 
 namespace NarrativeProject.Rooms
@@ -33,6 +34,10 @@ You can return to your [bedroom].
                     {
                         Console.WriteLine("You see yourself in the mirror");
                     }
+                    //How to open an url
+                    //System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = "https://pbs.twimg.com/media/GKYY1tdagAAbZrb?format=jpg&name=medium", UseShellExecute = true });
+                    //How to open a file in your PC
+                    System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = "Images\\DreamOptsLogoLigther.png", UseShellExecute = true });
                     break;
                     
                 case "bedroom":

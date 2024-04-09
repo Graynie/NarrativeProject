@@ -64,9 +64,11 @@ of the other rooms: [closet], [kitchen],
                     break;
                 case "kitchen":
                     Console.WriteLine("You can cook here");
+                    Game.Transition<Kitchen>();
                     break;
                 case "bathroom":
                     Console.WriteLine("Take a pee");
+                    Game.Transition<Bathroom>();
                     break;
                 case "fireplace":
                     Console.WriteLine("Lit the fire place");
