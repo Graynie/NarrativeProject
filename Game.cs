@@ -6,6 +6,7 @@ namespace NarrativeProject
 {
     internal class Game
     {
+        
         List<Room> rooms = new List<Room>();
         Room currentRoom;
         internal bool IsGameOver() => isFinished;
@@ -16,6 +17,7 @@ namespace NarrativeProject
         static string nameOfRoom = "";
         static int timeHour = 16;
         static int timeMinute = 00;
+        internal static int sanity = 100;
 
         internal void Add(Room room)
         {
@@ -53,7 +55,7 @@ namespace NarrativeProject
             else
             {
                 Console.WriteLine("------------------------------------------------------------");
-                Console.WriteLine("Room: " + nameOfRoom+ " Time: "+timeHour +"H"+ timeMinute  + "0  Sanity:100%") ;
+                Console.WriteLine("Room: " + nameOfRoom+ " Time: "+timeHour +"H"+ timeMinute  + "0  Sanity: "+sanity+"%") ;
                 
 
             }
