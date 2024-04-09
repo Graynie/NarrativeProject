@@ -8,6 +8,7 @@ namespace NarrativeProject.Rooms
 {
     internal class Closet : Room
     {
+
         internal override string CreateDescription()
         {
             return @"The closet is filled with coats, and it's somewhat messy and dusty";

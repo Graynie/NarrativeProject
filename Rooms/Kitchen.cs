@@ -8,6 +8,7 @@ namespace NarrativeProject.Rooms
 {
     internal class Kitchen : Room
     {
+
         internal override string CreateDescription()
         {
             throw new NotImplementedException();

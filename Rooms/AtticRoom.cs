@@ -2,6 +2,7 @@
 
 namespace NarrativeProject.Rooms
 {
+
     internal class AtticRoom : Room
     {
         internal static bool isKeyCollected;

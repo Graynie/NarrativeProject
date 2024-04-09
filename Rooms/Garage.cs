@@ -8,6 +8,7 @@ namespace NarrativeProject.Rooms
 {
     internal class Garage : Room
     {
+
         internal override string CreateDescription()
         {
             return @"The garage is filled with boxes, but the space for the car is empty";

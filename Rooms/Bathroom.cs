@@ -5,6 +5,8 @@ namespace NarrativeProject.Rooms
 {
     internal class Bathroom : Room
     {
+
+
         internal static bool bathDone = false;
         internal override string CreateDescription() =>
 @"In your bathroom, the [bath] is filled with hot water.

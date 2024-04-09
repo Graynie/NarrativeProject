@@ -8,6 +8,7 @@ namespace NarrativeProject.Rooms
 {
     internal class Grocery : Room
     {
+
         internal override string CreateDescription()
         {
             return @"You can buy stuff here, but be caareful the owner can get 

@@ -13,6 +13,9 @@ namespace NarrativeProject
         static bool isFinished;
         static string nextRoom = "";
         static int story;
+        static string nameOfRoom = "";
+        static int timeHour = 16;
+        static int timeMinute = 00;
 
         internal void Add(Room room)
         {
@@ -50,7 +53,8 @@ namespace NarrativeProject
             else
             {
                 Console.WriteLine("------------------------------------------------------------");
-                Console.WriteLine(@"Room: Living Room     Time: 24H00      Sanity:100%");
+                Console.WriteLine("Room: " + nameOfRoom+ " Time: "+timeHour +"H"+ timeMinute  + "0  Sanity:100%") ;
+                
 
             }
         }
@@ -60,6 +64,7 @@ namespace NarrativeProject
             {
                 if (room.GetType().Name == nextRoom)
                 {
+                    nameOfRoom= room.GetType().Name.ToString();
                     nextRoom = "";
                     currentRoom = room;
                     break;

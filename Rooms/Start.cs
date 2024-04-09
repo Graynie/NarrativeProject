@@ -10,6 +10,7 @@ namespace NarrativeProject.Rooms
     {
         public static bool IsStartMenu = true;
 
+
         internal override string CreateDescription()
         {
             
