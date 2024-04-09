@@ -1,6 +1,7 @@
 ﻿using NarrativeProject.Rooms;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NarrativeProject
 {
@@ -32,6 +33,10 @@ namespace NarrativeProject
 
         internal void ReceiveChoice(string choice)
         {
+            if(choice == "save game")
+            {
+                saveGame();
+            }
             currentRoom.ReceiveChoice(choice);
             CheckTransition();
         }
@@ -71,6 +76,14 @@ namespace NarrativeProject
                     break;
                 }
             }
+        }
+
+        internal static void saveGame()
+        {
+            /*Write data to save
+            * saveData = new SaveData(200, "Danny");
+            var bf = new BinaryFormatter();
+            bf.Serialize(File.OpenWrite(SaveFile), saveData);*/
         }
     }
 }
