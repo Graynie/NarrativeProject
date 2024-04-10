@@ -10,9 +10,9 @@ namespace NarrativeProject.Rooms
 
         internal static bool bathDone = false;
         internal override string CreateDescription() =>
-@"In your bathroom, the [bath] is filled with hot water.
-The [mirror] in front of you reflects your depressed face.
-You can return to your [bedroom].
+@"In your bathroom, the [bathtub] is empty and clean.
+The [mirror] can show you reflection
+You can return to your [Living] room.
 ";
 
         internal override void ReceiveChoice(string choice)
@@ -26,13 +26,27 @@ You can return to your [bedroom].
                    bathDone = true;
                     break;
                 case "mirror":
-                    if (bathDone==true)
+                    if (!LivingRoom.husbandDead)
                     {
-                        Console.WriteLine("You see the numbers 6595 written on the fog on your mirror.");
+                        Console.WriteLine(@"You see yourself in the mirror.Your skin — for this
+your sixth month with child — had acquired a
+wonderful translucent quality, your mouth looking
+soft, and your eyes, showing a placid look,
+that seem larger darker than before.");
                     }
                     else if(bathDone==false)
                     {
                         Console.WriteLine("You see yourself in the mirror");
+                    }
+                    else
+                    {
+                        Console.WriteLine(@"You tidied up your hair, touched up the lips and face.
+Then you tried a smile. It came out rather peculiar.
+Try again.
+“Hullo Sam,” you said brightly, aloud. The voice sounded peculiar too
+“I want some potatoes please, Sam. Yes, and I think a can of peas.”
+That was better.  Both the smile and the voice were coming out better 
+now. You rehearsed it several times more. Until it feels more natural");
                     }
                     //How to open an url
                     //System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = "https://pbs.twimg.com/media/GKYY1tdagAAbZrb?format=jpg&name=medium", UseShellExecute = true });
@@ -40,9 +54,9 @@ You can return to your [bedroom].
                     System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = "Images\\DreamOptsLogoLigther.png", UseShellExecute = true });
                     break;
                     
-                case "bedroom":
-                    Console.WriteLine("You return to your bedroom.");
-                    Game.Transition<Bedroom>();
+                case "living":
+                    Console.WriteLine("You return to your Living Room.");
+                    Game.Transition<LivingRoom>();
                     break;
                 default:
                     Console.WriteLine("Invalid command.");

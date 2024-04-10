@@ -78,6 +78,14 @@ namespace NarrativeProject
             }
         }
 
+        internal void CheckTime()
+        {
+            if(timeHour > 5&& timeHour<6)
+            {
+                LivingRoom.NextStepScript();
+            }
+        }
+
         internal static void saveGame()
         {
             /*Write data to save
