@@ -14,7 +14,6 @@ namespace NarrativeProject
         public static string thing = "";
         Room currentRoom;
         internal bool IsGameOver() => isFinished;
-        public static bool IsStartMenu;
         static bool isFinished;
         static string nextRoom = "";
         static int story;
@@ -74,7 +73,13 @@ namespace NarrativeProject
         }
         internal void Alert()
         {
-            if (Game.gameScript == 1) 
+            MethodColor1();
+            if (Start.IsStartMenu==true) { }
+            else if(Game.gameScript == 0)
+            {
+                Console.WriteLine("Your husband will arrive at 5");
+            }
+            else if (Game.gameScript == 1) 
             {
                 Console.WriteLine("It's 5 o'clock, Your husband have arrived");
             }
@@ -82,6 +87,7 @@ namespace NarrativeProject
             {
                 Console.WriteLine("Alert");
             }
+            MethodColor2();
         }
         internal void CheckTransition()
         {
@@ -117,7 +123,7 @@ passing the window,and the key turning in the lock.");
         internal void MethodColor1()
         {
             Console.ForegroundColor = ConsoleColor.Red;
-        }//End Color1 Gray
+        }//End Color1 Red
         internal void MethodColor2()
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -126,7 +132,6 @@ passing the window,and the key turning in the lock.");
             inventory.Add(thing);
         }
         public static void RemoveInventory(string thing) {  inventory.Remove(thing); }
-
         public static void DisplayInventory() 
         {
             Console.Write("\nYou have in your inventory: ");

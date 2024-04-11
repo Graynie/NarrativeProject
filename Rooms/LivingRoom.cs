@@ -87,7 +87,7 @@ of the other rooms: [closet], [kitchen],
                 {
                     switch (choice)
                     {
-                        case "inventory":
+                        case "i":
                             Game.DisplayInventory();
                             break;
                         case "sew":
@@ -107,7 +107,7 @@ of the other rooms: [closet], [kitchen],
                 {
                     switch (choice)
                     {
-                        case "inventory":
+                        case "i":
                             Game.DisplayInventory();
                             break;
                         case "bedroom":
@@ -147,7 +147,7 @@ of the other rooms: [closet], [kitchen],
             {
                 switch (choice)
                 {
-                    case "inventory":
+                    case "i":
                         Game.DisplayInventory();
                         break;
                     case "bedroom":
@@ -191,7 +191,7 @@ You took his coat");
             {
                 switch (choice)
                 {
-                    case "inventory":
+                    case "i":
                         Game.DisplayInventory();
                         break;
                     case "bedroom":

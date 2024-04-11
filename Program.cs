@@ -54,9 +54,7 @@ namespace NarrativeProject {
 
             while (!game.IsGameOver())
             {
-                game.MethodColor1();
                 game.Alert();
-                game.MethodColor2();
                 game.InformationMenubar();
                 Console.WriteLine("------------------------------------------------------------");
                 Console.WriteLine(game.CurrentRoomDescription);
