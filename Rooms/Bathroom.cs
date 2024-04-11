@@ -26,7 +26,7 @@ You can return to your [Living] room.
                    bathDone = true;
                     break;
                 case "mirror":
-                    if (!LivingRoom.husbandDead)
+                    if (!Game.husbandDead)
                     {
                         Console.WriteLine(@"You see yourself in the mirror.Your skin — for this
 your sixth month with child — had acquired a

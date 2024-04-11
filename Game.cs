@@ -16,9 +16,19 @@ namespace NarrativeProject
         static string nextRoom = "";
         static int story;
         static string nameOfRoom = "";
-        static int timeHour = 16;
+        public static int timeHour = 16;
         static int timeMinute = 00;
         internal static int sanity = 100;
+        public static bool lambLeg = false;
+        public static int gameScript = 0;
+        public static bool husbandDead = false;
+        public static void killHusband()
+        {
+            husbandDead = true;
+        }
+        public static int NextStepScript()
+        { return gameScript++; }
+
 
         internal void Add(Room room)
         {
@@ -64,6 +74,17 @@ namespace NarrativeProject
                 
             }
         }
+        internal void Alert()
+        {
+            if (Game.gameScript == 1) 
+            {
+                Console.WriteLine("It's 5 o'clock, Your husband have arrived");
+            }
+            else
+            {
+                Console.WriteLine("Alert");
+            }
+        }
         internal void CheckTransition()
         {
             foreach (var room in rooms)
@@ -82,7 +103,7 @@ namespace NarrativeProject
         {
             if(timeHour > 5&& timeHour<6)
             {
-                LivingRoom.NextStepScript();
+                NextStepScript();
             }
         }
 
@@ -93,5 +114,14 @@ namespace NarrativeProject
             var bf = new BinaryFormatter();
             bf.Serialize(File.OpenWrite(SaveFile), saveData);*/
         }
+        internal void MethodColor1()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+        }//End Color1 Gray
+        internal void MethodColor2()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+        }//End Color1 Gray
     }
+
 }

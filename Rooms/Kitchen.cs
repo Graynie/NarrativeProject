@@ -22,7 +22,22 @@ namespace NarrativeProject.Rooms
                     Console.WriteLine("Frizzing");
                     break;
                 case "Phone":
+                    if (Game.husbandDead == false) { }
+                    else { 
                     Console.WriteLine("Call your mom or the police");
+                        switch(choice)
+                        {
+                            case "friend":
+                                Console.WriteLine();
+                                break;
+                            case "mom":
+                                Console.WriteLine();
+                                break;
+                            default:
+                                Console.WriteLine();
+                            break;
+                        }
+                    }
                     break;
                 case "oven":
                     Console.WriteLine("Ovening, haha , no, joke, XD");
