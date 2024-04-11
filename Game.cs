@@ -1,5 +1,6 @@
 ﻿using NarrativeProject.Rooms;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -9,6 +10,8 @@ namespace NarrativeProject
     {
         
         List<Room> rooms = new List<Room>();
+        public static List<string> inventory = new List<string>();
+        public static string thing = "";
         Room currentRoom;
         internal bool IsGameOver() => isFinished;
         public static bool IsStartMenu;
@@ -22,14 +25,14 @@ namespace NarrativeProject
         public static bool lambLeg = false;
         public static int gameScript = 0;
         public static bool husbandDead = false;
+
+
         public static void killHusband()
         {
             husbandDead = true;
         }
         public static int NextStepScript()
         { return gameScript++; }
-
-
         internal void Add(Room room)
         {
             rooms.Add(room);
@@ -38,9 +41,7 @@ namespace NarrativeProject
                 currentRoom = room;
             }
         }
-
         internal string CurrentRoomDescription => currentRoom.CreateDescription();
-
         internal void ReceiveChoice(string choice)
         {
             if(choice == "save game")
@@ -50,17 +51,14 @@ namespace NarrativeProject
             currentRoom.ReceiveChoice(choice);
             CheckTransition();
         }
-
         internal static void Transition<T>() where T : Room
         {
             nextRoom = typeof(T).Name;
         }
-
         internal static void Finish()
         {
             isFinished = true;
         }
-
         internal void InformationMenubar()
         {if (Start.IsStartMenu) {
                 Console.WriteLine("------------------------------------------------------------");
@@ -98,15 +96,17 @@ namespace NarrativeProject
                 }
             }
         }
-
         internal void CheckTime()
         {
             if(timeHour > 5&& timeHour<6)
             {
+                Console.WriteLine(@"You begin to listen, and a few moments later, 
+punctually as always, you hear the tires on the gravel
+outside, and the car door slamming, the footsteps 
+passing the window,and the key turning in the lock.");
                 NextStepScript();
             }
         }
-
         internal static void saveGame()
         {
             /*Write data to save
@@ -122,6 +122,29 @@ namespace NarrativeProject
         {
             Console.ForegroundColor = ConsoleColor.White;
         }//End Color1 Gray
+        public static void AddInventory(string thing) {
+            inventory.Add(thing);
+        }
+        public static void RemoveInventory(string thing) {  inventory.Remove(thing); }
+
+        public static void DisplayInventory() 
+        {
+            Console.Write("\nYou have in your inventory: ");
+            if (inventory.Count > 0) { 
+                for (int i = 0; i < inventory.Count - 1; i++)
+                {
+                    Console.WriteLine(inventory[i]);
+                    if (i == inventory.Count - 1) {
+                        Console.WriteLine("."); }
+                    else { Console.WriteLine(", "); }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nothing");
+            }
+
+        }
     }
 
 }

@@ -78,7 +78,6 @@ of the other rooms: [closet], [kitchen],
                 }
             }
             else { return @"None"; }
-
         }
         internal override void ReceiveChoice(string choice)
         {
@@ -88,6 +87,9 @@ of the other rooms: [closet], [kitchen],
                 {
                     switch (choice)
                     {
+                        case "inventory":
+                            Game.DisplayInventory();
+                            break;
                         case "sew":
                             Console.WriteLine("You continue sewing a pair of boots for a baby");
                             Game.timeHour = 5;
@@ -105,6 +107,9 @@ of the other rooms: [closet], [kitchen],
                 {
                     switch (choice)
                     {
+                        case "inventory":
+                            Game.DisplayInventory();
+                            break;
                         case "bedroom":
                             Console.WriteLine("You returned to the room.");
                             Game.Transition<Bedroom>();
@@ -131,7 +136,6 @@ of the other rooms: [closet], [kitchen],
                             break;
                         case "chair":
                             Console.WriteLine("You are confortably sitting in your chair");
-
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
@@ -143,6 +147,9 @@ of the other rooms: [closet], [kitchen],
             {
                 switch (choice)
                 {
+                    case "inventory":
+                        Game.DisplayInventory();
+                        break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room.");
                         Game.Transition<Bedroom>();
@@ -167,6 +174,14 @@ of the other rooms: [closet], [kitchen],
                     case "fireplace":
                         Console.WriteLine("Lit the fire place");
                         break;
+                    case "greet":
+                        Console.WriteLine(@"You kiss your Husband, Patrick.
+“Hullo darling,” you say.
+“Hullo darling,” he answers.
+You took his coat");
+                        Game.AddInventory("coat");
+                        Game.NextStepScript();
+                        break;
                     default:
                         Console.WriteLine("Invalid command.");
                         break;
@@ -176,6 +191,9 @@ of the other rooms: [closet], [kitchen],
             {
                 switch (choice)
                 {
+                    case "inventory":
+                        Game.DisplayInventory();
+                        break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room.");
                         Game.Transition<Bedroom>();
