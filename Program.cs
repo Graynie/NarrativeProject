@@ -27,6 +27,7 @@ namespace NarrativeProject {
 
         static void Main(string[] args)
         {
+
             const string SaveFile = "Save.txt";
             if (!File.Exists(SaveFile))
             {
@@ -37,7 +38,6 @@ namespace NarrativeProject {
 
             /*File.WriteAllText("Save.txt", "Hello World");
             File.ReadAllText;*/
-
 
             var game = new Game();
             game.Add(new Start());
@@ -54,10 +54,14 @@ namespace NarrativeProject {
 
             while (!game.IsGameOver())
             {
-                game.Alert();
-                game.InformationMenubar();
+                
+                Game.CheckTime();
+                Game.Alert();
+                Game.InformationMenubar();
                 Console.WriteLine("------------------------------------------------------------");
+                Game.MethodColorGray();
                 Console.WriteLine(game.CurrentRoomDescription);
+                Game.MethodColorBasic();
                 string choice = Console.ReadLine().ToLower() ?? "";
                 Console.Clear();
                 game.ReceiveChoice(choice);

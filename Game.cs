@@ -19,16 +19,38 @@ namespace NarrativeProject
         static int story;
         static string nameOfRoom = "";
         public static int timeHour = 16;
-        static int timeMinute = 00;
+        static int timeMinute = 0;
+        static int timeMinuteDigit = 0;
         internal static int sanity = 100;
         public static bool lambLeg = false;
         public static int gameScript = 0;
         public static bool husbandDead = false;
-
+        internal static bool shownOnce = false;
 
         public static void killHusband()
         {
             husbandDead = true;
+        }
+        public static void FiveMinutes() 
+        {
+            if (timeMinuteDigit == 0)
+            {
+                timeMinuteDigit = 5;
+            }
+            else if (timeMinuteDigit == 5)
+            {
+                timeMinuteDigit = 0;
+                timeMinute++;
+            }
+        }
+        public static void TenMinutes() 
+        {
+        
+        }
+        public static void NextHour() 
+        {
+            timeHour++;
+            timeMinute = 0;
         }
         public static int NextStepScript()
         { return gameScript++; }
@@ -58,22 +80,28 @@ namespace NarrativeProject
         {
             isFinished = true;
         }
-        internal void InformationMenubar()
-        {if (Start.IsStartMenu) {
+        public static void InformationMenubar()
+        {
+
+            if (Start.IsStartMenu) {
                 Console.WriteLine("------------------------------------------------------------");
+                MethodColorReverse();
                 Console.WriteLine("             Lamb to Slaugther - The Game                    ");
                 Console.WriteLine("         Inspired by Roald Dahl (Short Story)                ");
+                MethodColorBasic();
             }
             else
             {
                 Console.WriteLine("------------------------------------------------------------");
-                Console.WriteLine("Room: " + nameOfRoom+ " Time: "+timeHour +"H"+ timeMinute  + "0  Sanity: "+sanity+"%") ;
+                MethodColorReverse();
+                Console.WriteLine("   Room: " + nameOfRoom+ "      Time: "+timeHour +"H"+ timeMinute  + timeMinuteDigit +"       Sanity: " +sanity+"%     ") ;
+                MethodColorBasic();
                 
             }
         }
-        internal void Alert()
+        public static void Alert()
         {
-            MethodColor1();
+            MethodColorRed();
             if (Start.IsStartMenu==true) { }
             else if(Game.gameScript == 0)
             {
@@ -87,7 +115,7 @@ namespace NarrativeProject
             {
                 Console.WriteLine("Alert");
             }
-            MethodColor2();
+            MethodColorBasic();
         }
         internal void CheckTransition()
         {
@@ -102,16 +130,31 @@ namespace NarrativeProject
                 }
             }
         }
-        internal void CheckTime()
+        public static void CheckTime()
         {
-            if(timeHour > 5&& timeHour<6)
+            if (timeMinute >= 6)
             {
-                Console.WriteLine(@"You begin to listen, and a few moments later, 
-punctually as always, you hear the tires on the gravel
-outside, and the car door slamming, the footsteps 
-passing the window,and the key turning in the lock.");
+                timeMinute = 0;
+                timeHour++;
+            }
+            else if (timeHour == 24)
+            {
+                timeHour = 0;
+            }
+            else { }
+            if (timeHour >= 17 && timeHour < 18 && shownOnce == false)
+            {
+                MethodColorBlue();
+                Console.WriteLine(@"You begin to listen, and a few moments later, punctually 
+as always, you hear the tires on the gravel outside, the 
+car door slamming, the footsteps passing the window, and
+the key turning in the lock.");
+                shownOnce = true;
+                MethodColorBasic();
                 NextStepScript();
             }
+
+            else { }
         }
         internal static void saveGame()
         {
@@ -120,14 +163,31 @@ passing the window,and the key turning in the lock.");
             var bf = new BinaryFormatter();
             bf.Serialize(File.OpenWrite(SaveFile), saveData);*/
         }
-        internal void MethodColor1()
+        public static void MethodColorRed()
         {
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.BackgroundColor = ConsoleColor.Black;
         }//End Color1 Red
-        internal void MethodColor2()
+        public static void MethodColorBasic()
         {
             Console.ForegroundColor = ConsoleColor.White;
+            Console.BackgroundColor = ConsoleColor.Black;
         }//End Color1 Gray
+        public static void MethodColorReverse()
+        {
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.White;
+        }//End Color1 Gray
+        public static void MethodColorGray() 
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        public static void MethodColorBlue()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
         public static void AddInventory(string thing) {
             inventory.Add(thing);
         }
@@ -149,6 +209,14 @@ passing the window,and the key turning in the lock.");
                 Console.WriteLine("Nothing");
             }
 
+        }
+        public static void IncreaseSanity()
+        {
+            sanity += 10;
+        }
+        public static void DecraseSanity()
+        {
+            sanity -= 10;
         }
     }
 
