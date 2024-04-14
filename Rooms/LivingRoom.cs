@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace NarrativeProject.Rooms
 {
-    
+
     internal class LivingRoom : Room
     {
         private bool sittingOnChair = true;
         private bool greetHusband = false;
+        internal bool fireplaceOn = false;
         internal override string CreateDescription()
         {
             if (Game.gameScript == 0)
@@ -32,7 +33,7 @@ to the [Grocery] store, or go to one of the other rooms:
             }
             else if (Game.gameScript == 1)
             {
-                if (greetHusband == false&& sittingOnChair==false)
+                if (greetHusband == false && sittingOnChair == false)
                 {
                     return @"You are in the Living Room.
 You can [Greet] your husband, sit on your [chair],
@@ -60,9 +61,9 @@ to the [Grocery] store, or go to one of the other rooms:
 [closet], [kitchen], [bathroom], [bedroom]";
                 }
             }
-            else if(Game.gameScript == 5)
+            else if (Game.gameScript == 5)
             {
-                if (Game.lambLeg == true) 
+                if (Game.lambLeg == true)
                 {
                     return @"You are in the Living Room.
 You can [aproach] your husband, sit in your [chair], sit on
@@ -167,7 +168,7 @@ of the other rooms: [closet], [kitchen],
 You took his coat");
                             sittingOnChair = false;
                             Game.AddInventory("coat");
-                            Game.gameScript=2;
+                            Game.gameScript = 2;
                             break;
                         case "ignore":
                             Console.WriteLine(@"Your husband looks weirdly at you, but 
@@ -180,7 +181,7 @@ on his sofa");
                             break;
                     }
                 }
-                if(sittingOnChair == false)
+                if (sittingOnChair == false)
                 {
                     switch (choice)
                     {
@@ -188,31 +189,41 @@ on his sofa");
                             Game.DisplayInventory();
                             break;
                         case "chair":
-                            Console.WriteLine();
+                            Console.WriteLine(@"Your husband looks weirdly at you, but 
+continuing his way puttiing his coat at the closet, 
+and sitting on his sofa");
+                            Game.gameScript = 2;
                             break;
                         case "bedroom":
-                            Console.WriteLine("You returned to the room.");
+                            Console.WriteLine("You walked to the bedroom");
                             Game.Transition<Bedroom>();
                             break;
                         case "drinks":
-                            Console.WriteLine("Drinks car");
+                            Console.WriteLine(@"Your husband looks weirdly at you, but 
+continuing his way putting his coat at the closet, 
+and sitting on his sofa
+*You can't pour you a drink, you are pregnant ");
+                            Game.gameScript = 2;
                             break;
                         case "closet":
-                            Console.WriteLine("You are looking at the closed is a little dirty");
+                            Console.WriteLine(@"Your husband looks weirdly at you, but 
+continuing his way and sitting on his sofa
+*You are looking at the closed it is a little dirty");
+                            Game.gameScript = 2;
                             break;
                         case "sofa":
-                            Console.WriteLine("You are sitting in your husbands chair, Will he get mad?");
+                            Console.WriteLine("You shouldn't do that he is at home");
                             break;
                         case "kitchen":
-                            Console.WriteLine("You can cook here");
+                            Console.WriteLine("You don't need to cook today your are supposed to go out to dinner with your husband");
                             Game.Transition<Kitchen>();
                             break;
                         case "bathroom":
-                            Console.WriteLine("Take a pee");
+                            Console.WriteLine("The bathroom seams clean");
                             Game.Transition<Bathroom>();
                             break;
                         case "fireplace":
-                            Console.WriteLine("Lit the fire place");
+                            fireplace();
                             break;
                         case "greet":
                             sittingOnChair = false;
@@ -268,6 +279,16 @@ You took his coat");
                         break;
                 }
             }
+        }
+
+        internal void fireplace()
+        {
+            if (fireplaceOn == true) { fireplaceOn = false;
+                Console.WriteLine("you put out the fireplace");
+            }
+            else { fireplaceOn = true;
+                Console.WriteLine("You lit the fireplace");
+            } 
         }
     }
 }
