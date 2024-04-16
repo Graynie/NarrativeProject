@@ -11,7 +11,10 @@ namespace NarrativeProject.Rooms
 
         internal override string CreateDescription()
         {
-            throw new NotImplementedException();
+            return @"In your kitchen, the [oven] is empty and clean.
+Call someone with the [phone].
+Check the [fridge]
+You can return to your [Living] room.";
         }
 
         internal override void ReceiveChoice(string choice)

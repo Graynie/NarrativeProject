@@ -29,10 +29,10 @@ You can [sew] until your husband arrives, or [stand] up";
                 else
                 {
                     return @"You are in the Living Room. 
-You can do sit on your [chair], sit on your husband's [sofa],
-aproach the [drinks] car, aproach the [fireplace], go outtside
-to the [Grocery] store, or go to one of the other rooms: 
-[closet], [kitchen], [bathroom], [bedroom]";
+You can sit on your [chair], sit on your husband's [sofa],
+aproach the [drinks] car, aproach the [fireplace], go 
+outtside to the [Grocery] store, or go to one of the other 
+rooms: [closet], [kitchen], [bathroom], [bedroom]";
                 }
             }
             else if (Game.gameScript == 1)
@@ -68,17 +68,22 @@ to the [Grocery] store, or go to one of the other rooms:
             }
             else if (Game.gameScript == 2)
             {
- return @"This time of day is always a blissful time for you. 
-You know he doesn’t want to speak much right after arriving home from work.
-You are content to sit quietly and enjoy his company after spending long 
-hours alone in the house. Occasionally, you both enjoy a drink."; 
-
+                if (sittingOnChair)
+                {
+                    return @"You can continue and [ignore] him, or [stand] up";
+                }
+                else
+                {
+                    return @"You can try talking with your [husband], prepare a
+[drink] for him, lit the [fireplace], or go to another room: 
+[kitchen], [bathroom], [bedroom], or sit in your [chair] ";
+                }
             }
-            else if(Game.gameScript == 3)
+            else if (Game.gameScript == 3)
             {
                 return @"[continue]";
             }
-            else if(Game.gameScript == 4)
+            else if (Game.gameScript == 4)
             {
                 return @"[continued]";
             }
@@ -150,10 +155,10 @@ of the other rooms: [closet], [kitchen],
                             Game.Transition<Bedroom>();
                             break;
                         case "drinks":
-                            Console.WriteLine("Drinks car");
+                            Console.WriteLine("You can't drink alcoholic drinks");
                             break;
                         case "closet":
-                            Console.WriteLine("You are looking at the closed is a little dirty");
+                            Console.WriteLine("You are looking at the closed, it is a little messy");
                             break;
                         case "sofa":
                             Console.WriteLine("You are sitting in your husbands chair, Will he get mad?");
@@ -171,6 +176,10 @@ of the other rooms: [closet], [kitchen],
                             break;
                         case "chair":
                             Console.WriteLine("You are confortably sitting in your chair");
+                            sittingOnChair=true;
+                            break;
+                        case "grocery":
+                            Console.WriteLine("You don't seem to need anything from the store");
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
@@ -201,13 +210,14 @@ You took his coat");
 continuos his way puttiing his coat at the closet, and sitting 
 on his sofa");
                             Game.gameScript = 2;
+                            Game.HusbandTemperament -= 20;
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
                             break;
                     }
                 }
-                if (sittingOnChair == false)
+                else if (sittingOnChair == false)
                 {
                     switch (choice)
                     {
@@ -220,10 +230,19 @@ continuing his way puttiing his coat at the closet,
 and sitting on his sofa");
                             Game.HusbandTemperament += 5;
                             Game.gameScript = 2;
+                            Console.WriteLine(@"This time of day is always a blissful time for you. 
+You know he doesn’t want to speak much right after arriving home from work.
+You are content to sit quietly and enjoy his company after spending long 
+hours alone in the house. Occasionally, you both enjoy a drink.");
                             break;
                         case "bedroom":
                             Console.WriteLine("You walked to the bedroom,Your husband probably feels ignored");
                             Game.gameScript = 2;
+                            Console.WriteLine(@"This time of day is always a blissful time for you. 
+But today you seam to be ignoring him, probably beacause
+You know he doesn’t want to speak much right after arriving home from work.
+Normally you are content to sit quietly and enjoy his company after spending long 
+hours alone in the house. Occasionally, you both enjoy a drink.");
                             Game.HusbandTemperament += 5;
                             Game.Transition<Bedroom>();
                             break;
@@ -234,6 +253,11 @@ and sitting on his sofa
 *You can't pour you a drink, you are pregnant ");
                             Game.HusbandTemperament += 5;
                             Game.gameScript = 2;
+                            Console.WriteLine(@"This time of day is always a blissful time for you. 
+But today you seam to be ignoring him, probably beacause
+You know he doesn’t want to speak much right after arriving home from work.
+Normally you are content to sit quietly and enjoy his company after spending long 
+hours alone in the house. Occasionally, you both enjoy a drink.");
                             break;
                         case "closet":
                             Console.WriteLine(@"Your husband looks weirdly at you, but 
@@ -241,6 +265,11 @@ continuing his way and sitting on his sofa
 *You are looking at the closed it is a little dirty");
                             Game.HusbandTemperament += 5;
                             Game.gameScript = 2;
+                            Console.WriteLine(@"This time of day is always a blissful time for you. 
+But today you seam to be ignoring him, probably beacause
+You know he doesn’t want to speak much right after arriving home from work.
+Normally you are content to sit quietly and enjoy his company after spending long 
+hours alone in the house. Occasionally, you both enjoy a drink.");
                             break;
                         case "sofa":
                             Console.WriteLine("*You shouldn't do that he is at home");
@@ -277,6 +306,7 @@ You took his coat");
             else if (Game.gameScript == 2)
             {
                 if (sittingOnChair == true)
+                {
                     switch (choice)
                     {
                         case "i":
@@ -292,12 +322,17 @@ so you can stay right here and not even have to leave the chair.""""
 You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.
 """"Anyway,"""" you continued, """"I'll get you some cheese and crackers to start.""""
 """"I don't want it,"""" he replied.");
-                            Game.HusbandTemperament += 10;
+                            Game.HusbandTemperament -= 10;
+                            break;
+                        case "stand":
+                            Console.WriteLine();
+                            sittingOnChair=false;
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
                             break;
                     }
+                }
                 else
                 {
                     switch (choice)
@@ -338,7 +373,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                                 }
                             }
                             break;
-                        case "drinks":
+                        case "drink":
                             Console.WriteLine("You have made a drink for you husband. This time it is a" + RamdomDrink());
                             break;
                         case "closet":
@@ -390,7 +425,6 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             break;
                     }
                 }
-
             }
             else if(Game.gameScript == 3)
             {

@@ -6,24 +6,17 @@ using System.Threading.Tasks;
 
 namespace NarrativeProject.Rooms
 {
-    internal class Cellar : Room
+    internal class BadEndingTwo : Room
     {
 
         internal override string CreateDescription()
         {
-            throw new NotImplementedException();
+            return @"The garage is filled with boxes, but the space for the car is empty";
         }
 
         internal override void ReceiveChoice(string choice)
         {
-            switch(choice){
-                case "Freezer":
-                    break;
-                default:
-                    Console.WriteLine("Invalid command.");
-                    break;
-
-            }
+            throw new NotImplementedException();
         }
     }
 }

@@ -56,6 +56,7 @@ namespace NarrativeProject {
             {
                 
                 Game.CheckTime();
+                Game.checkTemperament();
                 Game.Alert();
                 Game.InformationMenubar();
                 Console.WriteLine("------------------------------------------------------------");

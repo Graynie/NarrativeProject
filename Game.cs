@@ -31,6 +31,7 @@ namespace NarrativeProject
         public static bool TalkToHusband = false;
         public static bool cleanKill = false;
         public static bool HusbandLeaves = false;
+        
 
         public static void killHusband()
         {
@@ -93,6 +94,7 @@ namespace NarrativeProject
                 MethodColorReverse();
                 Console.WriteLine("             Lamb to Slaugther - The Game                    ");
                 Console.WriteLine("         Inspired by Roald Dahl (Short Story)                ");
+                Console.WriteLine("               Code by Danielle Rodriguez                    ");
                 MethodColorBasic();
             }
             else
@@ -118,7 +120,15 @@ namespace NarrativeProject
             }
             else if (Game.gameScript ==2)
             {
+                if (inventory.Contains("coat"))
+                {
                 Console.WriteLine("Take your husband's coat, hang it up in the closet, and serve him a beverage as you usually do.");
+
+                }
+                else
+                {
+                    Console.WriteLine();
+                }
             }
             else if (Game.gameScript == 5)
             {
@@ -231,6 +241,17 @@ the key turning in the lock.");
         {
             sanity -= 10;
         }
+
+        public static void checkTemperament()
+        {
+            if (HusbandTemperament>80)
+            {
+                Game.Transition<BadEnding>();
+            }
+            else { }
+        }
+        public static void checkEnding() { }
+
     }
 
 }
