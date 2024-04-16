@@ -26,6 +26,9 @@ namespace NarrativeProject
         public static int gameScript = 0;
         public static bool husbandDead = false;
         internal static bool shownOnce = false;
+        public static int HusbandTemperament = 5;
+        public static int HusbandDrunk = 0;
+        public static bool TalkToHusband = false;
 
         public static void killHusband()
         {
@@ -110,6 +113,10 @@ namespace NarrativeProject
             else if (Game.gameScript == 1) 
             {
                 Console.WriteLine("It's 5 o'clock, Your husband have arrived");
+            }
+            else if (Game.gameScript ==2)
+            {
+                Console.WriteLine("Take your husband's coat, hang it up in the closet, and serve him a beverage as you usually do.");
             }
             else
             {
