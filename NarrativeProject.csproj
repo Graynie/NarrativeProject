@@ -49,10 +49,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Rooms\AtticRoom.cs" />
+    <Compile Include="Rooms\BandEndingTwo.cs" />
     <Compile Include="Rooms\Bathroom.cs" />
     <Compile Include="Rooms\Cellar.cs" />
     <Compile Include="Rooms\Closet.cs" />
-    <Compile Include="Rooms\Garage.cs" />
+    <Compile Include="Rooms\BadEnding.cs" />
+    <Compile Include="Rooms\GoodEnding.cs" />
     <Compile Include="Rooms\Grocery.cs" />
     <Compile Include="Rooms\Kitchen.cs" />
     <Compile Include="Rooms\LivingRoom.cs" />

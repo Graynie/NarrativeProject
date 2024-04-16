@@ -29,6 +29,8 @@ namespace NarrativeProject
         public static int HusbandTemperament = 5;
         public static int HusbandDrunk = 0;
         public static bool TalkToHusband = false;
+        public static bool cleanKill = false;
+        public static bool HusbandLeaves = false;
 
         public static void killHusband()
         {
@@ -117,6 +119,10 @@ namespace NarrativeProject
             else if (Game.gameScript ==2)
             {
                 Console.WriteLine("Take your husband's coat, hang it up in the closet, and serve him a beverage as you usually do.");
+            }
+            else if (Game.gameScript == 5)
+            {
+                Console.WriteLine("Cook souper for Patrick");
             }
             else
             {

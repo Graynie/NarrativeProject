@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NarrativeProject.Rooms
 {
-    internal class Garage : Room
+    internal class GoodEnding : Room
     {
 
         internal override string CreateDescription()

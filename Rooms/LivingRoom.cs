@@ -16,6 +16,7 @@ namespace NarrativeProject.Rooms
         internal bool fireplaceOn = false;
         internal int randomNumber = 0;
         internal string LikeDrink = "Yes";
+        internal bool insist = false;
         internal override string CreateDescription()
         {
             if (Game.gameScript == 0)
@@ -75,26 +76,16 @@ hours alone in the house. Occasionally, you both enjoy a drink.";
             }
             else if(Game.gameScript == 3)
             {
-                return @"If you’re too tired to eat out"", You said to him,"" it’s still not too late.
-There’s plenty of meat and other things in the freezer, 
-so you can stay right here and not even have to leave the chair.""
-You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.
-""Anyway,"" you continued, ""I'll get you some cheese and crackers to start.""
-""I don't want it,"" he replied.[continue]";
+                return @"[continue]";
             }
             else if(Game.gameScript == 4)
             {
-                return @"You start to feel frightened when he tells you to sit down. You sit back slowly, watching him with large, confused eyes. 
-""Listen,"" he says. ""I need to tell you something.""
-""What is it, darling? What's wrong?"" you ask.
-He stays still.
-""This will be a shock,"" he continues. ""But I've thought a lot about it and decided I must tell you now. I hope you don't blame me too much.""
-He tells you quickly, in four or five minutes. You sit very still, watching him with a sense of dazed horror as his words distance him from you.
-""So there it is,"" he adds. ""I know this is a bad time to tell you, but I had no choice. I'll give you money and make sure you're taken care of. Please, let's keep this quiet for my job's sake.""[continue]";
+                return @"[continued]";
             }
             else if (Game.gameScript == 5)
             {
-                return @"";
+                return @"Patrick is standing over by the window with his back to you
+You can [aproach] him, go to one of the other rooms [kitchen], [bedroom], [bathroom] ";
             }
             else if (Game.gameScript == 7)
             {
@@ -295,6 +286,12 @@ You took his coat");
                         case "ignore":
                             Console.WriteLine(@"Your husband has an odd look on his face, but ultimately chooses to unwind on his sofa. Despite his hesitation, it appears he has something to say to you.");
                             Game.gameScript = 3;
+                            Console.WriteLine(@"""If you’re too tired to eat out"""", You said to him,"""" it’s still not too late.
+There’s plenty of meat and other things in the freezer, 
+so you can stay right here and not even have to leave the chair.""""
+You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.
+""""Anyway,"""" you continued, """"I'll get you some cheese and crackers to start.""""
+""""I don't want it,"""" he replied.");
                             Game.HusbandTemperament += 10;
                             break;
                         default:
@@ -332,6 +329,12 @@ You took his coat");
                                 if (Game.HusbandTemperament < 0)
                                 {
                                     Game.gameScript = 3;
+                                    Console.WriteLine(@"""If you’re too tired to eat out"""", You said to him,"""" it’s still not too late.
+There’s plenty of meat and other things in the freezer, 
+so you can stay right here and not even have to leave the chair.""""
+You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.
+""""Anyway,"""" you continued, """"I'll get you some cheese and crackers to start.""""
+""""I don't want it,"""" he replied.");
                                 }
                             }
                             break;
@@ -374,6 +377,12 @@ You took his coat");
                             if (Game.HusbandDrunk > 5)
                             {
                                 Game.gameScript = 3;
+                                Console.WriteLine(@"""If you’re too tired to eat out"""", You said to him,"""" it’s still not too late.
+There’s plenty of meat and other things in the freezer, 
+so you can stay right here and not even have to leave the chair.""""
+You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.
+""""Anyway,"""" you continued, """"I'll get you some cheese and crackers to start.""""
+""""I don't want it,"""" he replied.");
                             }
                             break;
                         default:
@@ -392,6 +401,33 @@ You took his coat");
                         break;
                     case "continue":
                         Game.gameScript = 4;
+                        Console.WriteLine(@"You start to feel frightened when he tells you to sit down. You sit back slowly, watching him with large, confused eyes. 
+""""Listen,"""" he says. """"I need to tell you something.""""
+""""What is it, darling? What's wrong?"""" you ask.
+He stays still.
+""""This will be a shock,"""" he continues. """"But I've thought a lot about it and decided I must tell you now. I hope you don't blame me too much.""""
+He tells you quickly, in four or five minutes. You sit very still, watching him with a sense of dazed horror as his words distance him from you.
+""""So there it is,"""" he adds. """"I know this is a bad time to tell you, but I had no choice. I'll give you money and make sure you're taken care of. Please,
+let's keep this quiet for my job's sake.""""[continue]");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
+            else if(Game.gameScript == 4)
+            {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "continue":
+                        Game.gameScript = 5;
+                        Console.WriteLine(@"Your first instinct is to disbelieve everything he said, to reject it all.
+You wonder if he even spoke or if you imagined it all. 
+Maybe if you just carry on as if you hadn't heard anything, you might wake up later to find it never happened.
+""I'll get supper,"" you whisper, and this time, he doesn't stop you.");
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -399,6 +435,58 @@ You took his coat");
                 }
             }
             else if (Game.gameScript == 5)
+            {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "aproach":
+                        if(Game.inventory.Contains("Lamb leg")) 
+                        {
+                            Console.WriteLine(@"");
+                            Game.cleanKill = true;
+                        }
+                        else if (Game.inventory.Contains(" basseball bat"))
+                        {
+                            Console.WriteLine(@"");
+                            Game.cleanKill = false;
+                        }
+                        else if (Game.inventory.Contains("Knife"))
+                        {
+                            Console.WriteLine(@"");
+                            Game.cleanKill = false;
+                        }
+                        else
+                        {
+                            
+                            if (insist == false)
+                            {
+                                Console.WriteLine(@"It doesn't seems like he wants to talk with you");
+                                insist = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine(@"“For God’s sake,” he said, but not turning round. “Don’t make supper for me. I’m going out”");
+                                Game.HusbandLeaves=true;
+                            }
+                        }
+                        break;
+                    case "kitchen":
+                        Console.WriteLine(@"");
+                        break;
+                    case "bedroom":
+                        Console.WriteLine(@"");
+                        break;
+                    case "bathroom":
+                        Console.WriteLine(@"");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
+            else if (Game.gameScript == 7)
             {
                 if (sittingOnChair == true)
                     switch (choice)

@@ -48,7 +48,7 @@ namespace NarrativeProject {
             game.Add(new AtticRoom());
             game.Add(new Cellar());
             game.Add(new Closet());
-            game.Add(new Garage());
+            game.Add(new BadEnding());
             game.Add(new Grocery());
 
 
