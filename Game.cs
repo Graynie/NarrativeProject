@@ -6,9 +6,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NarrativeProject
 {
+
     internal class Game
     {
-        
+        #region "Variable"
+
         List<Room> rooms = new List<Room>();
         public static List<string> inventory = new List<string>();
         public static string thing = "";
@@ -16,7 +18,6 @@ namespace NarrativeProject
         internal bool IsGameOver() => isFinished;
         static bool isFinished;
         static string nextRoom = "";
-        static int story;
         static string nameOfRoom = "";
         public static int timeHour = 16;
         static int timeMinute = 0;
@@ -31,7 +32,10 @@ namespace NarrativeProject
         public static bool TalkToHusband = false;
         public static bool cleanKill = false;
         public static bool HusbandLeaves = false;
-        
+
+        #endregion
+
+        #region "Methods"
         public static void killHusband()
         {
             husbandDead = true;
@@ -249,7 +253,7 @@ the key turning in the lock.");
             else { }
         }
         public static void checkEnding() { }
-
+        #endregion M
     }
 
 }

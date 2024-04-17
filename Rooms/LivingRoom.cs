@@ -176,7 +176,7 @@ of the other rooms: [closet], [kitchen],
                             break;
                         case "chair":
                             Console.WriteLine("You are confortably sitting in your chair");
-                            sittingOnChair=true;
+                            sittingOnChair = true;
                             break;
                         case "grocery":
                             Console.WriteLine("You don't seem to need anything from the store");
@@ -326,7 +326,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             break;
                         case "stand":
                             Console.WriteLine();
-                            sittingOnChair=false;
+                            sittingOnChair = false;
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
@@ -374,7 +374,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             }
                             break;
                         case "drink":
-                            Console.WriteLine("You have made a drink for you husband. This time it is a" + RamdomDrink());
+                            Console.WriteLine("You have made a drink for you husband. This time it is a" + RandomDrink());
                             break;
                         case "closet":
                             if (Game.inventory.Contains("coat"))
@@ -426,7 +426,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                     }
                 }
             }
-            else if(Game.gameScript == 3)
+            else if (Game.gameScript == 3)
             {
                 switch (choice)
                 {
@@ -449,7 +449,7 @@ let's keep this quiet for my job's sake.""""[continue]");
                         break;
                 }
             }
-            else if(Game.gameScript == 4)
+            else if (Game.gameScript == 4)
             {
                 switch (choice)
                 {
@@ -476,7 +476,7 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                         Game.DisplayInventory();
                         break;
                     case "aproach":
-                        if(Game.inventory.Contains("Lamb leg")) 
+                        if (Game.inventory.Contains("Lamb leg"))
                         {
                             Console.WriteLine(@"");
                             Game.cleanKill = true;
@@ -493,7 +493,7 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                         }
                         else
                         {
-                            
+
                             if (insist == false)
                             {
                                 Console.WriteLine(@"It doesn't seems like he wants to talk with you");
@@ -502,7 +502,7 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                             else
                             {
                                 Console.WriteLine(@"“For God’s sake,” he said, but not turning round. “Don’t make supper for me. I’m going out”");
-                                Game.HusbandLeaves=true;
+                                Game.HusbandLeaves = true;
                             }
                         }
                         break;
@@ -571,7 +571,7 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                             }
                             break;
                         case "drinks":
-                            Console.WriteLine("You have made a drink for you husband. This time it is a" + RamdomDrink());
+                            Console.WriteLine("You have made a drink for you husband. This time it is a" + RandomDrink());
 
                             break;
                         case "closet":
@@ -658,7 +658,6 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                 }
             }
         }
-
         internal void fireplace()
         {
             if (fireplaceOn == true)
@@ -672,107 +671,48 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                 Console.WriteLine("You lit the fireplace");
             }
         }
+        //Ramdom assigned drink every time player aproach drink car
 
-        internal string RamdomDrink()
+        internal string RandomDrink()
         {
+            string[] drinks = new[]
+            {
+                "Old Fashioned", "Martini", "Whiskey Sour", "Manhattan", "Scotch on the Rocks",
+                "Tom Collins", "Daiquiri", "Mint Julep", "Rum and Coke", "Pina Colada"
+            };
+
             Random random = new Random();
-            
-            int randomNumber = random.Next(1, 11);
+            randomNumber = random.Next(drinks.Length);
+
             Game.AddInventory("drink");
-            if (randomNumber == 1)
-            {
-                return "Old Fashioned";
-            }
-            else if (randomNumber == 2)
-            {
-                return "Martini";
-            }
-            else if (randomNumber == 3)
-            {
-                return "Whiskey Sour";
-            }
-            else if (randomNumber == 4)
-            {
-                return "Manhattan";
-            }
-            else if (randomNumber == 5)
-            {
-                return "Scotch on the Rocks";
-            }
-            else if (randomNumber == 6)
-            {
-                return "Tom Collins";
-            }
-            else if (randomNumber == 7)
-            {
-                return "Daiquiri";
-            }
-            else if (randomNumber == 8)
-            {
-                return "Mint Julep";
-            }
-            else if (randomNumber == 9)
-            {
-                return "Rum and Coke";
-            }
-            else
-            {
-                return "Pina Colada";
-            }
+
+            return drinks[randomNumber];
         }
         internal string LikedDrink()
         {
-            if (randomNumber == 1)
+            // Dictionary mapping each random number to a response and temperament adjustment
+            Dictionary<int, (string response, int temperamentAdjustment)> responses = new Dictionary<int, (string response, int temperamentAdjustment)>
             {
-                LikeDrink = "Your husband is delighted with your choice of drink.";
-                Game.HusbandTemperament += 20;
-            }
-            else if (randomNumber == 2)
-            {
-                LikeDrink = "Your husband seems quite pleased with your choice of drink.";
-                Game.HusbandTemperament += 15;
-            }
-            else if (randomNumber == 3)
-            {
-                LikeDrink = "Your husband appreciates your choice of drink.";
-                Game.HusbandTemperament += 10;
-            }
-            else if (randomNumber == 4)
-            {
-                LikeDrink = "Your husband is content with your choice of drink.";
-                Game.HusbandTemperament += 5;
-            }
-            else if (randomNumber == 5)
-            {
-                LikeDrink = "Your husband thinks your choice of drink is agreeable.";
-                Game.HusbandTemperament += 0;
-            }
-            else if (randomNumber == 6)
-            {
-                LikeDrink = "Your husband finds your choice of drink acceptable.";
-                Game.HusbandTemperament += 0;
-            }
-            else if (randomNumber == 7)
-            {
-                LikeDrink = "Your husband is indifferent to your choice of drink.";
-                Game.HusbandTemperament -= 5;
-            }
-            else if (randomNumber == 8)
-            {
-                LikeDrink = "Your husband isn't particularly keen on your choice of drink.";
-                Game.HusbandTemperament -= 10;
-            }
-            else if (randomNumber == 9)
-            {
-                LikeDrink = "Your husband seems to disapprove of your choice of drink.";
-                Game.HusbandTemperament -= 15;
-            }
-            else
-            {
-                LikeDrink = "Your husband is quite displeased with your choice of drink.";
-                Game.HusbandTemperament -= 20;
-            }
-            return LikeDrink;
+                { 0, ("Your husband is delighted with your choice of drink.", 20) },
+                { 1, ("Your husband seems quite pleased with your choice of drink.", 15) },
+                { 2, ("Your husband appreciates your choice of drink.", 10) },
+                { 3, ("Your husband is content with your choice of drink.", 5) },
+                { 4, ("Your husband thinks your choice of drink is agreeable.", 0) },
+                { 5, ("Your husband finds your choice of drink acceptable.", 0) },
+                { 6, ("Your husband is indifferent to your choice of drink.", -5) },
+                { 7, ("Your husband isn't particularly keen on your choice of drink.", -10) },
+                { 8, ("Your husband seems to disapprove of your choice of drink.", -15) },
+                { 9, ("Your husband is quite displeased with your choice of drink.", -20) }
+            };
+
+            // Retrieve the response and temperament adjustment based on the random number
+            var (response, temperamentAdjustment) = responses[randomNumber];
+
+            // Apply the temperament adjustment
+            Game.HusbandTemperament += temperamentAdjustment;
+
+            // Return the response
+            return response;
         }
     }
 }
