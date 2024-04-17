@@ -32,7 +32,6 @@ namespace NarrativeProject
         public static bool cleanKill = false;
         public static bool HusbandLeaves = false;
         
-
         public static void killHusband()
         {
             husbandDead = true;
@@ -241,7 +240,6 @@ the key turning in the lock.");
         {
             sanity -= 10;
         }
-
         public static void checkTemperament()
         {
             if (HusbandTemperament>80)

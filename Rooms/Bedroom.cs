@@ -20,21 +20,6 @@ From your closet, you see the [attic].
                     Console.WriteLine("You enter the bathroom.");
                     Game.Transition<Bathroom>();
                     break;
-                case "door":
-                    if (!AtticRoom.isKeyCollected)
-                    {
-                        Console.WriteLine("The door is locked.");
-                    }
-                    else
-                    {
-                        Game.Transition<LivingRoom>();
-                        Console.WriteLine("You open the door with the key and leave your bedroom.");
-                    }
-                    break;
-                case "attic":
-                    Console.WriteLine("You go up and enter your attic.");
-                    Game.Transition<AtticRoom>();
-                    break;
                 default:
                     Console.WriteLine("Invalid command.");
                     break;
