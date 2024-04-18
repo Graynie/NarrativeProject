@@ -22,7 +22,7 @@ namespace NarrativeProject
         public static int timeHour = 16;
         static int timeMinute = 0;
         static int timeMinuteDigit = 0;
-        internal static int sanity = 100;
+        internal static int sanity = 80;
         public static bool lambLeg = false;
         public static int gameScript = 0;
         public static bool husbandDead = false;
@@ -34,6 +34,22 @@ namespace NarrativeProject
         public static bool HusbandLeaves = false;
 
         #endregion
+
+        enum CharacterState
+        {
+            ExtremelyDespondent = 0,
+            VeryDespondent = 10,
+            Despondent = 20,
+            Anxious = 30,
+            Nervous = 40,
+            Neutral = 50,
+            Calm = 60,
+            Hopeful = 70,
+            Optimistic = 80,
+            VeryOptimistic = 90,
+            Elated = 100
+        }
+
 
         #region "Methods"
         public static void killHusband()
@@ -104,7 +120,7 @@ namespace NarrativeProject
             {
                 Console.WriteLine("------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("   Room: " + nameOfRoom+ "      Time: "+timeHour +"H"+ timeMinute  + timeMinuteDigit +"       Sanity: " +sanity+"%     ") ;
+                Console.WriteLine("   Room: " + nameOfRoom+ "      Time: "+timeHour +"H"+ timeMinute  + timeMinuteDigit +"       State: " + DetermineCharacterState(sanity)) ;
                 MethodColorBasic();
                 
             }
@@ -252,7 +268,55 @@ the key turning in the lock.");
             }
             else { }
         }
+        static CharacterState DetermineCharacterState(int emotionalValue)
+        {
+            if (emotionalValue >= 0 && emotionalValue < 10)
+            {
+                return CharacterState.ExtremelyDespondent;
+            }
+            else if (emotionalValue >= 10 && emotionalValue < 20)
+            {
+                return CharacterState.VeryDespondent;
+            }
+            else if (emotionalValue >= 20 && emotionalValue < 30)
+            {
+                return CharacterState.Despondent;
+            }
+            else if (emotionalValue >= 30 && emotionalValue < 40)
+            {
+                return CharacterState.Anxious;
+            }
+            else if (emotionalValue >= 40 && emotionalValue < 50)
+            {
+                return CharacterState.Nervous;
+            }
+            else if (emotionalValue >= 50 && emotionalValue < 60)
+            {
+                return CharacterState.Neutral;
+            }
+            else if (emotionalValue >= 60 && emotionalValue < 70)
+            {
+                return CharacterState.Calm;
+            }
+            else if (emotionalValue >= 70 && emotionalValue < 80)
+            {
+                return CharacterState.Hopeful;
+            }
+            else if (emotionalValue >= 80 && emotionalValue < 90)
+            {
+                return CharacterState.Optimistic;
+            }
+            else if (emotionalValue >= 90 && emotionalValue < 100)
+            {
+                return CharacterState.VeryOptimistic;
+            }
+            else // emotionalValue == 100
+            {
+                return CharacterState.Elated;
+            }
+        }
         public static void checkEnding() { }
+
         #endregion M
     }
 
