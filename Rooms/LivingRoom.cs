@@ -89,27 +89,24 @@ to the [Grocery] store, or go to one of the other rooms:
             }
             else if (Game.gameScript == 5)
             {
-                return @"Patrick is standing over by the window with his back to you
-You can [aproach] him, go to one of the other rooms [kitchen], [bedroom], [bathroom] ";
-            }
-            else if (Game.gameScript == 7)
-            {
-                if (Game.lambLeg == true)
+                if (sittingOnChair) 
                 {
-                    return @"You are in the Living Room.
-You can [aproach] your husband, sit in your [chair], sit on
-your husbands [sofa], aproach the [drinks] 
-car, aproach the [fireplace],go outtside to
-the [Grocery] store, or go to one 
-of the other rooms: [closet], [kitchen], 
-[bathroom], [bedroom]";
+                    return @"""You are seated in the living room.
+Patrick is standing over by the window with his back to you.
+- [talk] to your husband from your seat
+- [observe] your husband's actions from your seat
+- [look] around the living room from your seat
+- get [up] and move around the room
+- approach the [drinks] cart (if you're feeling bold)
+- [adjust] your seating position for comfort
+- [think] about your next move";
                 }
                 else
                 {
-                    return @"You are in the Living Room.
-Do you want to sit on your [chair], sit on
+                    return @"Patrick is standing over by the window with his back to you
+You can [aproach] your husband, sit in your [chair], sit on
 your husbands [sofa], aproach the [drinks] 
-car, aproach the [fireplace],go outtside to
+car, aproach the [fireplace],go outside to
 the [Grocery] store, or go to one 
 of the other rooms: [closet], [kitchen], 
 [bathroom], [bedroom]";
@@ -470,54 +467,224 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
             }
             else if (Game.gameScript == 5)
             {
-                switch (choice)
+                if (sittingOnChair)
                 {
-                    case "i":
-                        Game.DisplayInventory();
-                        break;
-                    case "aproach":
-                        if (Game.inventory.Contains("Lamb leg"))
-                        {
-                            Console.WriteLine(@"");
-                            Game.cleanKill = true;
-                        }
-                        else if (Game.inventory.Contains(" basseball bat"))
-                        {
-                            Console.WriteLine(@"");
-                            Game.cleanKill = false;
-                        }
-                        else if (Game.inventory.Contains("Knife"))
-                        {
-                            Console.WriteLine(@"");
-                            Game.cleanKill = false;
-                        }
-                        else
-                        {
-
-                            if (insist == false)
+                    switch (choice)
+                    {
+                        case "i":
+                            Game.DisplayInventory();
+                            break;
+                        case "talk":
+                            Console.WriteLine(@"You try to speak to Patrick,
+but he remains distant and unresponsive. 
+His decision seems final, and you struggle 
+to find words to bridge the gap between you.
+His gaze remains fixed on the window, 
+a clear sign that he does not want to engage 
+in conversation.");
+                            Game.sanity -= 5;
+                            break;
+                        case "observe":
+                            Console.WriteLine(@"You watch Patrick closely, 
+trying to gauge his mood and intentions. 
+His posture is tense, and his expression 
+is a mix of determination and detachment. 
+It's clear he has made up his mind, 
+leaving you feeling uncertain about what 
+to do next.");
+                            Game.sanity -= 5;
+                            break;
+                        case "look":
+                            Console.WriteLine(@"You take a moment to look around the
+living room, searching for anything that might
+offer comfort or clarity. The room seems familiar
+yet alien, reflecting the sudden upheaval in your
+life. You notice the usual objects—fireplace, 
+drinks cart—but they provide little solace in 
+this moment.");
+                            Game.sanity -= 3;
+                            break;
+                        case "up":
+                            Console.WriteLine(@"You stand up and begin to pace the room, 
+trying to clear your mind. Patrick doesn't acknowledge your movements,
+as if he's already disconnected himself emotionally.
+You sense a widening chasm between you as you
+consider your next move.");
+                            sittingOnChair = false;
+                            break;
+                        case "adjust":
+                            Console.WriteLine(@"You shift in your seat, 
+attempting to find some physical comfort in the midst
+of emotional turmoil. The silence in the room is almost
+unbearable, punctuated only by the sound of your own breathing.
+You know you must make a decision soon.");
+                            Game.sanity += 3;
+                            break;
+                        case "think":
+                            Console.WriteLine(@"You take a moment to gather your thoughts,
+trying to process the situation.
+Patrick's declaration has thrown you off balance,
+but you know you must consider your next steps carefully.
+Your mind races as you weigh the possible outcomes and repercussions.");
+                            Game.sanity += 5;
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (choice)
+                    {
+                        case "i":
+                            Game.DisplayInventory();
+                            break;
+                        case "aproach":
+                            if (Game.inventory.Contains("Lamb leg"))
                             {
-                                Console.WriteLine(@"It doesn't seems like he wants to talk with you");
-                                insist = true;
+                                Console.WriteLine(@"You quietly rise from your seat, weapon in hand, 
+and approach Patrick from behind.
+He remains focused on the view outside the window,
+unaware of your actions. As you get closer,
+your heart races with a mix of fear and determination.
+Before Patrick can sense your presence,
+you strike him with the weapon. He collapses immediately,
+his body falling to the floor with a heavy thud.
+The room is suddenly filled with silence,
+leaving you standing over him, weapon in hand.");
+                                Game.cleanKill = true;
+                                Game.husbandDead = true;
+                                Game.gameScript = 6;
+                            }
+                            else if (Game.inventory.Contains(" basseball bat"))
+                            {
+                                Console.WriteLine(@"You move toward Patrick, holding the weapon firmly in your grip.
+As you close the distance, he turns to face you,
+his expression one of confusion and concern. 
+Without a word, you raise the weapon and strike,
+ending Patrick's life.");
+                                Game.cleanKill = false;
+                                Game.husbandDead = true;
+                                Game.gameScript = 6;
+                            }
+                            else if (Game.inventory.Contains("Knife"))
+                            {
+                                Console.WriteLine(@"You quietly stand up, concealing the knife in your hand,
+and move toward Patrick as he gazes out the window. 
+He remains unaware of your approach. With a swift motion,
+you strike Patrick from behind with the knife.
+He gasps in shock but quickly falls to the floor,
+blood spreading across his back. You stand over his lifeless body,
+the knife in your hand. The room is eerily silent, 
+and the gravity of your actions begins to sink in.
+Your next decisions will shape your journey. 
+Will you leave the scene as it is,
+or will you try to clean up and dispose of the evidence?""");
+                                Game.cleanKill = false;
+                                Game.husbandDead = true;
+                                Game.gameScript = 6;
                             }
                             else
                             {
-                                Console.WriteLine(@"“For God’s sake,” he said, but not turning round. “Don’t make supper for me. I’m going out”");
-                                Game.HusbandLeaves = true;
+
+                                if (insist == false)
+                                {
+                                    Console.WriteLine(@"You cautiously approach Patrick, 
+trying to gauge his mood. 
+His back remains turned to you, and he seems lost in his thoughts.
+As you get closer, you feel a sense of tension between you,
+unsure how he might react to your presence.
+You decide is not a good idea to aproach him at this moment");
+                                    insist = true;
+                                }
+                                else
+                                {
+                                    Console.WriteLine(@"“For God’s sake,” he said, but not turning round. “Don’t make supper for me. I’m going out”");
+                                    Game.HusbandLeaves = true;
+                                    Game.Transition<BadEnding>();
+                                }
                             }
-                        }
-                        break;
-                    case "kitchen":
-                        Console.WriteLine(@"");
-                        break;
-                    case "bedroom":
-                        Console.WriteLine(@"");
-                        break;
-                    case "bathroom":
-                        Console.WriteLine(@"");
-                        break;
-                    default:
-                        Console.WriteLine("Invalid command.");
-                        break;
+                            break;
+                        case "closet":
+                            Console.WriteLine(@"You head to the closet, a place of refuge and storage.
+As you stand surrounded by clothes and boxes,
+you feel a strange comfort in the familiarity.
+But you know hiding away won't change the situation with Patrick.");
+                            break;
+                        case "kitchen":
+                            Console.WriteLine(@"You walk to the kitchen, seeking solace in the heart of the home.
+The smell of lingering meals brings back memories,
+but the emptiness of the room echoes the uncertainty
+of your future with Patrick.");
+                            Game.sanity += 5;
+                            Game.HusbandTemperament += 5;
+                            Game.Transition<Kitchen>();
+                            break;
+                        case "bedroom":
+                            Console.WriteLine(@"You go to the bedroom, a place that once symbolized intimacy and comfort.
+Now, it feels tainted by the tension between you and Patrick.
+As you sit on the bed, you ponder what your next move should be.");
+                            Game.sanity += 5;
+                            Game.HusbandTemperament += 5;
+                            Game.Transition<Bedroom>();
+                            break;
+                        case "bathroom":
+                            Console.WriteLine(@"You retreat to the bathroom, where you can be alone with your thoughts.
+The quiet space gives you a chance to process the recent events,
+but the reality of Patrick's decision still looms large in your mind.");
+                            Game.sanity += 5;
+                            Game.HusbandTemperament += 5;
+                            Game.Transition<Bathroom>();
+                            break;
+                        case "grocery":
+                            Console.WriteLine(@"You consider leaving the house and going to the grocery store.
+The thought of escaping the tension at home is tempting,
+but you know you can't avoid the situation forever.
+Patrick remains by the window, seemingly unbothered
+by your potential departure.");
+                            Game.sanity += 15;
+                            Game.HusbandTemperament += 15;
+                            Game.Transition<Grocery>();
+                            break;
+                        case "fireplace":
+                            if (fireplaceOn == true)
+                            {
+                                Console.WriteLine(@"You approach the fireplace, drawn to its warmth.
+The fire offers a fleeting comfort, but it also serves as a reminder
+of the life you had with Patrick, now on the verge of collapse.
+You watch the flames dance, your mind racing with possibilities.");
+                                Game.sanity += 5;
+                            }
+                            else
+                            {
+                                fireplace();
+                            }
+                            break;
+                        case "drinks":
+                            Console.WriteLine(@"You walk over to the drinks cart, searching for a distraction.
+You pour yourself a drink, the sound of the liquid filling the glass
+echoing in the tense silence of the room. Patrick doesn't react,
+but you hope the drink will help steady your nerves.");
+                            Game.sanity += 5;
+                            Game.HusbandTemperament += 15;
+                            break;
+                        case "sofa":
+                            Console.WriteLine(@"You decide to sit on your husband's sofa, seeking a connection 
+to him through the shared space. The sofa feels cold and distant,
+echoing the emotional divide that now exists between you. 
+Patrick doesn't seem to notice or care.");
+                            Game.sanity -= 5;
+                            Game.HusbandTemperament += 5;
+                            break;
+                        case "chair":
+                            Console.WriteLine(@"You sit back in your chair, feeling a mix of resignation and 
+determination. The seat provides a familiar comfort, but the emotional 
+distance between you and Patrick feels almost insurmountable in this moment.");
+                            sittingOnChair = true;
+                            Game.sanity += 10;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid command.");
+                            break;
+                    }
                 }
             }
             else if (Game.gameScript == 7)
@@ -671,6 +838,7 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                 Console.WriteLine("You lit the fireplace");
             }
         }
+        
         //Ramdom assigned drink every time player aproach drink car
 
         internal string RandomDrink()
