@@ -32,6 +32,7 @@ namespace NarrativeProject
         public static bool TalkToHusband = false;
         public static bool cleanKill = false;
         public static bool HusbandLeaves = false;
+        public static int DrunkPlayer = 0;  
 
         #endregion
 

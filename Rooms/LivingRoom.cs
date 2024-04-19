@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NarrativeProject.Rooms
 {
@@ -89,7 +93,7 @@ to the [Grocery] store, or go to one of the other rooms:
             }
             else if (Game.gameScript == 5)
             {
-                if (sittingOnChair) 
+                if (sittingOnChair)
                 {
                     return @"""You are seated in the living room.
 Patrick is standing over by the window with his back to you.
@@ -111,8 +115,44 @@ the [Grocery] store, or go to one
 of the other rooms: [closet], [kitchen], 
 [bathroom], [bedroom]";
                 }
+            }//Kill or be left
+            else if (Game.gameScript == 6)
+            {
+                if (sittingOnChair)
+                {
+                    return @"You sit in your chair, still reeling from the events that have just transpired. 
+Patrick's lifeless body is nearby, and the room feels cold and foreign. 
+The reality of your actions weighs heavily on you, but you must act swiftly and carefully to navigate the aftermath.
+As you sit, you consider your next move. What will you do?
+
+- [think] carefully: Take a moment to process your actions and consider your options.
+- [listen] carefully: Pay close attention to any sounds inside and outside the house, preparing for potential intrusions or disturbances.
+- [examine] your surroundings: Look around the living room, assessing what needs to be addressed to avoid suspicion.
+- prepare an [alibi]: Begin to construct a story to account for your whereabouts and actions, creating a plausible cover for the events that transpired.
+- [talk] to your husband
+- stand [up] 
+";
+                }
+                else
+                {
+                    return @"Patrick's lifeless body lies nearby,
+a stark reminder of what you've done. 
+The living room feels heavy with silence and tension.
+Time is of the essence, and you must act quickly to
+avoid suspicion and consequences.
+Your choices are limited, and each decision could change
+the course of your life. What will you do next?
+-[hide the body]: Conceal Patrick's body in a discreet place,out of sight.
+-[stage the scene]: Make the scene look like an accident or
+intruder attack to deflect blame.
+- [clean up the mess]: Assess the scene and clean up any evidence that could incriminate you.
+- [sit in shock]: Take a moment to sit and process the gravity of your actions.
+- [pack a bag]: Prepare a bag with essentials in case you decide to flee the scene.
+- [compose yourself]: Take a deep breath and try to calm your racing thoughts.
+- [plan your alibi]: Construct a believable story to account for your whereabouts.";
+                }
             }
-            else { return @"None"; }
+            else { return @"None"; }//only get here if husband is dead
         }
         internal override void ReceiveChoice(string choice)
         {
@@ -641,7 +681,7 @@ but you know you can't avoid the situation forever.
 Patrick remains by the window, seemingly unbothered
 by your potential departure.");
                             Game.sanity += 15;
-                            Game.HusbandTemperament += 15;
+                            Game.HusbandTemperament += 55;
                             Game.Transition<Grocery>();
                             break;
                         case "fireplace":
@@ -683,6 +723,129 @@ distance between you and Patrick feels almost insurmountable in this moment.");
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
+                            break;
+                    }
+                }
+            }
+            else if (Game.gameScript == 6)
+            {
+                if (sittingOnChair)
+                {
+                    switch (choice)
+                    {
+                        case "i":
+                            Game.DisplayInventory();
+                            break;
+                        case "talk":
+                            Console.WriteLine(@"Your husband lies lifeless on the floor. 
+You try to speak, but the room is filled with an eerie silence.
+The reality of your actions weighs heavily on you as you 
+grapple with what you've done.");
+                            Game.sanity -= 10;
+                            break;
+                        case "think":
+                            Console.WriteLine(@"You sit in silence, allowing your thoughts to slow and your breath to steady.
+You must carefully assess the situation and plan your next steps. 
+The gravity of what you've done weighs on your conscience,
+but you know you need to stay focused and strategic to avoid detection.");
+                            Game.sanity += 15;
+                            break;
+                        case "listen":
+                            Console.WriteLine(@"You close your eyes and focus on the sounds around you.
+The house is eerily quiet, but every small noise—whether from within or outside—keeps you on edge.
+You must be ready to react if anyone approaches.");
+                            Game.sanity += 7;
+                            break;
+                        case "examine":
+                            Console.WriteLine(@"Your eyes dart around the room, taking in every detail.
+The usual comforts of your living room now seem foreboding.
+You check for any signs that could tie you to Patrick's death,
+such as misplaced objects or traces of blood. 
+Your heart races as you consider what evidence might be left behind.");
+                            Game.sanity += 7;
+                            break;
+                        case "alibi":
+                            Console.WriteLine(@"You need a believable story to explain your whereabouts and 
+actions during the time of Patrick's death. You start piecing together details,
+considering which parts of your day can serve as your alibi.
+This task requires careful thought and accuracy to avoid gaps or inconsistencies.");
+                            Game.sanity += 3;
+                            break;
+                        case "up":
+                            Console.WriteLine(@"You stand up and try to clear your mind as you move around the room.
+Patrick's lifeless body nearby is a stark reminder of your actions,
+casting a chilling shadow over you. The silence is deafening,
+and you are acutely aware that you must face the consequences of your next move alone.");
+                            sittingOnChair = false;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid command.");
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (choice)
+                    {
+                        case "i":
+                            Game.DisplayInventory();
+                            break;
+                        case "examine":
+                            Console.WriteLine();
+                            break;
+                        case "think":
+                            Console.WriteLine(@"You should check your appareance.
+You need to ensure there are no visible signs of a struggle or any bloodstains on your clothes.
+Every detail must be perfect to avoid suspicion.");
+                            break;
+                        case "closet":
+                            Console.WriteLine(@"");
+                            break;
+                        case "kitchen":
+                            Console.WriteLine(@"");
+                            Game.sanity += 5;
+                            Game.HusbandTemperament += 5;
+                            Game.Transition<Kitchen>();
+                            break;
+                        case "bedroom":
+                            Console.WriteLine(@"");
+                            Game.sanity += 5;
+                            Game.HusbandTemperament += 5;
+                            Game.Transition<Bedroom>();
+                            break;
+                        case "bathroom":
+                            Console.WriteLine(@"");
+                            Game.sanity += 5;
+                            Game.HusbandTemperament += 5;
+                            Game.Transition<Bathroom>();
+                            break;
+                        case "grocery":
+                            Console.WriteLine(@"You can't leave the body in that state");
+                            Game.sanity -= 5;
+                            break;
+                        case "fireplace":
+                            if (fireplaceOn == true)
+                            {
+                                Console.WriteLine(@"");
+                                Game.sanity += 5;
+                            }
+                            else
+                            {
+                                fireplace();
+                            }
+                            break;
+                        case "drinks":
+                            Console.WriteLine(@"");
+                            Game.sanity += 5;
+                            break;
+                        case "sofa":
+                            Console.WriteLine(@"");
+                            Game.sanity -= 10;
+                            break;
+                        case "chair":
+                            Console.WriteLine(@"");
+                            sittingOnChair = true;
+                            Game.sanity += 5;
                             break;
                     }
                 }
@@ -840,7 +1003,6 @@ distance between you and Patrick feels almost insurmountable in this moment.");
         }
         
         //Ramdom assigned drink every time player aproach drink car
-
         internal string RandomDrink()
         {
             string[] drinks = new[]

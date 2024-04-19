@@ -11,13 +11,35 @@ namespace NarrativeProject.Rooms
 
         internal override string CreateDescription()
         {
-            return @"You can buy stuff here, but be caareful the owner can get 
+            
+            if (Game.gameScript == 5)
+            {
+                return "";
+            }
+            else
+            {
+                return @"You can buy stuff here, but be careful the owner can get 
 suspicious of what you did";
+            }
         }
 
         internal override void ReceiveChoice(string choice)
         {
-            throw new NotImplementedException();
+            if (Game.gameScript == 5)
+            {
+                switch (choice)
+                {
+                    case "home":
+                        Console.WriteLine("");
+                        Game.Transition<BadEnding>();
+                        break;
+                    case "ask":
+                        Game.Transition<LivingRoom>();
+                        break;
+                        default:
+                        break;
+                }
+            }
         }
     }
 }
