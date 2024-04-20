@@ -75,7 +75,7 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
         }
         internal override void ReceiveChoice(string choice)
         {
-            if (Game.gameScript == 0 || Game.gameScript == 1 || Game.gameScript == 2||Game.gameScript == 3|| Game.gameScript == 4) {
+            if (Game.gameScript == 0 || Game.gameScript == 1 || Game.gameScript == 2 || Game.gameScript == 3 || Game.gameScript == 4) {
                 switch (choice)
                 {
                     case "i":
@@ -110,11 +110,49 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         Console.WriteLine("Invalid command.");
                         break;
                 }
-                if else(Game.gameScript == 5) { }
-                if else (Game.gameScript == 5) { }
+            }
+            else if(Game.gameScript == 5) {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "living room":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        break;
+                    case "phone":
+                        Console.WriteLine("You decide to call someone");
+                        RamdomCall();
+                        break;
+                    case "sink":
+                        if (dishesClean == false)
+                        {
+                            Console.WriteLine("You approach the sink and start washing dishes.");
+                            dishesClean = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no dishes that require cleaning.");
+                        }
+                        break;
+                    case "freezer":
+                        Console.WriteLine("Upon checking the freezer, you discover that there is meat, but no ice cream.");
+                        break;
+                    case "fridge":
+                        Console.WriteLine("When you open the fridge, you find that there are no fresh vegetables.");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
+            else if (Game.gameScript == 6) {
+            }
+            else { }
             }
 
-        }
+        
 
         internal void RamdomCall()
         {
