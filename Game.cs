@@ -104,18 +104,18 @@ namespace NarrativeProject
         {
 
             if (Start.IsStartMenu) {
-                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("             Lamb to Slaugther - The Game                    ");
-                Console.WriteLine("         Inspired by Roald Dahl (Short Story)                ");
-                Console.WriteLine("               Code by Danielle Rodriguez                    ");
+                Console.WriteLine("                                                  Lamb to Slaugther - The Game                                          ");
+                Console.WriteLine("                                              Inspired by Roald Dahl (Short Story)                                      ");
+                Console.WriteLine("                                                   Code by Danielle Rodriguez                                           ");
                 MethodColorBasic();
             }
             else
             {
-                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("   Room: " + nameOfRoom+ "      Time: "+timeHour +"H"+ timeMinute  + timeMinuteDigit +"       State: " + DetermineCharacterState(sanity)) ;
+                Console.WriteLine("   Room: " + nameOfRoom+ "                       Time: "+timeHour +"H"+ timeMinute  + timeMinuteDigit +"                            State: " + DetermineCharacterState(sanity)+"                      ") ;
                 MethodColorBasic();
                 
             }
@@ -179,19 +179,21 @@ namespace NarrativeProject
                 timeHour = 0;
             }
             else { }
+            MethodColorGray();
             if (timeHour >= 17 && timeHour < 18 && shownOnce == false)
             {
-                MethodColorBlue();
                 Console.WriteLine(@"You begin to listen, and a few moments later, punctually 
 as always, you hear the tires on the gravel outside, the 
 car door slamming, the footsteps passing the window, and
 the key turning in the lock.");
                 shownOnce = true;
-                MethodColorBasic();
                 NextStepScript();
             }
-
-            else { }
+            else 
+            {
+                
+            }
+                MethodColorBasic();
         }
         internal static void saveGame()
         {

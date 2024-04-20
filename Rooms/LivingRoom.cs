@@ -30,7 +30,8 @@ namespace NarrativeProject.Rooms
                 if (sittingOnChair == true)
                 {
                     return @"You are in the Living Room. Sitting on your chair,
-You can [sew] until your husband arrives, or [stand] up";
+You can [sew] until your husband arrives, 
+or [stand] up";
                 }
                 else
                 {
@@ -152,11 +153,11 @@ the course of your life. What will you do next?
 - [plan your alibi]: Construct a believable story to account for your whereabouts.";
                 }
             }//Husband is dead
-            else if (Game.Callpolice == true) 
+            else if (Game.gameScript == 7) 
             {
-                return @"";
             }
-            else { return @"None"; }//only get here if husband is dead
+            else { return @"When the police arrive at the murder scene, they enter the living room cautiously, their expressions serious and focused. The lead officer immediately assesses the situation, his eyes narrowing as he takes in the sight of your husband's lifeless body. The other officers and forensic experts begin to spread out, carefully examining the area for evidence. There's a palpable tension in the air as they work, exchanging brief, whispered conversations as they document the scene. Despite their professional demeanor, you can sense their urgency to solve the case and bring justice for the victim.
+[continue]"; }//only get here if husband is dead
         }
         internal override void ReceiveChoice(string choice)
         {
@@ -594,6 +595,8 @@ you strike him with the weapon. He collapses immediately,
 his body falling to the floor with a heavy thud.
 The room is suddenly filled with silence,
 leaving you standing over him, weapon in hand.");
+                                Game.AddInventory("Lamb Leg with blood");
+                                Game.RemoveInventory("Lamb Leg");
                                 Game.cleanKill = true;
                                 Game.husbandDead = true;
                                 Game.gameScript = 6;
@@ -895,7 +898,24 @@ actions begins to sink in.");
                     }
                 }
             }
-            else if (Game.gameScript == 7)
+            else if(Game.gameScript == 7)
+            {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "continue":
+                        if(Game.inventory.Contains("")||)
+                            Console.WriteLine();
+
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
+            else if (Game.gameScript == 8)
             {
                 if (sittingOnChair == true)
                     switch (choice)

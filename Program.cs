@@ -56,9 +56,9 @@ namespace NarrativeProject {
                 
                 Game.CheckTime();
                 Game.checkTemperament();
-                Game.Alert();
                 Game.InformationMenubar();
-                Console.WriteLine("------------------------------------------------------------");
+                Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+                Game.Alert();
                 Game.MethodColorGray();
                 Console.WriteLine(game.CurrentRoomDescription);
                 Game.MethodColorBasic();

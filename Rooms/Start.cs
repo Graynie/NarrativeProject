@@ -14,14 +14,16 @@ namespace NarrativeProject.Rooms
         internal override string CreateDescription()
         {
             
-            return 
-@"You play as Mary Maloney who is waiting for her husband to
-come home from work. Since is Tuesday you will go out to 
+            return
+@"You play as Mary Maloney who is waiting for her husband to come home from work. Since is Tuesday you will go out to 
 dinner as usual.
-*Remember you can always check your Inventory by writing [i]
 
-------------------Choose your option------------------------
- [Start]     -   Check [saved] Files     -    [Exit] Game";
+*Remember you can always check your Inventory by writing [i]
+*or write [save] to save your game and return to this page.
+
+
+-----------------------------------------------Choose your option-------------------------------------------------------
+                      [Start]       -         Play a [saved] File            -          [Exit] Game";
         }
 
         internal override void ReceiveChoice(string choice)
@@ -30,14 +32,14 @@ dinner as usual.
             {
                 case "start":
                     Console.WriteLine(
-@"You awaken in your quaint suburban home, the evening sun 
-casting long shadows across the room. Your husband, Patrick, 
+@"You awaken in your quaint suburban home, the evening sun casting long shadows across the room. Your husband, Patrick, 
 will arrive at 5 o'clock as everyday");
                     IsStartMenu = false;
                     Game.Transition<LivingRoom>();
                     break;
                 case "saved":
-                    Console.WriteLine("Here should be your saved file");
+
+                    Console.WriteLine("You started the your saved file");
                     var bf = new BinaryFormatter();
                     /*saveData = bf.Deserialize(File.OpenRead(SaveFile)) as SaveData;
                     Console.WriteLine($"{saveData.stringToSave} {saveData.numberToSave}");
@@ -50,6 +52,7 @@ will arrive at 5 o'clock as everyday");
                     Console.WriteLine("Invalid command.");
                     break;
             }
+            Environment.Exit(0);
         }
     }
 }

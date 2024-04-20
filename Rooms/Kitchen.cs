@@ -13,6 +13,7 @@ namespace NarrativeProject.Rooms
         internal bool dishesClean = false;
         internal bool checkedFridge = false;
         internal bool checkedFreezer = false;
+        internal bool insist = false;
 
         internal override string CreateDescription()
         {
@@ -59,7 +60,29 @@ look out the [window] to see the backyard, or go back to the [living room].";
                 
             }//Kill or be left-Prepare souper
             else if (Game.gameScript == 6)
-            { 
+            {
+                if (Game.inventory.Contains("Lamb Leg with blood"))
+                {
+                    return @" While in the kitchen : You consider your next move. What will you do?
+
+- [think] carefully: Take a moment to process your actions and consider your options.
+- [examine] your surroundings: Look around the kitchen, assessing what needs to be addressed to avoid suspicion.
+- [Marinate] the leg Lamb to cook it and hide the murder weapon.
+- [call] the police";
+                }
+                else if (Game.inventory.Contains("Marinated Leg Lamb"))
+                {
+                    return @" While in the kitchen : You consider your next move. What will you do?
+
+- [think] carefully: Take a moment to process your actions and consider your options.
+- [examine] your surroundings: Look around the kitchen, assessing what needs to be addressed to avoid suspicion.
+- prepare an [alibi]: Begin to construct a story to account for your whereabouts and actions, creating a plausible cover for the events that transpired.
+- Put the Lamb Leg in the [oven]
+- [call] the police";
+                }
+                else
+                {
+
                     return @" While in the kitchen : You consider your next move. What will you do?
 
 - [think] carefully: Take a moment to process your actions and consider your options.
@@ -67,6 +90,7 @@ look out the [window] to see the backyard, or go back to the [living room].";
 - prepare an [alibi]: Begin to construct a story to account for your whereabouts and actions, creating a plausible cover for the events that transpired.
 - [call] the police
 ";
+                }
                 }//Husband is dead
             else { return @"You are in the Kitchen. 
 You can check the[fridge] for vegetables,
@@ -147,7 +171,85 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                 }
             }
-            else if (Game.gameScript == 6) {
+            else if (Game.gameScript == 6) 
+            {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "living room":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        break;
+                    case "phone":
+                        if (insist = true)
+                        {
+                            Console.WriteLine(@"As you dial the emergency number, your hands tremble with nervousness and fear. You know the police need to be called, but the sight of the bloodied weapon still in your hands fills you with dread. Knowing they will notice you are the one who killed Patrick");
+                            Game.Transition<BadEndingTwo>();
+                        }
+                        else if (Game.inventory.Contains("stained knife") || Game.inventory.Contains("stained knife") || Game.inventory.Contains("Not Marinated Lamb leg"))
+                        {
+                            Console.WriteLine(@"Are you sure you want to call the police, You have something that can make them suspicious of you in your inventory.Check inventory entering [i] If you still ant to call the police you can try again");
+                            insist = true;
+                        }
+                        else if (Game.PlayerClean == false)
+                        {
+                            Console.WriteLine(@"Are you sure you want to call the police, You have blood iin your face maybe you can clean in the bathroom");
+                        }
+                        else
+                        {
+                            Console.WriteLine("When you decide to call the police and they arrive, you head to the front door to greet and talk to them, your heart pounding with a mixture of anxiety and relief. You hope desperately that they won't find you guilty of any wrongdoing.");
+                            Game.Callpolice = true;
+                            Game.gameScript = 7;
+                            Console.WriteLine(@"When the police have arrived, the atmosphere in the room is tense and charged with anxiety. You stand near the front door, your heart racing as you prepare to face them. The weight of the recent events hangs heavily on your shoulders as you hope desperately that they won't find you guilty.");
+                            Game.Transition<LivingRoom>();
+                        }
+                        break;
+                    case "sink":
+                        if (dishesClean == false)
+                        {
+                            Console.WriteLine("You approach the sink and start washing dishes.");
+                            dishesClean = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no dishes that require cleaning.");
+                        }
+                        break;
+                    case "freezer":
+                        Console.WriteLine("Upon checking the freezer, you discover that there is meat, but no ice cream.");
+                        break;
+                    case "fridge":
+                        Console.WriteLine("When you open the fridge, you find that there are no fresh vegetables.");
+                        break;
+                    case "oven":
+                        if (Game.inventory.Contains("Marinated Leg Lamb"))
+                        {
+                            Game.RemoveInventory("Marinated Leg Lamb");
+                            Console.WriteLine(@"You put the leg of lamb in the oven, now no one will find the murder weapon, like alibi you could go buy vegetables and say you found your husband in the state that’s in the living room"); 
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid command.");
+                        }
+                            break;
+                    case "marinate":
+                        if (Game.inventory.Contains("Lamb Leg with blood"))
+                                {
+                            Game.RemoveInventory("Lamb Leg with blood");
+                            Game.AddInventory("Marinated Leg Lamb");
+                            Console.WriteLine("You have marinated the leg of lamb now you can put it in the oven");
+                                }
+                        else
+                        {
+                            Console.WriteLine("Invalid command.");
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
             }
             else { }
             }
