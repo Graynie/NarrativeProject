@@ -8,7 +8,7 @@ namespace NarrativeProject.Rooms
     {
 
 
-        internal static bool bathDone = false;
+        internal static bool takenCleaning = false;
         internal override string CreateDescription() 
         {
             if (Game.gameScript == 0 || Game.gameScript == 1 || Game.gameScript == 2 || Game.gameScript == 3 || Game.gameScript == 4 || Game.gameScript == 5)
@@ -26,7 +26,16 @@ You can clean your face in the [sink],
 There are also some cleaning liquids in the [cabinet].
 ";
             }//Husband is dead
-            else { return @"*out of bundaries*"; }//if error happen
+            else if (Game.Callpolice)
+            {
+                return @"In the bathroom, you stand before the [mirror], maybe your reflection is mix of anxiety and apprehension,
+but you try to compose yourself under the watchful eyes of the police.
+You can also use the [toilet] or return to the [living] room, where the tension hangs thick in the air.";
+            }
+            else 
+            {
+                return @"*out of bundaries*"; 
+            }//if error happen
         }
 
     internal override void ReceiveChoice(string choice)
@@ -124,8 +133,16 @@ that seem larger darker than before.");
                         }
                         break;
                     case "cabinet":
-                        Console.WriteLine("You find some cleaning liquids in the cabinet.");
-                        Game.AddInventory("Cleaning suply");
+                        if (takenCleaning == false)
+                        {
+                            Console.WriteLine("You find some cleaning liquids in the cabinet.");
+                            Game.AddInventory("Cleaning suply");
+                            takenCleaning=true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("The cabinet is empty");
+                        }
                         break;
                     case "expression":
                         Console.WriteLine(@"You tidied up your hair, touched up the lips and face.Then you tried a smile. It came out rather peculiar.
@@ -142,6 +159,62 @@ You rehearsed it several times more. Until it feels more natural");
                         break;
                 }
             }
+            else if (Game.Callpolice)
+            {
+                switch (choice)
+                {
+                    case "mirror":
+                        Console.WriteLine(@"As you gaze into the mirror, you see your reflection, your skin glowing with the radiance of pregnancy.
+Your mouth appears soft, and your eyes, though placid, betray a hint of anxiety as
+you contemplate whether everything is proceeding smoothly, even with the police presence in your home.");
+                        break;
+                    case "toilet":
+                        Console.WriteLine(@"You step into the bathroom and sit on the toilet, finding a moment of relief in the midst of chaos, as if the world outside this small room momentarily fades away.");
+                        break;
+                    case "living":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
+            else
+            {
+                switch (choice)
+                {
+                    case "mirror":
+                        if (!Game.husbandDead)
+                        {
+                            Console.WriteLine(@"You see yourself in the mirror.Your skin — for this
+your sixth month with child — had acquired a
+wonderful translucent quality, your mouth looking
+soft, and your eyes, showing a placid look,
+that seem larger darker than before.");
+                        }
+                        else if (Game.TalkToHusband)
+                        {
+                            Console.WriteLine("After your conversation with your husband, you look at yourself in the mirror, your expression a mix of sadness and fear, reflecting the turmoil within.");//asustad llorosa
+                        }
+                        else
+                        {
+                            Console.WriteLine("You see yourself in the mirror");
+                        }
+                        break;
+                    case "toilet":
+                        Console.WriteLine("You use the toilet.");
+                        break;
+                    case "living":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
+               
         }
     }
 }

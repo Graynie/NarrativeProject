@@ -84,7 +84,7 @@ to the [Grocery] store, or go to one of the other rooms:
 [drink] for him, lit the [fireplace], or go to another room: 
 [kitchen], [bathroom], [bedroom], or sit in your [chair] ";
                 }
-            }//Patrick issitting in his sofa
+            }//Patrick is sitting in his sofa
             else if (Game.gameScript == 3)
             {
                 return @"[continue]";
@@ -177,7 +177,7 @@ the course of your life. What will you do next?
                             sittingOnChair = false;
                             Console.WriteLine(@"As you carry your not yet born baby, you feel a bit dizzy and
                                  your belly is heavy.");
-                            Game.FiveMinutes();
+                            Game.AddTime(0,0,5);
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
@@ -598,7 +598,7 @@ leaving you standing over him, weapon in hand.");
                                 Game.husbandDead = true;
                                 Game.gameScript = 6;
                             }
-                            else if (Game.inventory.Contains(" basseball bat"))
+                            else if (Game.inventory.Contains("baseball bat"))
                             {
                                 Console.WriteLine(@"You move toward Patrick, holding the weapon firmly in your grip.
 As you close the distance, he turns to face you,
@@ -606,10 +606,12 @@ his expression one of confusion and concern.
 Without a word, you raise the weapon and strike,
 ending Patrick's life.");
                                 Game.cleanKill = false;
+                                Game.AddInventory("stained baseball bat");
+                                Game.RemoveInventory("baseball bat");
                                 Game.husbandDead = true;
                                 Game.gameScript = 6;
                             }
-                            else if (Game.inventory.Contains("Knife"))
+                            else if (Game.inventory.Contains("knife"))
                             {
                                 Console.WriteLine(@"You quietly stand up, concealing the knife in your hand,
 and move toward Patrick as he gazes out the window. 
@@ -621,7 +623,9 @@ the knife in your hand. The room is eerily silent,
 and the gravity of your actions begins to sink in.
 Your next decisions will shape your journey. 
 Will you leave the scene as it is,
-or will you try to clean up and dispose of the evidence?""");
+or will you try to clean up and dispose of the evidence?");
+                                Game.AddInventory("stained knife");
+                                Game.RemoveInventory("knife");
                                 Game.cleanKill = false;
                                 Game.husbandDead = true;
                                 Game.gameScript = 6;
@@ -850,6 +854,12 @@ You could wash away any traces of the incident or search for medication to calm 
                                 Console.WriteLine(@"You decide to burn the note found in your husband pocket");
                                 Game.sanity = 5;
                                 Game.RemoveInventory("note");
+                            }
+                             if(Game.inventory.Contains("stained aseball bat"))
+                            {
+                                Console.WriteLine(@"You decide to burn the used baseball bat stained with blood found in your husband pocket");
+                                Game.sanity = 5;
+                                Game.RemoveInventory("stained baseball bat");
                             }
                             else if (fireplaceOn == true)
                             {

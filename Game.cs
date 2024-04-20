@@ -60,26 +60,17 @@ namespace NarrativeProject
         {
             husbandDead = true;
         }
-        public static void FiveMinutes() 
+        public static void AddTime(int h,int m, int m2) 
         {
-            if (timeMinuteDigit == 0)
-            {
-                timeMinuteDigit = 5;
-            }
-            else if (timeMinuteDigit == 5)
-            {
-                timeMinuteDigit = 0;
-                timeMinute++;
-            }
+            timeHour+=h;
+            timeMinute+= m;
+            timeMinuteDigit+=m2;
         }
-        public static void TenMinutes() 
+        public static void SetTime(int h,int m,int m2)
         {
-        
-        }
-        public static void NextHour() 
-        {
-            timeHour++;
-            timeMinute = 0;
+            h = timeHour;
+            m = timeMinute;
+            m2 =timeMinuteDigit;
         }
         public static int NextStepScript()
         { return gameScript++; }
