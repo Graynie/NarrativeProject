@@ -16,11 +16,13 @@ namespace NarrativeProject.Rooms
     internal class LivingRoom : Room
     {
         private bool sittingOnChair = true;
-        private bool greetHusband = false;
+        internal static bool greetHusband = false;
         internal bool fireplaceOn = false;
         internal int randomNumber = 0;
         internal string LikeDrink = "Yes";
         internal bool insist = false;
+        internal bool notedestroyed = false;
+        
         internal override string CreateDescription()
         {
             if (Game.gameScript == 0)
@@ -38,7 +40,7 @@ aproach the [drinks] car, aproach the [fireplace], go
 outtside to the [Grocery] store, or go to one of the other 
 rooms: [closet], [kitchen], [bathroom], [bedroom]";
                 }
-            }
+            }//alone at home, waiting for husband
             else if (Game.gameScript == 1)
             {
                 if (greetHusband == false && sittingOnChair == false)
@@ -69,7 +71,7 @@ aproach the [drinks] car, aproach the [fireplace], go outtside
 to the [Grocery] store, or go to one of the other rooms: 
 [closet], [kitchen], [bathroom], [bedroom]";
                 }
-            }
+            }//husband arrives, Greet him
             else if (Game.gameScript == 2)
             {
                 if (sittingOnChair)
@@ -82,15 +84,15 @@ to the [Grocery] store, or go to one of the other rooms:
 [drink] for him, lit the [fireplace], or go to another room: 
 [kitchen], [bathroom], [bedroom], or sit in your [chair] ";
                 }
-            }
+            }//Patrick issitting in his sofa
             else if (Game.gameScript == 3)
             {
                 return @"[continue]";
-            }
+            }//Conversation part 1
             else if (Game.gameScript == 4)
             {
                 return @"[continued]";
-            }
+            }//conversation part 2
             else if (Game.gameScript == 5)
             {
                 if (sittingOnChair)
@@ -130,27 +132,29 @@ As you sit, you consider your next move. What will you do?
 - [examine] your surroundings: Look around the living room, assessing what needs to be addressed to avoid suspicion.
 - prepare an [alibi]: Begin to construct a story to account for your whereabouts and actions, creating a plausible cover for the events that transpired.
 - [talk] to your husband
-- stand [up] 
+- stand [up] from your chair
 ";
                 }
                 else
                 {
-                    return @"Patrick's lifeless body lies nearby,
-a stark reminder of what you've done. 
+                    return @"Patrick's lifeless body lies nearby,a stark reminder of what you've done. 
+
 The living room feels heavy with silence and tension.
-Time is of the essence, and you must act quickly to
-avoid suspicion and consequences.
+Time is of the essence, and you must act quickly to avoid suspicion and consequences.
 Your choices are limited, and each decision could change
 the course of your life. What will you do next?
--[hide the body]: Conceal Patrick's body in a discreet place,out of sight.
--[stage the scene]: Make the scene look like an accident or
-intruder attack to deflect blame.
+- [hide the body]: Conceal Patrick's body in a discreet place,out of sight.
+- [stage the scene]: Make the scene look like an accident or intruder attack to deflect blame.
 - [clean up the mess]: Assess the scene and clean up any evidence that could incriminate you.
 - [sit in shock]: Take a moment to sit and process the gravity of your actions.
 - [pack a bag]: Prepare a bag with essentials in case you decide to flee the scene.
 - [compose yourself]: Take a deep breath and try to calm your racing thoughts.
 - [plan your alibi]: Construct a believable story to account for your whereabouts.";
                 }
+            }//Husband is dead
+            else if (Game.Callpolice == true) 
+            {
+                return @"";
             }
             else { return @"None"; }//only get here if husband is dead
         }
@@ -791,7 +795,18 @@ and you are acutely aware that you must face the consequences of your next move 
                             Game.DisplayInventory();
                             break;
                         case "examine":
-                            Console.WriteLine();
+                            Console.WriteLine(@"You approach Patrick's body cautiously,
+taking in the details of his final moments.
+You must ensure there are no signs of a struggle or anything that might lead back to you. 
+You notice a litle paper piece in his pocket:
+
+-Patrick,
+The moments we share are the only light in this darkness.
+I long for the day when we can cast away the shadows and
+be together without fear. Until then, know that you are 
+always in my thoughts.
+Whith Love");
+                            Game.AddInventory("note");
                             break;
                         case "think":
                             Console.WriteLine(@"You should check your appareance.
@@ -799,35 +814,47 @@ You need to ensure there are no visible signs of a struggle or any bloodstains o
 Every detail must be perfect to avoid suspicion.");
                             break;
                         case "closet":
-                            Console.WriteLine(@"");
+                            Console.WriteLine(@"You enter the closet, surrounded by Patrick's clothes and personal belongings. 
+The familiarity of his scent lingers in the air, adding to the weight of the situation. 
+You could search for something to use as evidence or hide incriminating items among his belongings.""");
                             break;
                         case "kitchen":
-                            Console.WriteLine(@"");
+                            Console.WriteLine(@"You step into the kitchen, the heart of the home now tainted by the events that have transpired. 
+The utensils and appliances seem to mock you as you contemplate your next move. 
+You could search for cleaning supplies or dispose of any evidence that might be found here.""");
                             Game.sanity += 5;
                             Game.HusbandTemperament += 5;
                             Game.Transition<Kitchen>();
                             break;
                         case "bedroom":
-                            Console.WriteLine(@"");
-                            Game.sanity += 5;
-                            Game.HusbandTemperament += 5;
+                            Console.WriteLine(@"You make your way to the bedroom, where memories of happier times with Patrick linger in the air.
+The bed, once a place of comfort, now feels like a prison. 
+You could search for anything that might help you escape or provide clues to your next move.");
                             Game.Transition<Bedroom>();
+                            Game.sanity += 5;
                             break;
                         case "bathroom":
-                            Console.WriteLine(@"");
-                            Game.sanity += 5;
-                            Game.HusbandTemperament += 5;
+                            Console.WriteLine(@"You enter the bathroom, the tiles cold under your feet.
+The mirror reflects your own troubled expression back at you, a stark reminder of the reality you face.
+You could wash away any traces of the incident or search for medication to calm your nerves.");
                             Game.Transition<Bathroom>();
+                            Game.sanity += 5;
                             break;
                         case "grocery":
-                            Console.WriteLine(@"You can't leave the body in that state");
+                            Console.WriteLine(@"You shouldn`t leave the body in that state, Are you sure you want to go? if yes enter[grocery again]");
                             Game.sanity -= 5;
                             break;
                         case "fireplace":
-                            if (fireplaceOn == true)
+                             if (Game.inventory.Contains("note"))
                             {
-                                Console.WriteLine(@"");
-                                Game.sanity += 5;
+                                Console.WriteLine(@"You decide to burn the note found in your husband pocket");
+                                Game.sanity = 5;
+                                Game.RemoveInventory("note");
+                            }
+                            else if (fireplaceOn == true)
+                            {
+                                Console.WriteLine(@"You move towards the fireplace, considering its potential as a means to dispose of evidence. The hearth, once a source of warmth, now represents a place to eliminate traces of your involvement in Patrick's death.");
+                                Game.sanity -= 5;
                             }
                             else
                             {
@@ -835,17 +862,25 @@ Every detail must be perfect to avoid suspicion.");
                             }
                             break;
                         case "drinks":
-                            Console.WriteLine(@"");
-                            Game.sanity += 5;
+                            Console.WriteLine(@"You walk over to the drinks cart, your steps measured. 
+Pouring yourself a drink, you take a moment to steady your nerves. 
+The liquid's warmth calms you, but your mind remains alert to the task at hand.");
+                            Game.sanity -= 5;
+                            Game.DrunkPlayer = true;
                             break;
                         case "sofa":
-                            Console.WriteLine(@"");
+                            Console.WriteLine(@"You sit on your husband's sofa, taking in the scene from a 
+new vantage point. The comfort you once associated with the space is replaced by a sense of dread. 
+Your thoughts race as you plan your next move.");
                             Game.sanity -= 10;
                             break;
                         case "chair":
-                            Console.WriteLine(@"");
+                            Console.WriteLine(@"You return to your chair, seeking a moment of respite from the weight of 
+the situation. The chair feels cold now, and as you sit, the full gravity of your
+actions begins to sink in.");
                             sittingOnChair = true;
-                            Game.sanity += 5;
+                            Game.sanity -= 5;
+
                             break;
                     }
                 }
