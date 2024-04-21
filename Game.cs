@@ -36,6 +36,7 @@ namespace NarrativeProject
         public static bool insistGocery = false;
         public static bool Callpolice = false;
         internal static bool PlayerClean;
+        public static bool notedestroyed = false;
 
         #endregion
 

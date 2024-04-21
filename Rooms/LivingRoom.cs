@@ -21,7 +21,7 @@ namespace NarrativeProject.Rooms
         internal int randomNumber = 0;
         internal string LikeDrink = "Yes";
         internal bool insist = false;
-        internal bool notedestroyed = false;
+        
         
         internal override string CreateDescription()
         {
@@ -155,6 +155,7 @@ the course of your life. What will you do next?
             }//Husband is dead
             else if (Game.gameScript == 7) 
             {
+                return @"";
             }
             else { return @"When the police arrive at the murder scene, they enter the living room cautiously, their expressions serious and focused. The lead officer immediately assesses the situation, his eyes narrowing as he takes in the sight of your husband's lifeless body. The other officers and forensic experts begin to spread out, carefully examining the area for evidence. There's a palpable tension in the air as they work, exchanging brief, whispered conversations as they document the scene. Despite their professional demeanor, you can sense their urgency to solve the case and bring justice for the victim.
 [continue]"; }//only get here if husband is dead
@@ -857,8 +858,9 @@ You could wash away any traces of the incident or search for medication to calm 
                                 Console.WriteLine(@"You decide to burn the note found in your husband pocket");
                                 Game.sanity = 5;
                                 Game.RemoveInventory("note");
+                                Game.notedestroyed=true;    
                             }
-                             if(Game.inventory.Contains("stained aseball bat"))
+                             if(Game.inventory.Contains("stained baseball bat"))
                             {
                                 Console.WriteLine(@"You decide to burn the used baseball bat stained with blood found in your husband pocket");
                                 Game.sanity = 5;
@@ -906,7 +908,7 @@ actions begins to sink in.");
                         Game.DisplayInventory();
                         break;
                     case "continue":
-                        if(Game.inventory.Contains("")||)
+                        if(Game.inventory.Contains(""))
                             Console.WriteLine();
 
                         break;
@@ -917,27 +919,7 @@ actions begins to sink in.");
             }
             else if (Game.gameScript == 8)
             {
-                if (sittingOnChair == true)
-                    switch (choice)
-                    {
-                        case "i":
-                            Game.DisplayInventory();
-                            break;
-                        case "talk":
-                            Console.WriteLine();
-                            break;
-                        case "ignore":
-                            Console.WriteLine(@"Your husband has an odd look on his face, but ultimately chooses to unwind on his sofa. Despite his hesitation, it appears he has something to say to you.");
-                            Game.gameScript = 3;
-                            Game.HusbandTemperament += 10;
-                            break;
-                        default:
-                            Console.WriteLine("Invalid command.");
-                            break;
-                    }
-                else
-                {
-                    switch (choice)
+                switch (choice)
                     {
                         case "i":
                             Game.DisplayInventory();
@@ -1012,7 +994,7 @@ actions begins to sink in.");
                             break;
                     }
                 }
-            }
+            
             else
             {
                 switch (choice)
