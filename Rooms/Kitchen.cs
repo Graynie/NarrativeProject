@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -276,10 +278,94 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                 }
             }
+            else if (Game.gameScript <= 7)
+            {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "living room":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        Game.DecraseSanity();
+                        break;
+                    case "phone":
+                            Console.WriteLine("");
+                            Game.DecraseSanity();
+                        break;
+                    case "sink":
+                        if (dishesClean == false)
+                        {
+                            Console.WriteLine("You approach the sink and start washing dishes.");
+                            dishesClean = true;
+                            Game.IncreaseSanity();
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no dishes that require cleaning.");
+                            Game.DecraseSanity();
+                        }
+                        break;
+                    case "freezer":
+                        Console.WriteLine("This doesn't make sense at this moment, at rise suspicious to the Police officers");
+                        break;
+                    case "fridge":
+                        Console.WriteLine("This doesn't make sense at this moment, at rise suspicious to the Police officers");
+                        break;
+                    case "oven":
+                        if (Game.inventory.Contains("Marinated Leg Lamb"))
+                        {
+                            Game.RemoveInventory("Marinated Leg Lamb");
+                            Console.WriteLine(@"You put the leg of lamb in the oven, now no one will find the murder weapon, like alibi you could go buy vegetables and say you found your husband in the state that’s in the living room");
+                            Game.lambLegOven = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid command.");
+                        }
+                        break;
+                    case "marinate":
+                        if (Game.inventory.Contains("Lamb Leg with blood"))
+                        {
+                            Game.RemoveInventory("Lamb Leg with blood");
+                            Game.AddInventory("Marinated Leg Lamb");
+                            Console.WriteLine("You have marinated the leg of lamb now you can put it in the oven");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid command.");
+                        }
+                        if (Game.gameScript <= 8&& Game.lambLegOven == true)
+                        {
+                            Console.WriteLine(@"Feeding the cops the leg of lamb will allow you to completely misfire the gun, making it impossible for anyone to suspect. ");
+                            Game.AddInventory("Cooked Lamb Leg");
+                        }
+                        break;
+                    case "talk":
+                        if(Game.inventory.Contains("Cooked Lamb Leg"))
+                        {
+                            Console.WriteLine(@"""Would you do me and these others a small favor?"" Mrs.Maloney asked.
+""We can try,"" Sergeant Noonan replied.
+Mrs.Maloney urged them to eat the lamb in the oven, insisting it was cooked perfectly and that it would be a favor to her.
+The policemen hesitated but eventually gave in to their hunger and went to the kitchen to eat.Mrs.Maloney stayed behind, 
+listening to their voices as they spoke with their mouths full.");
+                            PoliceOfficer officer1 = new PoliceOfficer("Carlos", "Detective", 10);
+                            PoliceOfficer officer2 = new PoliceOfficer("Laura", "Inspector", 7);
+                            officer1.CommentOnLegOfLamb();
+                            officer2.CommentOnLegOfLamb();
+                            Game.Transition<GoodEnding>();
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
             else { }
             }
 
-        
+
 
         internal void RamdomCall()
         {
@@ -288,11 +374,10 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
             if (randomNumber == 1)
             {
                 Console.WriteLine(@"-Hello, this is Mrs. Maloney. Could I please place an order for delivery?
--I need some bread. Can you tell me if you have any fresh 
-croisants available today?
--No, sorry, we run out of croisants. If you want fresh ones we can make a delivery tomorrow morning, It's it okay for you?
+-I need some bread. Can you tell me if you have any fresh croissants available today?
+-No, sorry, we've run out of croissants. If you want fresh ones, we can make a delivery tomorrow morning. Is that okay for you?
 -Yes, I would love that.
-*You had made an order for fresh croisants they are gonna arrive tomorrow at 10.
+*You have made an order for fresh croissants. They are going to arrive tomorrow at 10.
 ");
             }
             else if (randomNumber == 2)
@@ -300,13 +385,13 @@ croisants available today?
                 Console.WriteLine(@"*You Called a Friend
 Hi, Betty! It's Mary. How are you today? I thought we could catch up. How's the family? 
 Would you like to join me for coffee on Friday?
-*Your friend is gonna visit you on Friday");
+*Your friend is going to visit you on Friday");
             }
             else if (randomNumber == 3)
             {
                 Console.WriteLine(@"Hello, Mom. It's Helen.
 How are you? Patrick is doing well. 
-We had a nice time at the dinner last week. 
+We had a nice time at dinner last week. 
 Do you have any tips for a roast beef recipe? 
 You talked with your mom for an hour");
                 if (Game.gameScript == 0) { Game.gameScript = 1; }
@@ -327,24 +412,43 @@ Could I stop by to discuss it this week?
             }
             else if (randomNumber == 6)
             {
-                Console.WriteLine(@"");
+                Console.WriteLine(@"*You Called the Dry Cleaners
+Hello, this is Mrs. Maloney. I'm calling to check if my dress is ready for pick-up.");
+                Console.WriteLine("Yes, Mrs. Maloney, your dress is ready. You can pick it up anytime during our business hours.");
+                Console.WriteLine("Thank you, I will be there tomorrow");
             }
             else if (randomNumber == 7)
             {
-                Console.WriteLine(@"");
+                Console.WriteLine(@"*You Called the Library
+Hi, I was wondering if you have the latest Stephen King novel available?");
+                Console.WriteLine("Yes, we have it in stock. You can come and pick it up anytime.");
+                Console.WriteLine("Thank you, I will be there tomorrow");
             }
             else if (randomNumber == 8)
             {
-                Console.WriteLine(@"");
+                Console.WriteLine(@"*You Called the Hair Salon
+Hello, I need to schedule an appointment for a haircut.");
+                Console.WriteLine("Sure, we have availability tomorrow afternoon. What time works for you?");
+                Console.WriteLine("Thank you, I will be there tomorrow around 3 p.m.");
+                
             }
             else if (randomNumber == 9)
             {
-                Console.WriteLine(@"");
+                Console.WriteLine(@"*You Called the Pet Store
+Hi, I'm looking for a specific type of cat food for a fiend. Do you have it in stock?");
+                Console.WriteLine("Yes, we have it available. You can come and pick it up whenever you'd like.");
+                Console.WriteLine("Thank you, I will be there tomorrow");
             }
             else
             {
-                Console.WriteLine(@"");
+                Console.WriteLine(@"*You Called the Hardware Store
+Hello, do you have the paint I ordered last week ready for pick-up?");
+                Console.WriteLine("Yes, your paint is ready. You can pick it up at the front desk.");
+                Console.WriteLine("Thank you, I will be there tomorrow");
             }
+            Game.sanity += 5;
+            Console.WriteLine("*At the end of the call you hung up the phone");
         }
+
     }
 }

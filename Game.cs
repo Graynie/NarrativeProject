@@ -274,7 +274,6 @@ namespace NarrativeProject
                 return CharacterState.Elated;
             }
         }
-
         internal static void CheckPoliceSuspicion()
         {
             if (PoliceSuspicion > 6)

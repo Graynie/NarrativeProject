@@ -902,7 +902,7 @@ You could wash away any traces of the incident or search for medication to calm 
                             Console.WriteLine(@"You walk over to the drinks cart, your steps measured. 
 Pouring yourself a drink, you take a moment to steady your nerves. 
 The liquid's warmth calms you, but your mind remains alert to the task at hand.");
-                            Game.sanity -= 5;
+                            Game.sanity += 5;
                             Game.DrunkPlayer = true;
                             break;
                         case "insist":
@@ -1069,7 +1069,7 @@ actions begins to sink in.");
                         };
                         break;
                     case "talk to one of the officers ":
-                        SpecialInvestigator officer1 = new SpecialInvestigator("Juan", "Sergeant", 10);
+                        SpecialInvestigator officer1 = new SpecialInvestigator("Noonan", "Sergeant", 10);
                         officer1.ReactionUponSeeingMurderedChief();
                         officer1.OfferCondolencesAndReassure();
                         Game.TalkToOfficers = true;

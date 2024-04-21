@@ -22,7 +22,7 @@ use the [toilet], or go back to the [living] room.";
                 return @"You are in the Bathroom. 
 check your appearance in the [mirror],
 apply [makeup], or practice your [expression].
-You can clean your face in the [sink],
+You can clean your face in the [sink], or your breath with [toothpaste]
 There are also some cleaning liquids in the [cabinet].
 ";
             }//Husband is dead
@@ -154,6 +154,19 @@ You rehearsed it several times more. Until it feels more natural");
                         Console.WriteLine("You decide to go back to the living room.");
                         Game.Transition<LivingRoom>();
                         break;
+                    case "toothpaste":
+                        if (Game.DrunkPlayer)
+                        {
+                        Console.WriteLine("You used toothpaste to wipe your breath so they won't notice you drank.");
+                        Game.DrunkPlayer =false;
+                        Game.IncreaseSanity();
+                        }
+                        else
+                        {
+                            Console.WriteLine("this helps you stay calm while you thought you should do");
+                            Game.IncreaseSanity();
+                        }
+                        break;
                     default:
                         Console.WriteLine("Invalid command.");
                         break;
@@ -192,10 +205,6 @@ your sixth month with child — had acquired a
 wonderful translucent quality, your mouth looking
 soft, and your eyes, showing a placid look,
 that seem larger darker than before.");
-                        }
-                        else if (Game.TalkToHusband)
-                        {
-                            Console.WriteLine("After your conversation with your husband, you look at yourself in the mirror, your expression a mix of sadness and fear, reflecting the turmoil within.");//asustad llorosa
                         }
                         else
                         {
