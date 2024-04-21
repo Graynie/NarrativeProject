@@ -19,7 +19,7 @@ namespace NarrativeProject.Rooms
 dinner as usual.
 
 *Remember you can always check your Inventory by writing [i]
-*or write [save] to save your game and return to this page.
+*or [save] your game anytime.
 
 
 -----------------------------------------------Choose your option-------------------------------------------------------

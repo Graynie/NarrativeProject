@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using static NarrativeProject.GameSaveSystem.GameSaveData;
+using Newtonsoft.Json.Linq;
+using static NarrativeProject.GameSaveSystem.GameSaveData.GameDataClass;
 
 namespace NarrativeProject
 {
@@ -41,7 +42,7 @@ namespace NarrativeProject
                     TalkToOfficers = Game.TalkToOfficers,
                     LambLegOven = Game.lambLegOven
                 },
-                LivingRoomData = new LivingRoomSaveData()
+                LivingRoomData = new GameSaveData.LivingRoomSaveData()
                 {
                     SittingOnChair = LivingRoom.sittingOnChair,
                     GreetHusband = LivingRoom.greetHusband,
@@ -52,25 +53,27 @@ namespace NarrativeProject
                     ExamineBody = LivingRoom.examineBody,
                     StepsUntilNext = LivingRoom.stepsUntilNext
                 },
-                KitchenData = new KitchenSaveData()
+                KitchenData = new GameSaveData.KitchenSaveData()
                 {
                     DishesClean = Kitchen.dishesClean,
                     CheckedFridge = Kitchen.checkedFridge,
                     CheckedFreezer = Kitchen.checkedFreezer,
                     Insist = Kitchen.insist
                 },
-                BedroomData = new BedroomSaveData()
+                BedroomData = new GameSaveData.BedroomSaveData()
                 {
                     BedDone = Bedroom.bedDone,
                     Bat = Bedroom.bat
                 },
-                StartData = new StartSaveData()
+                StartData = new GameSaveData.StartSaveData()
                 {
                     IsStartMenu = Start.IsStartMenu
                 }
             };
 
-            string jsonData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
+            JsonSerializerSettings settings = new JsonSerializerSettings();
+            settings.Converters.Add(new GameSaveData.RoomConverter());
+            string jsonData = JsonConvert.SerializeObject(saveData, Formatting.Indented, settings);
             File.WriteAllText(filePath, jsonData);
             Console.WriteLine("Game saved successfully.");
         }
@@ -86,7 +89,10 @@ namespace NarrativeProject
             try
             {
                 string jsonData = File.ReadAllText(filePath);
-                GameSaveData saveData = JsonConvert.DeserializeObject<GameSaveData>(jsonData);
+                GameSaveData saveData = JsonConvert.DeserializeObject<GameSaveData>(jsonData, new JsonSerializerSettings
+                {
+                    Converters = { new GameSaveData.RoomConverter() }
+                });
 
                 Game.rooms = saveData.GameData.Rooms;
                 Game.inventory = saveData.GameData.Inventory;
@@ -207,7 +213,33 @@ namespace NarrativeProject
                 public bool IsStartMenu { get; set; }
             }
 
-        }
+            internal class RoomConverter : JsonConverter
+            {
+                public override bool CanConvert(Type objectType)
+                {
+                    return typeof(Room).IsAssignableFrom(objectType);
+                }
 
+                public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+                {
+                    JObject jo = JObject.Load(reader);
+                    string type = (string)jo["$type"];
+
+                    if (type == typeof(LivingRoom).FullName)
+                        return jo.ToObject<LivingRoom>();
+                    else if (type == typeof(Kitchen).FullName)
+                        return jo.ToObject<Kitchen>();
+                    else if (type == typeof(Bedroom).FullName)
+                        return jo.ToObject<Bedroom>();
+                    else
+                        throw new NotSupportedException($"The room type '{type}' is not supported.");
+                }
+
+                public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+                {
+                    serializer.Serialize(writer, value);
+                }
+            }
+        }
     }
 }

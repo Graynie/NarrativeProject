@@ -96,23 +96,23 @@ namespace NarrativeProject
             if (Start.IsStartMenu) {
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("                                                  Lamb to Slaugther - The Game                                          ");
-                Console.WriteLine("                                              Inspired by Roald Dahl (Short Story)                                      ");
-                Console.WriteLine("                                                   Code by Danielle Rodriguez                                           ");
+                Console.WriteLine("                                             Lamb to Slaugther - The Game                                               ");
+                Console.WriteLine("                                         Inspired by Roald Dahl (Short Story)                                           ");
+                Console.WriteLine("                                              Code by Danielle Rodriguez                                                ");
                 MethodColorBasic();
             }
             else
             {
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("   Room: " + nameOfRoom+ "                                                                                      State: " + DetermineCharacterState(sanity)+"                      ") ;
+                Console.WriteLine("   Room: " + nameOfRoom+ "                                                                    State: " + DetermineCharacterState(sanity)+"                ") ;
                 MethodColorBasic();
                 
             }
         }
         public static void Alert()
         {
-            MethodColorRed();
+            MethodColorBlue();
             if (Start.IsStartMenu==true) { }
             else if(Game.gameScript == 0)
             {
@@ -144,6 +144,8 @@ namespace NarrativeProject
                 Console.WriteLine("Alert");
             }
             MethodColorBasic();
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
+
         }
         internal void CheckTransition()
         {
@@ -197,20 +199,25 @@ namespace NarrativeProject
         public static void DisplayInventory() 
         {
             Console.Write("\nYou have in your inventory: ");
-            if (inventory.Count > 0) { 
-                for (int i = 0; i < inventory.Count - 1; i++)
+            if (inventory.Count > 0)
+            {
+                for (int i = 0; i < inventory.Count; i++)
                 {
-                    Console.WriteLine(inventory[i]);
-                    if (i == inventory.Count - 1) {
-                        Console.WriteLine("."); }
-                    else { Console.WriteLine(", "); }
+                    Console.Write(inventory[i]);
+                    if (i < inventory.Count - 1)
+                    {
+                        Console.Write(", ");
+                    }
+                    else
+                    {
+                        Console.WriteLine(".\n");
+                    }
                 }
             }
             else
             {
-                Console.WriteLine("Nothing");
+                Console.WriteLine("Nothing.\n");
             }
-
         }
         public static void IncreaseSanity()
         {

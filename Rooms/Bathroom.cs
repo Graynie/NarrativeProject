@@ -42,6 +42,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
         {
             if (Game.gameScript <= 0||Game.gameScript>=5)
             {
+                LivingRoom.stepsUntilNext += 1;
                 switch (choice)
                 {
                     case "i":
@@ -53,11 +54,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
                     case "mirror":
                         if (!Game.husbandDead)
                         {
-                            Console.WriteLine(@"You see yourself in the mirror.Your skin — for this
-your sixth month with child — had acquired a
-wonderful translucent quality, your mouth looking
-soft, and your eyes, showing a placid look,
-that seem larger darker than before.");
+                            Console.WriteLine(@"You see yourself in the mirror.Your skin — for this your sixth month with child — had acquired a wonderful translucent quality, your mouth looking soft, and your eyes, showing a placid look, that seem larger darker than before.");
                         }
                         else if (Game.TalkToHusband)
                         {
@@ -69,7 +66,7 @@ that seem larger darker than before.");
                         }
                         break;
                     case "toilet":
-                        Console.WriteLine("You use the toilet.");
+                        Console.WriteLine("You used the toilet.");
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");

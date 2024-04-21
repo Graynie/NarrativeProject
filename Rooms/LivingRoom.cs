@@ -95,7 +95,7 @@ to the [Grocery] store, or go to one of the other rooms:
             }//Conversation part 1
             else if (Game.gameScript == 4)
             {
-                return @"[continued]";
+                return @"[continue]";
             }//conversation part 2
             else if (Game.gameScript == 5)
             {
@@ -180,7 +180,10 @@ the course of your life. What will you do next?
 - [talk] to one of the officers
 ";
             }//Do the correct actions to get to the good ending
-            else { return "Go [back] to the Title Page or [exit] Game"; }
+            else 
+            {
+                return "Go [back] to the Title Page or [exit] Game"; 
+            }
         }
         internal override void ReceiveChoice(string choice)
         {
@@ -203,11 +206,11 @@ the course of your life. What will you do next?
                             break;
                         case "sew":
                             Console.WriteLine("You continue sewing a pair of boots for a baby");
+                            Game.gameScript = 1;
                             break;
                         case "stand":
                             sittingOnChair = false;
-                            Console.WriteLine(@"As you carry your not yet born baby, you feel a bit dizzy and
-                                 your belly is heavy.");
+                            Console.WriteLine(@"As you carry your not yet born baby, you feel a bit dizzy and your belly is heavy.");
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
@@ -340,16 +343,15 @@ Normally you are content to sit quietly and enjoy his company after spending lon
 hours alone in the house. Occasionally, you both enjoy a drink.");
                             break;
                         case "closet":
-                            Console.WriteLine(@"Your husband looks weirdly at you, but 
-continuing his way and sitting on his sofa
+                            Console.WriteLine(@"Your husband looks weirdly at you, but continuing his way and sitting on his sofa
 *You are looking at the closed it is a little dirty");
                             Game.HusbandTemperament += 5;
                             Game.gameScript = 2;
-                            Console.WriteLine(@"This time of day is always a blissful time for you. 
-But today you seam to be ignoring him, probably beacause
-You know he doesn’t want to speak much right after arriving home from work.
-Normally you are content to sit quietly and enjoy his company after spending long 
+                            Game.MethodColorGray();
+                            Console.WriteLine(@"This time of day is always a blissful time for you. But today you seam to be ignoring him, probably beacause
+You know he doesn’t want to speak much right after arriving home from work. Normally you are content to sit quietly and enjoy his company after spending long 
 hours alone in the house. Occasionally, you both enjoy a drink.");
+                            Game.MethodColorBasic();
                             break;
                         case "sofa":
                             Console.WriteLine("*You shouldn't do that he is at home");
@@ -366,6 +368,9 @@ hours alone in the house. Occasionally, you both enjoy a drink.");
                             break;
                         case "fireplace":
                             fireplace();
+                            break;
+                        case "grocery":
+                            Console.WriteLine("You don't seem to need anything from the store");
                             break;
                         case "greet":
                             sittingOnChair = false;
@@ -457,7 +462,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             }
                             break;
                         case "drink":
-                            Console.WriteLine("You have made a drink for you husband. This time it is a" + RandomDrink());
+                            Console.WriteLine("You have made a drink for you husband. This time it is a " + RandomDrink());
                             Game.sanity += 5;
                             break;
                         case "closet":
@@ -494,15 +499,12 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             break;
                         case "chair":
                             Console.WriteLine("You are confortably sitting in your chair");
-                            if (Game.HusbandDrunk > 5)
+                            if (Game.HusbandDrunk >= 5)
                             {
                                 Game.gameScript = 3;
-                                Console.WriteLine(@"""If you’re too tired to eat out"""", You said to him,"""" it’s still not too late.
-There’s plenty of meat and other things in the freezer, 
-so you can stay right here and not even have to leave the chair.""""
-You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.
-""""Anyway,"""" you continued, """"I'll get you some cheese and crackers to start.""""
-""""I don't want it,"""" he replied.");
+                                Game.MethodColorGray();
+                                Console.WriteLine(@"If you’re too tired to eat out"", You said to him,"" it’s still not too late. There’s plenty of meat and other things in the freezer, so you can stay right here and not even have to leave the chair.""You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.""Anyway,"" you continued, ""I'll get you some cheese and crackers to start."" ""I don't want it,"" he replied.");
+                                Game.MethodColorBasic();
                             }
                             break;
                         default:
@@ -523,14 +525,14 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                         break;
                     case "continue":
                         Game.gameScript = 4;
-                        Console.WriteLine(@"You start to feel frightened when he tells you to sit down. You sit back slowly, watching him with large, confused eyes. 
-""""Listen,"""" he says. """"I need to tell you something.""""
-""""What is it, darling? What's wrong?"""" you ask.
-He stays still.
-""""This will be a shock,"""" he continues. """"But I've thought a lot about it and decided I must tell you now. I hope you don't blame me too much.""""
+                        Game.MethodColorGray();
+                        Console.WriteLine(@"You start to feel frightened when he tells you to sit down. You sit back slowly, watching him with large, confused eyes. ""Listen,"" he says. ""I need to tell you something.""
+""What is it, darling? What's wrong?"" you ask. He stays still.
+""This will be a shock,"" he continues. ""But I've thought a lot about it and decided I must tell you now. I hope you don't blame me too much.""
 He tells you quickly, in four or five minutes. You sit very still, watching him with a sense of dazed horror as his words distance him from you.
-""""So there it is,"""" he adds. """"I know this is a bad time to tell you, but I had no choice. I'll give you money and make sure you're taken care of. Please,
-let's keep this quiet for my job's sake.""""[continue]");
+""So there it is,"" he adds. ""I know this is a bad time to tell you, but I had no choice. I'll give you money and make sure you're taken care of. Please,
+let's keep this quiet for my job's sake.""[continue]");
+                        Game.MethodColorBasic();
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -549,10 +551,7 @@ let's keep this quiet for my job's sake.""""[continue]");
                         break;
                     case "continue":
                         Game.gameScript = 5;
-                        Console.WriteLine(@"Your first instinct is to disbelieve everything he said, to reject it all.
-You wonder if he even spoke or if you imagined it all. 
-Maybe if you just carry on as if you hadn't heard anything, you might wake up later to find it never happened.
-""I'll get supper,"" you whisper, and this time, he doesn't stop you.");
+                        Console.WriteLine(@"Your first instinct is to disbelieve everything he said, to reject it all. You wonder if he even spoke or if you imagined it all.  Maybe if you just carry on as if you hadn't heard anything, you might wake up later to find it never happened. ""I'll get supper,"" you whisper, and this time, he doesn't stop you.");
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -572,56 +571,35 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                             GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "talk":
-                            Console.WriteLine(@"You try to speak to Patrick,
-but he remains distant and unresponsive. 
-His decision seems final, and you struggle 
-to find words to bridge the gap between you.
-His gaze remains fixed on the window, 
-a clear sign that he does not want to engage 
-in conversation.");
+                            Console.WriteLine(@"You try to speak to Patrick, but he remains distant and unresponsive. His decision seems final, and you struggle to find words to bridge the gap between you.
+His gaze remains fixed on the window,a clear sign that he does not want to engage in conversation.");
                             Game.sanity -= 5;
                             break;
                         case "observe":
-                            Console.WriteLine(@"You watch Patrick closely, 
-trying to gauge his mood and intentions. 
-His posture is tense, and his expression 
-is a mix of determination and detachment. 
-It's clear he has made up his mind, 
-leaving you feeling uncertain about what 
-to do next.");
+                            Console.WriteLine(@"You watch Patrick closely, trying to gauge his mood and intentions. 
+His posture is tense, and his expression is a mix of determination and detachment. 
+It's clear he has made up his mind, leaving you feeling uncertain about what to do next.");
                             Game.sanity -= 5;
                             break;
                         case "look":
-                            Console.WriteLine(@"You take a moment to look around the
-living room, searching for anything that might
-offer comfort or clarity. The room seems familiar
-yet alien, reflecting the sudden upheaval in your
-life. You notice the usual objects—fireplace, 
-drinks cart—but they provide little solace in 
-this moment.");
+                            Console.WriteLine(@"You take a moment to look around the living room, searching for anything that might offer comfort or clarity. 
+The room seems familiar yet alien, reflecting the sudden upheaval in your life. You notice the usual objects—fireplace, drinks cart—but they provide little solace in this moment.");
                             Game.sanity -= 3;
                             break;
                         case "up":
-                            Console.WriteLine(@"You stand up and begin to pace the room, 
-trying to clear your mind. Patrick doesn't acknowledge your movements,
-as if he's already disconnected himself emotionally.
-You sense a widening chasm between you as you
-consider your next move.");
+                            Console.WriteLine(@"You stand up and begin to pace the room, trying to clear your mind. Patrick doesn't acknowledge your movements, as if he's already disconnected himself emotionally.
+You sense a widening chasm between you as you consider your next move.");
                             sittingOnChair = false;
                             break;
                         case "adjust":
-                            Console.WriteLine(@"You shift in your seat, 
-attempting to find some physical comfort in the midst
-of emotional turmoil. The silence in the room is almost
-unbearable, punctuated only by the sound of your own breathing.
+                            Console.WriteLine(@"You shift in your seat, attempting to find some physical comfort in the midst of emotional turmoil.
+The silence in the room is almost unbearable, punctuated only by the sound of your own breathing.
 You know you must make a decision soon.");
                             Game.sanity += 3;
                             break;
                         case "think":
-                            Console.WriteLine(@"You take a moment to gather your thoughts,
-trying to process the situation.
-Patrick's declaration has thrown you off balance,
-but you know you must consider your next steps carefully.
+                            Console.WriteLine(@"You take a moment to gather your thoughts, trying to process the situation.
+Patrick's declaration has thrown you off balance, but you know you must consider your next steps carefully.
 Your mind races as you weigh the possible outcomes and repercussions.");
                             Game.sanity += 5;
                             break;
@@ -816,8 +794,7 @@ distance between you and Patrick feels almost insurmountable in this moment.");
                         case "talk":
                             Console.WriteLine(@"Your husband lies lifeless on the floor. 
 You try to speak, but the room is filled with an eerie silence.
-The reality of your actions weighs heavily on you as you 
-grapple with what you've done.");
+The reality of your actions weighs heavily on you as you grapple with what you've done.");
                             Game.sanity -= 10;
                             break;
                         case "think":
@@ -836,23 +813,18 @@ You must be ready to react if anyone approaches.");
                         case "examine":
                             Console.WriteLine(@"Your eyes dart around the room, taking in every detail.
 The usual comforts of your living room now seem foreboding.
-You check for any signs that could tie you to Patrick's death,
-such as misplaced objects or traces of blood. 
+You check for any signs that could tie you to Patrick's death, such as misplaced objects or traces of blood. 
 Your heart races as you consider what evidence might be left behind.");
                             Game.sanity += 7;
                             break;
                         case "alibi":
-                            Console.WriteLine(@"You need a believable story to explain your whereabouts and 
-actions during the time of Patrick's death. You start piecing together details,
-considering which parts of your day can serve as your alibi.
+                            Console.WriteLine(@"You need a believable story to explain your whereabouts and actions during the time of Patrick's death. You start piecing together details, considering which parts of your day can serve as your alibi.
 This task requires careful thought and accuracy to avoid gaps or inconsistencies.");
                             Game.sanity += 3;
                             break;
                         case "up":
                             Console.WriteLine(@"You stand up and try to clear your mind as you move around the room.
-Patrick's lifeless body nearby is a stark reminder of your actions,
-casting a chilling shadow over you. The silence is deafening,
-and you are acutely aware that you must face the consequences of your next move alone.");
+Patrick's lifeless body nearby is a stark reminder of your actions, casting a chilling shadow over you. The silence is deafening, and you are acutely aware that you must face the consequences of your next move alone.");
                             sittingOnChair = false;
                             break;
                         default:
@@ -871,17 +843,15 @@ and you are acutely aware that you must face the consequences of your next move 
                             GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "examine":
-                            Console.WriteLine(@"You approach Patrick's body cautiously,
-taking in the details of his final moments.
+                            Console.WriteLine(@"You approach Patrick's body cautiously, taking in the details of his final moments.
 You must ensure there are no signs of a struggle or anything that might lead back to you. 
-You notice a litle paper piece in his pocket:
-
--Patrick,
+You notice a litle paper piece in his pocket:");
+                            Game.MethodColorRed();
+                            Console.WriteLine(@"-Patrick,
 The moments we share are the only light in this darkness.
-I long for the day when we can cast away the shadows and
-be together without fear. Until then, know that you are 
-always in my thoughts.
+I long for the day when we can cast away the shadows and be together without fear. Until then, know that you are always in my thoughts.
 Whith Love");
+                            Game.MethodColorBasic();
                             examineBody = true;
                             Game.AddInventory("note");
                             break;
@@ -962,15 +932,12 @@ The liquid's warmth calms you, but your mind remains alert to the task at hand."
                             Game.Transition<BadEndingTwo>();
                             break;
                         case "sofa":
-                            Console.WriteLine(@"You sit on your husband's sofa, taking in the scene from a 
-new vantage point. The comfort you once associated with the space is replaced by a sense of dread. 
+                            Console.WriteLine(@"You sit on your husband's sofa, taking in the scene from a new vantage point. The comfort you once associated with the space is replaced by a sense of dread. 
 Your thoughts race as you plan your next move.");
                             Game.sanity -= 10;
                             break;
                         case "chair":
-                            Console.WriteLine(@"You return to your chair, seeking a moment of respite from the weight of 
-the situation. The chair feels cold now, and as you sit, the full gravity of your
-actions begins to sink in.");
+                            Console.WriteLine(@"You return to your chair, seeking a moment of respite from the weight of the situation. The chair feels cold now, and as you sit, the full gravity of your actions begins to sink in.");
                             sittingOnChair = true;
                             Game.sanity -= 5;
 
@@ -1027,10 +994,10 @@ actions begins to sink in.");
                         officer4.ReactionUponSeeingMurderedChief();
                         break;
                     case "drinks":
-                        Console.WriteLine(" When you approach the drinks car, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        Console.WriteLine("When you approach the drinks car, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
                         break;
                     case "closet":
-                        Console.WriteLine(" When you open the closet, it doesn't make sense, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        Console.WriteLine("When you open the closet, it doesn't make sense, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
                         Game.PoliceSuspicion++;
                         break;
                     case "kitchen":
@@ -1092,10 +1059,10 @@ actions begins to sink in.");
                         Console.WriteLine("Your husband's body has been removed by the investigator, and only a small blood stain is left on the floor.");
                         break;
                     case "drinks":
-                        Console.WriteLine(" When you approach the drinks car, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        Console.WriteLine("When you approach the drinks car, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
                         break;
                     case "closet":
-                        Console.WriteLine(" When you open the closet, it doesn't make sense, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        Console.WriteLine("When you open the closet, it doesn't make sense, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
                         Game.PoliceSuspicion++;
                         break;
                     case "kitchen":
