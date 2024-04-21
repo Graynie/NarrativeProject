@@ -34,6 +34,9 @@ namespace NarrativeProject
         public static bool Callpolice = false;
         internal static bool PlayerClean;
         public static bool notedestroyed = false;
+        internal static int PoliceSuspicion=0;
+        internal static bool TalkToOfficers;
+        internal static bool lambLegOven=false;
 
         #endregion
 
@@ -271,7 +274,20 @@ namespace NarrativeProject
                 return CharacterState.Elated;
             }
         }
-        public static void checkEnding() { }
+
+        internal static void CheckPoliceSuspicion()
+        {
+            if (PoliceSuspicion > 6)
+            {
+                Console.WriteLine("Your action made the police officers seem suspicious. Later with the proofs they found out your actions");
+                Game.Transition<BadEndingTwo>();
+            }
+            else  if(PoliceSuspicion < -1)
+            {
+                Console.WriteLine(); 
+                Game.Transition<GoodEnding>();
+            }
+        }
 
         #endregion M
     }

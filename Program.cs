@@ -49,11 +49,13 @@ namespace NarrativeProject {
             game.Add(new BadEndingTwo());
             game.Add(new GoodEnding());
             game.Add(new Grocery());
-
+            PoliceOfficer officer1 = new PoliceOfficer("Carlos", "Detective", 10);
+            PoliceOfficer officer2 = new PoliceOfficer("Laura", "Inspector", 7);
+            
 
             while (!game.IsGameOver())
             {
-                
+                Game.CheckPoliceSuspicion();
                 Game.checkTemperament();
                 Game.InformationMenubar();
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");

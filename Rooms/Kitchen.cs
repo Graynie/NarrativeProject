@@ -14,7 +14,6 @@ namespace NarrativeProject.Rooms
         internal bool checkedFridge = false;
         internal bool checkedFreezer = false;
         internal bool insist = false;
-        public bool LambOven;
 
         internal override string CreateDescription()
         {
@@ -253,6 +252,7 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         {
                             Game.RemoveInventory("Marinated Leg Lamb");
                             Console.WriteLine(@"You put the leg of lamb in the oven, now no one will find the murder weapon, like alibi you could go buy vegetables and say you found your husband in the state that’s in the living room"); 
+                            Game.lambLegOven=true;
                         }
                         else
                         {

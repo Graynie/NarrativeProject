@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace NarrativeProject
 {
-    using System;
 
-    class PoliceOfficer
+    internal class PoliceOfficer
     {
         // Class properties
-        public string Name { get; set; }
-        public string Rank { get; set; }
-        public int YearsOfService { get; set; }
+        public static string Name { get; set; }
+        public static string Rank { get; set; }
+        public static int YearsOfService { get; set; }
 
         // Class constructor
         public PoliceOfficer(string name, string rank, int yearsOfService)
@@ -24,14 +25,14 @@ namespace NarrativeProject
         }
 
         // Method for reaction upon arriving at the chief's house and seeing him murdered
-        public void ReactionUponSeeingMurderedChief()
+        public virtual void ReactionUponSeeingMurderedChief()
         {
             string[] reactions = new[]
             {
-            $"{Name}: This is horrible. I can't believe what has happened!",
-            $"{Name}: What a tragic scene. I've worked with him for {YearsOfService} years, and he was a great chief.",
-            $"{Name}: This is shocking. We need to find out who did this.",
-            $"{Name}: This is one of the most terrible things I've seen in my {YearsOfService} years on the force."
+            $"{Name} ({Rank}): This is horrible. I can't believe what has happened!",
+            $"{Name} ({Rank}): What a tragic scene. I've worked with him for {YearsOfService} years, and he was a great chief.",
+            $"{Name} ({Rank}): This is shocking. We need to find out who did this.",
+            $"{Name} ({Rank}): This is one of the most terrible things I've seen in my {YearsOfService} years on the force."
         };
 
             Random random = new Random();
@@ -40,13 +41,13 @@ namespace NarrativeProject
         }
 
         // Method for offering condolences and reassuring the wife of the murdered chief
-        public void OfferCondolencesAndReassure()
+        public virtual void OfferCondolencesAndReassure()
         {
             string[] messages = new[]
             {
-            $"{Name}: I'm deeply sorry for your loss. He was a good man. I worked with him for {YearsOfService} years.",
-            $"{Name}: This is a difficult time. Stay calm; we are here to help you.",
-            $"{Name}: Please accept my deepest condolences. We will find who did this."
+            $"{Name} ({Rank}): I'm deeply sorry for your loss. He was a good man. I worked with him for {YearsOfService} years.",
+            $"{Name} ({Rank}): This is a difficult time. Stay calm; we are here to help you.",
+            $"{Name} ({Rank}): Please accept my deepest condolences. We will find who did this."
         };
 
             Random random = new Random();
@@ -59,9 +60,9 @@ namespace NarrativeProject
         {
             string[] comments = new[]
             {
-            $"{Name}: This leg of lamb is incredible! What a treat after a long day.",
-            $"{Name}: This is some of the best leg of lamb I've had in years.",
-            $"{Name}: It's been a tough day. This meal is a comfort."
+            $"{Name} ({Rank}): This leg of lamb is incredible! What a treat after a long day.",
+            $"{Name} ({Rank}): This is some of the best leg of lamb I've had in years.",
+            $"{Name} ({Rank}): It's been a tough day. This meal is a comfort."
         };
 
             Random random = new Random();
@@ -83,10 +84,10 @@ namespace NarrativeProject
         {
             string[] comments = new[]
             {
-            $"{Name}: This leg of lamb is quite flavorful, but something feels off...",
-            $"{Name}: This meal is delicious, but I can't shake the feeling that there's something unusual about it.",
-            $"{Name}: I'm enjoying this meal, but there's a peculiar taste to it.",
-            $"{Name}: The seasoning is different than usual. Did someone add a special ingredient?"
+            $"{Name} ({Rank}): This leg of lamb is quite flavorful, but something feels off...",
+            $"{Name} ({Rank}): This meal is delicious, but I can't shake the feeling that there's something unusual about it.",
+            $"{Name} ({Rank}): I'm enjoying this meal, but there's a peculiar taste to it.",
+            $"{Name} ({Rank}): The seasoning is different than usual. Did someone add a special ingredient?"
         };
 
             Random random = new Random();
@@ -95,24 +96,23 @@ namespace NarrativeProject
         }
     }
 
-   /* class Program
+    // ForensicOfficer class representing a forensic specialist
+    class ForensicOfficer : PoliceOfficer
     {
-       static void Main()
+        public ForensicOfficer(string name, string rank, int yearsOfService)
+            : base(name, rank, yearsOfService)
         {
-            // Create instances of the PoliceOfficer class
-            PoliceOfficer officer1 = new PoliceOfficer("Carlos", "Detective", 10);
-            PoliceOfficer officer2 = new PoliceOfficer("Laura", "Inspector", 7);
-            SpecialInvestigator officer3 = new SpecialInvestigator("Juan", "Patrol Officer", 3);
-
-            // Officers' reactions
-            officer1.ReactionUponSeeingMurderedChief();
-            officer2.OfferCondolencesAndReassure();
-            officer3.CommentOnLegOfLamb();
         }
-    }*/
 
-    internal class NPC
-    {
+        // Override reaction method for forensic officer
+        public override void ReactionUponSeeingMurderedChief()
+        {
+            Console.WriteLine($"{Name} ({Rank}): I'll examine the body and collect evidence.");
+        }
     }
 }
-    
+
+/*            officer1.ReactionUponSeeingMurderedChief();
+            officer2.OfferCondolencesAndReassure();
+            officer3.CommentOnLegOfLamb();
+            officer4.ReactionUponSeeingMurderedChief();*/

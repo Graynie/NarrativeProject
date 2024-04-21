@@ -157,12 +157,13 @@ the course of your life. What will you do next?
             }//Husband is dead
             else if (Game.gameScript == 7) 
             {
-                return @"";
+                return @"[continue]";
             }
             else if (Game.gameScript == 8) 
             {
                 return @"When the police arrive at the murder scene, they enter the living room cautiously, their expressions serious and focused. The lead officer immediately assesses the situation, his eyes narrowing as he takes in the sight of your husband's lifeless body. The other officers and forensic experts begin to spread out, carefully examining the area for evidence. There's a palpable tension in the air as they work, exchanging brief, whispered conversations as they document the scene. Despite their professional demeanor, you can sense their urgency to solve the case and bring justice for the victim.
-[continue]"; }//only get here if husband is dead
+[continue]";
+            }//only get here if husband is dead //police arrives
             else { return ""; }
         }
         internal override void ReceiveChoice(string choice)
@@ -954,81 +955,131 @@ actions begins to sink in.");
             else if (Game.gameScript == 8)
             {
                 switch (choice)
-                    {
-                        case "i":
-                            Game.DisplayInventory();
-                            break;
-                        case "bedroom":
-                            Console.WriteLine("You returned to the room, your husband is waiting for you in the living room.");
-                            Game.HusbandTemperament += 5;
-                            Game.Transition<Bedroom>();
-                            break;
-                        case "husband":
-                            if (Game.inventory.Contains("drink"))
-                            {
-                                Console.WriteLine("You gave your husband a drink");
-                                Console.WriteLine(LikedDrink());
-                                Game.RemoveInventory("drink");
-                                Game.HusbandDrunk += 10;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Your husband seems tired");
-                                Game.HusbandTemperament -= 5;
-                                if (Game.HusbandTemperament < 0)
-                                {
-                                    Game.gameScript = 3;
-                                }
-                            }
-                            break;
-                        case "drinks":
-                            Console.WriteLine("You have made a drink for you husband. This time it is a" + RandomDrink());
-
-                            break;
-                        case "closet":
-                            if (Game.inventory.Contains("coat"))
-                            {
-                                Console.WriteLine("You hang the coat on the closet");
-                                Game.RemoveInventory("coat");
-                            }
-                            else
-                            {
-                                Console.WriteLine("You are looking at the closed is a little dirty");
-                            }
-                            break;
-                        case "kitchen":
-                            if (Game.TalkToHusband == true)
-                            {
-                                Console.WriteLine($"You can cook your husband's souper here");
-                            }
-                            else
-                            {
-                                Console.WriteLine("You don't need to cook today your are supposed to go out to dinner with your husband, He is waiting in the living room.");
-                                Game.HusbandTemperament -= 5;
-                            }
-                            Game.Transition<Kitchen>();
-                            break;
-                        case "bathroom":
-                            Console.WriteLine("The bathroom looks clean, you cleaned it in the morning. Your husband is waiting in the living room.");
-                            Game.HusbandTemperament -= 5;
-                            Game.Transition<Bathroom>();
-                            break;
-                        case "fireplace":
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "bedroom":
+                        Console.WriteLine("You returned to the room, the officers are waiting for you in the living room.");
+                        Game.PoliceSuspicion++;
+                        Game.Transition<Bedroom>();
+                        break;
+                    case "husband":
+                        Console.WriteLine("Your husband is dead. There's nothing you can do for him now.As you look to his lifeless body a police officer says:");
+                        ForensicOfficer officer4 = new ForensicOfficer("Dr. Smith", "Forensic Specialist", 15);
+                        officer4.ReactionUponSeeingMurderedChief();
+                        break;
+                    case "drinks":
+                        Console.WriteLine(" When you approach the drinks car, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        break;
+                    case "closet":
+                        Console.WriteLine(" When you open the closet, it doesn't make sense, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        Game.PoliceSuspicion++;
+                        break;
+                    case "kitchen":
+                        if (Game.TalkToOfficers == true&& Game.lambLegOven==true)
+                        {
+                            Console.WriteLine("You can offer food to the officers here, Dont forget you have the Lamb's Leg on the oven.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("The officers are searching throughout the house to find evidence of who committed the crime.");
+                            Game.PoliceSuspicion++;
+                        }
+                        Game.Transition<Kitchen>();
+                        break;
+                    case "bathroom":
+                        Console.WriteLine("The bathroom looks clean, but you left the officers in the living room alone");
+                        Game.PoliceSuspicion++;
+                        Game.Transition<Bathroom>();
+                        break;
+                    case "fireplace":
+                        if (!fireplaceOn)
+                        {
+                            Console.WriteLine("Turning in at this time is not a good idea. Your intentions are suspicious to the officers.");
+                            Game.PoliceSuspicion++;
+                        }
+                        else {
                             fireplace();
-                            break;
-                        case "chair":
-                            Console.WriteLine("You are confortably sitting in your chair");
-                            if (Game.HusbandDrunk > 5)
-                            {
-                                Game.gameScript = 3;
-                            }
-                            break;
-                        default:
-                            Console.WriteLine("Invalid command.");
-                            break;
-                    }
+                            Console.WriteLine("Anything that could have been there now is gone. ");
+                        };
+                        break;
+                    case "talk to one of the officers ":
+                        SpecialInvestigator officer1 = new SpecialInvestigator("Juan", "Sergeant", 10);
+                        officer1.ReactionUponSeeingMurderedChief();
+                        officer1.OfferCondolencesAndReassure();
+                        Game.TalkToOfficers = true;
+                        Game.PoliceSuspicion--;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
                 }
-            
+            }
+            else if (Game.gameScript == 9)
+            {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "bedroom":
+                        Console.WriteLine("You returned to the room, the officers are waiting for you in the Kitchen");
+                        Game.PoliceSuspicion++;
+                        Game.Transition<Bedroom>();
+                        break;
+                    case "husband":
+                        Console.WriteLine("Your husband's body has been removed by the investigator, and only a small blood stain is left on the floor.");
+                        break;
+                    case "drinks":
+                        Console.WriteLine(" When you approach the drinks car, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        break;
+                    case "closet":
+                        Console.WriteLine(" When you open the closet, it doesn't make sense, the officers detect it as suspicious. Perhaps you should have a conversation with them to be less suspicious.");
+                        Game.PoliceSuspicion++;
+                        break;
+                    case "kitchen":
+                        if (Game.TalkToOfficers == true && Game.lambLegOven == true)
+                        {
+                            Console.WriteLine("You can offer food to the officers here, Dont forget you have the Lamb's Leg on the oven.");
+                        }
+                        else
+                        {
+                            Game.PoliceSuspicion++;
+                            Console.WriteLine("The officers are searching throughout the house to find evidence of who committed the crime.");
+                            Game.PoliceSuspicion++;
+                        }
+                        Game.Transition<Kitchen>();
+                        break;
+                    case "bathroom":
+                        Console.WriteLine("The bathroom looks clean, but you left the officers in the living room alone");
+                        Game.PoliceSuspicion++;
+                        Game.Transition<Bathroom>();
+                        break;
+                    case "fireplace":
+                        if (!fireplaceOn)
+                        {
+                            Console.WriteLine("Turning in at this time is not a good idea. Your intentions are suspicious to the officers.");
+                            Game.PoliceSuspicion++;
+                        }
+                        else
+                        {
+                            fireplace();
+                            Console.WriteLine("Anything that could have been there now is gone. ");
+                        };
+                        break;
+                    case "talk to one of the officers ":
+                        SpecialInvestigator officer1 = new SpecialInvestigator("Juan", "Sergeant", 10);
+                        officer1.ReactionUponSeeingMurderedChief();
+                        officer1.OfferCondolencesAndReassure();
+                        Game.TalkToOfficers = true;
+                        Game.PoliceSuspicion--;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
+            }
             else
             {
                 switch (choice)
