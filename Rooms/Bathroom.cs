@@ -81,7 +81,7 @@ that seem larger darker than before.");
                 }
 
             }
-            else if(Game.gameScript <=6) 
+            else if(Game.gameScript ==6) 
             {
                 switch (choice)
                 {
@@ -124,8 +124,16 @@ that seem larger darker than before.");
                     case "sink":
                         if (Game.husbandDead || !Game.cleanKill)
                         {
-                            Console.WriteLine("You meticulously wash the blood from your hands and face, trying to erase any evidence of what you've done.");// salpicada de sangre
+                            Console.WriteLine("You meticulously wash the blood from your hands and face, trying to erase any evidence of what you've done. But the sink is dirty");// salpicada de sangre
                             Game.IncreaseSanity();
+                            Game.SinkDirty=true;
+                        }
+                        else if(Game.inventory.Contains("Cleaning suply") && !Game.cleanKill)
+                        {
+                            Console.WriteLine("You meticulously clean the sink, now it doesn't have any trace of blood");
+                            Game.IncreaseSanity();
+                            Game.RemoveInventory("Cleaning suply");
+                            Game.SinkDirty = false;
                         }
                         else
                         {
@@ -145,7 +153,7 @@ that seem larger darker than before.");
                         }
                         break;
                     case "cabinet":
-                        if (takenCleaning == false)
+                        if (takenCleaning == false && !Game.cleanKill)
                         {
                             Console.WriteLine("You find some cleaning liquids in the cabinet.");
                             Game.AddInventory("Cleaning suply");

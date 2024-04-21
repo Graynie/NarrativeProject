@@ -37,6 +37,7 @@ namespace NarrativeProject
         public static int PoliceSuspicion=0;
         public static bool TalkToOfficers;
         public static bool lambLegOven=false;
+        public static bool SinkDirty = false;
 
         #endregion
 

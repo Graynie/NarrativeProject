@@ -458,12 +458,14 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             break;
                         case "drink":
                             Console.WriteLine("You have made a drink for you husband. This time it is a" + RandomDrink());
+                            Game.sanity += 5;
                             break;
                         case "closet":
                             if (Game.inventory.Contains("coat"))
                             {
                                 Console.WriteLine("You hang the coat on the closet");
                                 Game.RemoveInventory("coat");
+                                Game.HusbandTemperament += 20;
                             }
                             else
                             {

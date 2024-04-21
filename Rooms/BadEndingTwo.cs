@@ -70,6 +70,10 @@ Reason why you failed:" +Failed()+ "\n Go [back] to the Title Page or [exit] Gam
             {
                 text += "\nYou were visibly drunk that made them easier to detect your lies";
             }
+            else if (Game.SinkDirty)
+            {
+                text += "\nYou left the sink stained with blood";
+            }
             else
             {
 
