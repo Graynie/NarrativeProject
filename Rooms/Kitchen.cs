@@ -14,6 +14,7 @@ namespace NarrativeProject.Rooms
         internal bool checkedFridge = false;
         internal bool checkedFreezer = false;
         internal bool insist = false;
+        public bool LambOven;
 
         internal override string CreateDescription()
         {
@@ -161,10 +162,34 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         }
                         break;
                     case "freezer":
-                        Console.WriteLine("Upon checking the freezer, you discover that there is meat, but no ice cream.");
+                        Console.WriteLine("Upon checking the freezer, you discover that there is meat, but no ice cream.You take something to make souper for your husband");
+                        Game.AddInventory("Lamb Leg");
                         break;
                     case "fridge":
-                        Console.WriteLine("When you open the fridge, you find that there are no fresh vegetables.");
+                        Console.WriteLine("When you open the fridge, you find that there are no fresh vegetables. To do the souper you will need to go to the Grocery store");
+                        break;
+                    case "oven":
+                        if (Game.inventory.Contains("Marinated Leg Lamb"))
+                        {
+                            Game.RemoveInventory("Marinated Leg Lamb");
+                            Console.WriteLine(@"You put the leg of lamb in the oven, now no one will find the murder weapon, like alibi you could go buy vegetables and say you found your husband in the state that’s in the living room");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid command.");
+                        }
+                        break;
+                    case "marinate":
+                        if (Game.inventory.Contains("Lamb Leg with blood"))
+                        {
+                            Game.RemoveInventory("Lamb Leg with blood");
+                            Game.AddInventory("Marinated Leg Lamb");
+                            Console.WriteLine("You have marinated the leg of lamb now you can put it in the oven");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid command.");
+                        }
                         break;
                     default:
                         Console.WriteLine("Invalid command.");

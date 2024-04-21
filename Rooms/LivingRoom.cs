@@ -21,6 +21,7 @@ namespace NarrativeProject.Rooms
         internal int randomNumber = 0;
         internal string LikeDrink = "Yes";
         internal bool insist = false;
+        public bool examineBody;
         
         
         internal override string CreateDescription()
@@ -118,7 +119,7 @@ the [Grocery] store, or go to one
 of the other rooms: [closet], [kitchen], 
 [bathroom], [bedroom]";
                 }
-            }//Kill or be left
+            }//Kill or be left--> Bad ending 1
             else if (Game.gameScript == 6)
             {
                 if (sittingOnChair)
@@ -600,6 +601,7 @@ leaving you standing over him, weapon in hand.");
                                 Game.RemoveInventory("Lamb Leg");
                                 Game.cleanKill = true;
                                 Game.husbandDead = true;
+                                examineBody = false;
                                 Game.gameScript = 6;
                             }
                             else if (Game.inventory.Contains("baseball bat"))
@@ -613,6 +615,7 @@ ending Patrick's life.");
                                 Game.AddInventory("stained baseball bat");
                                 Game.RemoveInventory("baseball bat");
                                 Game.husbandDead = true;
+                                examineBody = false;
                                 Game.gameScript = 6;
                             }
                             else if (Game.inventory.Contains("knife"))
@@ -631,6 +634,7 @@ or will you try to clean up and dispose of the evidence?");
                                 Game.AddInventory("stained knife");
                                 Game.RemoveInventory("knife");
                                 Game.cleanKill = false;
+                                examineBody = false;
                                 Game.husbandDead = true;
                                 Game.gameScript = 6;
                             }
@@ -691,10 +695,10 @@ but the reality of Patrick's decision still looms large in your mind.");
 The thought of escaping the tension at home is tempting,
 but you know you can't avoid the situation forever.
 Patrick remains by the window, seemingly unbothered
-by your potential departure.");
+by your potential departure. If you still want to go you can [insist] to go");
                             Game.sanity += 15;
-                            Game.HusbandTemperament += 55;
-                            Game.Transition<Grocery>();
+                            Game.HusbandTemperament += 5;
+                            
                             break;
                         case "fireplace":
                             if (fireplaceOn == true)
@@ -709,6 +713,11 @@ You watch the flames dance, your mind racing with possibilities.");
                             {
                                 fireplace();
                             }
+                            break;
+                        case "insist":
+                            Game.HusbandTemperament += 100;
+                            Console.WriteLine("You when to the Grocery store and bougth some vegetables for the dinner, but when you came back home, he was no longer there ");
+                            Game.Transition<BadEnding>();
                             break;
                         case "drinks":
                             Console.WriteLine(@"You walk over to the drinks cart, searching for a distraction.
@@ -814,6 +823,7 @@ I long for the day when we can cast away the shadows and
 be together without fear. Until then, know that you are 
 always in my thoughts.
 Whith Love");
+                            examineBody = true;
                             Game.AddInventory("note");
                             break;
                         case "think":
@@ -849,8 +859,12 @@ You could wash away any traces of the incident or search for medication to calm 
                             Game.sanity += 5;
                             break;
                         case "grocery":
-                            Console.WriteLine(@"You shouldn`t leave the body in that state, Are you sure you want to go? if yes enter[grocery again]");
+                            if (!examineBody|| !Game.PlayerClean)
+                            {
+
+                            Console.WriteLine(@"You shouldn`t leave the body in that state,or your appeareance how it looks. Are you sure you want to go? if yes enter[insist]");
                             Game.sanity -= 5;
+                            }
                             break;
                         case "fireplace":
                              if (Game.inventory.Contains("note"))
@@ -883,6 +897,11 @@ The liquid's warmth calms you, but your mind remains alert to the task at hand."
                             Game.sanity -= 5;
                             Game.DrunkPlayer = true;
                             break;
+                        case "insist":
+                            Console.WriteLine("You decide to go despite the situation left behind");
+                            Console.WriteLine("When you came back, you notice that the police is already home, and enter at the same time as you");
+                            Game.Transition<BadEndingTwo>();
+                            break;
                         case "sofa":
                             Console.WriteLine(@"You sit on your husband's sofa, taking in the scene from a 
 new vantage point. The comfort you once associated with the space is replaced by a sense of dread. 
@@ -900,7 +919,7 @@ actions begins to sink in.");
                     }
                 }
             }
-            else if(Game.gameScript == 7)
+            else if (Game.gameScript == 7)
             {
                 switch (choice)
                 {
@@ -910,7 +929,7 @@ actions begins to sink in.");
                     case "continue":
                         if(Game.inventory.Contains(""))
                             Console.WriteLine();
-
+                        Game.gameScript = 8;
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -1007,16 +1026,17 @@ actions begins to sink in.");
                         Game.Transition<Bedroom>();
                         break;
                     case "drinks":
-                        Console.WriteLine("Drinks car");
+                        Console.WriteLine("It's not the rigth moment for this");
                         break;
                     case "closet":
-                        Console.WriteLine("You are looking at the closed is a little dirty");
+                        Console.WriteLine("As you open the closet a police officer checks it too, there is nothing that can make them suspicious");
                         break;
                     case "sofa":
-                        Console.WriteLine("You are sitting in your husbands chair, Will he get mad?");
+                        Console.WriteLine("You are sitting in your husbands chair, This help to calm your nerves");
+                        Game.IncreaseSanity();
                         break;
                     case "kitchen":
-                        Console.WriteLine("You can cook here");
+                        Console.WriteLine("The lamb is ready you take it out and tell the officer");
                         Game.Transition<Kitchen>();
                         break;
                     case "bathroom":
