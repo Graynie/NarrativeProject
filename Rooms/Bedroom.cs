@@ -77,7 +77,6 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                     case "nap":
                         Console.WriteLine("You settle into bed, hoping to pass the time until your husband arrives.");
                         Game.gameScript = 1;
-                        Game.SetTime(17,0,0);
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -143,7 +142,6 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                     case "nap":
                         Console.WriteLine("You settle into bed, hoping to pass the time");
                         Game.gameScript = 1;
-                        Game.AddTime(1, 0, 0);
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -168,7 +166,6 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                     case "nap":
                         Console.WriteLine("You settle into bed, hoping to pass the time");
                         Game.gameScript = 1;
-                        Game.AddTime(1, 0, 0);
                         break;
                     default:
                         Console.WriteLine("Invalid command.");

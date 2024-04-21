@@ -22,6 +22,7 @@ namespace NarrativeProject.Rooms
         internal string LikeDrink = "Yes";
         internal bool insist = false;
         public bool examineBody;
+        internal int stepsUntilNext =0;
         
         
         internal override string CreateDescription()
@@ -158,29 +159,35 @@ the course of your life. What will you do next?
             {
                 return @"";
             }
-            else { return @"When the police arrive at the murder scene, they enter the living room cautiously, their expressions serious and focused. The lead officer immediately assesses the situation, his eyes narrowing as he takes in the sight of your husband's lifeless body. The other officers and forensic experts begin to spread out, carefully examining the area for evidence. There's a palpable tension in the air as they work, exchanging brief, whispered conversations as they document the scene. Despite their professional demeanor, you can sense their urgency to solve the case and bring justice for the victim.
+            else if (Game.gameScript == 8) 
+            {
+                return @"When the police arrive at the murder scene, they enter the living room cautiously, their expressions serious and focused. The lead officer immediately assesses the situation, his eyes narrowing as he takes in the sight of your husband's lifeless body. The other officers and forensic experts begin to spread out, carefully examining the area for evidence. There's a palpable tension in the air as they work, exchanging brief, whispered conversations as they document the scene. Despite their professional demeanor, you can sense their urgency to solve the case and bring justice for the victim.
 [continue]"; }//only get here if husband is dead
+            else { return ""; }
         }
         internal override void ReceiveChoice(string choice)
         {
             if (Game.gameScript == 0)
             {
-                if (sittingOnChair == true)
+                stepsUntilNext += 1;
+                if (stepsUntilNext > 7)
                 {
-                    switch (choice)
-                    {
+                    Game.gameScript=1;
+                }
+                else if (sittingOnChair == true)
+                {
+                     switch (choice)
+                        {
                         case "i":
                             Game.DisplayInventory();
                             break;
                         case "sew":
                             Console.WriteLine("You continue sewing a pair of boots for a baby");
-                            Game.timeHour++;
                             break;
                         case "stand":
                             sittingOnChair = false;
                             Console.WriteLine(@"As you carry your not yet born baby, you feel a bit dizzy and
                                  your belly is heavy.");
-                            Game.AddTime(0,0,5);
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
@@ -927,9 +934,17 @@ actions begins to sink in.");
                         Game.DisplayInventory();
                         break;
                     case "continue":
-                        if(Game.inventory.Contains(""))
-                            Console.WriteLine();
+                        if(Game.inventory.Contains("note")|| Game.inventory.Contains("Lamb Leg with blood")|| Game.inventory.Contains("stained baseball bat")|| Game.inventory.Contains("stained knife")||examineBody==false||!Game.PlayerClean)
+                        {
+
+                        Console.WriteLine();
+                        Game.Transition<BadEndingTwo>();
+                        }
+                        else
+                        {
                         Game.gameScript = 8;
+
+                        }
                         break;
                     default:
                         Console.WriteLine("Invalid command.");

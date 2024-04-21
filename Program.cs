@@ -54,7 +54,6 @@ namespace NarrativeProject {
             while (!game.IsGameOver())
             {
                 
-                Game.CheckTime();
                 Game.checkTemperament();
                 Game.InformationMenubar();
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");

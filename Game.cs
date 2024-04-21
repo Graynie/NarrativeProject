@@ -19,9 +19,6 @@ namespace NarrativeProject
         static bool isFinished;
         static string nextRoom = "";
         static string nameOfRoom = "";
-        public static int timeHour = 16;
-        static int timeMinute = 0;
-        static int timeMinuteDigit = 0;
         internal static int sanity = 80;
         public static bool lambLeg = false;
         public static int gameScript = 0;
@@ -60,18 +57,6 @@ namespace NarrativeProject
         public static void killHusband()
         {
             husbandDead = true;
-        }
-        public static void AddTime(int h,int m, int m2) 
-        {
-            timeHour+=h;
-            timeMinute+= m;
-            timeMinuteDigit+=m2;
-        }
-        public static void SetTime(int h,int m,int m2)
-        {
-            h = timeHour;
-            m = timeMinute;
-            m2 =timeMinuteDigit;
         }
         public static int NextStepScript()
         { return gameScript++; }
@@ -116,7 +101,7 @@ namespace NarrativeProject
             {
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("   Room: " + nameOfRoom+ "                       Time: "+timeHour +"H"+ timeMinute  + timeMinuteDigit +"                            State: " + DetermineCharacterState(sanity)+"                      ") ;
+                Console.WriteLine("   Room: " + nameOfRoom+ "                                                                                      State: " + DetermineCharacterState(sanity)+"                      ") ;
                 MethodColorBasic();
                 
             }
@@ -132,6 +117,7 @@ namespace NarrativeProject
             else if (Game.gameScript == 1) 
             {
                 Console.WriteLine("It's 5 o'clock, Your husband have arrived");
+                Console.WriteLine("You begin to listen, and a few moments later, punctually as always, you hear the tires on the gravel outside, the car door slamming, the footsteps passing the window, and the key turning in the lock.");
             }
             else if (Game.gameScript ==2)
             {
@@ -167,34 +153,6 @@ namespace NarrativeProject
                     break;
                 }
             }
-        }
-        public static void CheckTime()
-        {
-            if (timeMinute >= 6)
-            {
-                timeMinute = 0;
-                timeHour++;
-            }
-            else if (timeHour == 24)
-            {
-                timeHour = 0;
-            }
-            else { }
-            MethodColorGray();
-            if (timeHour >= 17 && timeHour < 18 && shownOnce == false)
-            {
-                Console.WriteLine(@"You begin to listen, and a few moments later, punctually 
-as always, you hear the tires on the gravel outside, the 
-car door slamming, the footsteps passing the window, and
-the key turning in the lock.");
-                shownOnce = true;
-                NextStepScript();
-            }
-            else 
-            {
-                
-            }
-                MethodColorBasic();
         }
         internal static void saveGame()
         {

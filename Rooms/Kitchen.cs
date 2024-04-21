@@ -208,7 +208,7 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         Game.Transition<LivingRoom>();
                         break;
                     case "phone":
-                        if (insist = true)
+                        if (insist == true)
                         {
                             Console.WriteLine(@"As you dial the emergency number, your hands tremble with nervousness and fear. You know the police need to be called, but the sight of the bloodied weapon still in your hands fills you with dread. Knowing they will notice you are the one who killed Patrick");
                             Game.Transition<BadEndingTwo>();
@@ -309,7 +309,7 @@ How are you? Patrick is doing well.
 We had a nice time at the dinner last week. 
 Do you have any tips for a roast beef recipe? 
 You talked with your mom for an hour");
-                Game.timeHour = 5;
+                if (Game.gameScript == 0) { Game.gameScript = 1; }
             }
             else if (randomNumber == 4)
             {
