@@ -4,8 +4,8 @@ namespace NarrativeProject.Rooms
 {
     internal class Bedroom : Room
     {
-        internal bool bedDone=false;
-        internal bool bat=false;
+        internal static bool bedDone=false;
+        internal static  bool bat=false;
 
         internal override string CreateDescription()
         { 
@@ -59,6 +59,9 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
                         Game.Transition<LivingRoom>();
@@ -83,12 +86,15 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                 }
             }
-            else if (Game.gameScript == 1 || Game.gameScript == 2 || Game.gameScript == 3 || Game.gameScript == 4 )
+            else if (Game.gameScript == 1 || Game.gameScript == 2 || Game.gameScript == 3 || Game.gameScript == 4)
             {
                 switch (choice)
                 {
                     case "i":
                         Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -114,7 +120,6 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                 }
             }
-
             else if (Game.gameScript == 5)
             {
                 switch (choice)
@@ -122,13 +127,16 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
                         Game.Transition<LivingRoom>();
                         break;
                     case "examine":
                         Console.WriteLine("You carefully examine the room, searching for any hidden items.");
-                        if (bat==false)
+                        if (bat == false)
                         {
                             Console.WriteLine("you already checked and found a baseball bat, now there is nothing.");
                         }
@@ -155,6 +163,9 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
                         Game.Transition<LivingRoom>();
@@ -174,13 +185,42 @@ You can examine the [room] to find hidden items, or go back to the [living] room
             }
             else if (Game.Callpolice)
             {
-
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
+                    case "living":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
             }
-            else 
+            else
             {
-            
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
+                    case "living":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
             }
-
         }
     }
 }

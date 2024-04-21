@@ -10,20 +10,20 @@ namespace NarrativeProject
     internal class Game
     {
         #region "Variable"
-
-        List<Room> rooms = new List<Room>();
+        public static string filePath = "gameSave.json";
+        public static List<Room> rooms = new List<Room>();
         public static List<string> inventory = new List<string>();
         public static string thing = "";
-        Room currentRoom;
-        internal bool IsGameOver() => isFinished;
-        static bool isFinished;
-        static string nextRoom = "";
-        static string nameOfRoom = "";
-        internal static int sanity = 80;
+        public static Room currentRoom;
+        public static bool IsGameOver() => isFinished;
+        public static bool isFinished;
+        public static string nextRoom = "";
+        public static string nameOfRoom = "";
+        public static int sanity = 80;
         public static bool lambLeg = false;
         public static int gameScript = 0;
         public static bool husbandDead = false;
-        internal static bool shownOnce = false;
+        public static bool shownOnce = false;
         public static int HusbandTemperament = 5;
         public static int HusbandDrunk = 0;
         public static bool TalkToHusband = false;
@@ -32,11 +32,11 @@ namespace NarrativeProject
         public static bool DrunkPlayer = false;
         public static bool insistGocery = false;
         public static bool Callpolice = false;
-        internal static bool PlayerClean;
+        public static bool PlayerClean;
         public static bool notedestroyed = false;
-        internal static int PoliceSuspicion=0;
-        internal static bool TalkToOfficers;
-        internal static bool lambLegOven=false;
+        public static int PoliceSuspicion=0;
+        public static bool TalkToOfficers;
+        public static bool lambLegOven=false;
 
         #endregion
 
@@ -290,5 +290,6 @@ namespace NarrativeProject
 
         #endregion M
     }
+
 
 }

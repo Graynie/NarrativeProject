@@ -38,21 +38,19 @@ will arrive at 5 o'clock as everyday");
                     Game.Transition<LivingRoom>();
                     break;
                 case "saved":
-
-                    Console.WriteLine("You started the your saved file");
-                    var bf = new BinaryFormatter();
-                    /*saveData = bf.Deserialize(File.OpenRead(SaveFile)) as SaveData;
-                    Console.WriteLine($"{saveData.stringToSave} {saveData.numberToSave}");
-                    */
+                    GameSaveSystem.LoadGame(Game.filePath);
                     break;
                 case "exit":
                     Console.WriteLine("Bye");
+                    Environment.Exit(0);
                     break;
+
+
                 default:
                     Console.WriteLine("Invalid command.");
                     break;
             }
-            Environment.Exit(0);
+            
         }
     }
 }

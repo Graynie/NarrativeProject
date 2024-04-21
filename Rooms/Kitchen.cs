@@ -12,10 +12,10 @@ namespace NarrativeProject.Rooms
 {
     internal class Kitchen : Room
     {
-        internal bool dishesClean = false;
-        internal bool checkedFridge = false;
-        internal bool checkedFreezer = false;
-        internal bool insist = false;
+        internal static bool dishesClean = false;
+        internal static bool checkedFridge = false;
+        internal static bool checkedFreezer = false;
+        internal static bool insist = false;
 
         internal override string CreateDescription()
         {
@@ -101,11 +101,15 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
         }
         internal override void ReceiveChoice(string choice)
         {
-            if (Game.gameScript == 0 || Game.gameScript == 1 || Game.gameScript == 2 || Game.gameScript == 3 || Game.gameScript == 4) {
+            if (Game.gameScript == 0 || Game.gameScript == 1 || Game.gameScript == 2 || Game.gameScript == 3 || Game.gameScript == 4)
+            {
                 switch (choice)
                 {
                     case "i":
                         Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -137,11 +141,15 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                 }
             }
-            else if(Game.gameScript == 5) {
+            else if (Game.gameScript == 5)
+            {
                 switch (choice)
                 {
                     case "i":
                         Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -197,12 +205,15 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                 }
             }
-            else if (Game.gameScript == 6) 
+            else if (Game.gameScript == 6)
             {
                 switch (choice)
                 {
                     case "i":
                         Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -253,21 +264,21 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         if (Game.inventory.Contains("Marinated Leg Lamb"))
                         {
                             Game.RemoveInventory("Marinated Leg Lamb");
-                            Console.WriteLine(@"You put the leg of lamb in the oven, now no one will find the murder weapon, like alibi you could go buy vegetables and say you found your husband in the state that’s in the living room"); 
-                            Game.lambLegOven=true;
+                            Console.WriteLine(@"You put the leg of lamb in the oven, now no one will find the murder weapon, like alibi you could go buy vegetables and say you found your husband in the state that’s in the living room");
+                            Game.lambLegOven = true;
                         }
                         else
                         {
                             Console.WriteLine("Invalid command.");
                         }
-                            break;
+                        break;
                     case "marinate":
                         if (Game.inventory.Contains("Lamb Leg with blood"))
-                                {
+                        {
                             Game.RemoveInventory("Lamb Leg with blood");
                             Game.AddInventory("Marinated Leg Lamb");
                             Console.WriteLine("You have marinated the leg of lamb now you can put it in the oven");
-                                }
+                        }
                         else
                         {
                             Console.WriteLine("Invalid command.");
@@ -285,14 +296,17 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
                         Game.Transition<LivingRoom>();
                         Game.DecraseSanity();
                         break;
                     case "phone":
-                            Console.WriteLine("");
-                            Game.DecraseSanity();
+                        Console.WriteLine("");
+                        Game.DecraseSanity();
                         break;
                     case "sink":
                         if (dishesClean == false)
@@ -336,14 +350,14 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         {
                             Console.WriteLine("Invalid command.");
                         }
-                        if (Game.gameScript <= 8&& Game.lambLegOven == true)
+                        if (Game.gameScript <= 8 && Game.lambLegOven == true)
                         {
                             Console.WriteLine(@"Feeding the cops the leg of lamb will allow you to completely misfire the gun, making it impossible for anyone to suspect. ");
                             Game.AddInventory("Cooked Lamb Leg");
                         }
                         break;
                     case "talk":
-                        if(Game.inventory.Contains("Cooked Lamb Leg"))
+                        if (Game.inventory.Contains("Cooked Lamb Leg"))
                         {
                             Console.WriteLine(@"""Would you do me and these others a small favor?"" Mrs.Maloney asked.
 ""We can try,"" Sergeant Noonan replied.
@@ -362,9 +376,47 @@ listening to their voices as they spoke with their mouths full.");
                         break;
                 }
             }
-            else { }
+            else
+            {
+                switch (choice)
+                {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
+                    case "living room":
+                        Console.WriteLine("You decide to go back to the living room.");
+                        Game.Transition<LivingRoom>();
+                        break;
+                    case "phone":
+                        Console.WriteLine("You decide to call someone");
+                        RamdomCall();
+                        break;
+                    case "sink":
+                        if (dishesClean == false)
+                        {
+                            Console.WriteLine("You approach the sink and start washing dishes.");
+                            dishesClean = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no dishes that require cleaning.");
+                        }
+                        break;
+                    case "freezer":
+                        Console.WriteLine("Upon checking the freezer, you discover that there is meat, but no ice cream.");
+                        break;
+                    case "fridge":
+                        Console.WriteLine("When you open the fridge, you find that there are no fresh vegetables.");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid command.");
+                        break;
+                }
             }
-
+        }
 
 
         internal void RamdomCall()

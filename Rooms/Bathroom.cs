@@ -44,6 +44,12 @@ You can also use the [toilet] or return to the [living] room, where the tension 
             {
                 switch (choice)
                 {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "mirror":
                         if (!Game.husbandDead)
                         {
@@ -79,6 +85,12 @@ that seem larger darker than before.");
             {
                 switch (choice)
                 {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "mirror":
                         if (!Game.husbandDead)
                         {
@@ -176,6 +188,12 @@ You rehearsed it several times more. Until it feels more natural");
             {
                 switch (choice)
                 {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "mirror":
                         Console.WriteLine(@"As you gaze into the mirror, you see your reflection, your skin glowing with the radiance of pregnancy.
 Your mouth appears soft, and your eyes, though placid, betray a hint of anxiety as
@@ -197,6 +215,12 @@ you contemplate whether everything is proceeding smoothly, even with the police 
             {
                 switch (choice)
                 {
+                    case "i":
+                        Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "mirror":
                         if (!Game.husbandDead)
                         {

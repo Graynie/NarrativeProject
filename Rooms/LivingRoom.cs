@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
@@ -15,14 +16,14 @@ namespace NarrativeProject.Rooms
 
     internal class LivingRoom : Room
     {
-        private bool sittingOnChair = true;
+        internal static bool sittingOnChair = true;
         internal static bool greetHusband = false;
-        internal bool fireplaceOn = false;
-        internal int randomNumber = 0;
-        internal string LikeDrink = "Yes";
-        internal bool insist = false;
-        public bool examineBody;
-        internal int stepsUntilNext =0;
+        internal static bool fireplaceOn = false;
+        internal static int randomNumber = 0;
+        internal static string LikeDrink = "Yes";
+        internal static bool insist = false;
+        internal static bool examineBody;
+        internal static int stepsUntilNext =0;
         
         
         internal override string CreateDescription()
@@ -155,16 +156,31 @@ the course of your life. What will you do next?
 - [plan your alibi]: Construct a believable story to account for your whereabouts.";
                 }
             }//Husband is dead
-            else if (Game.gameScript == 7) 
+            else if (Game.gameScript == 7)
             {
                 return @"[continue]";
-            }
-            else if (Game.gameScript == 8) 
+            }//Talk with the police
+            else if (Game.gameScript == 8)
             {
                 return @"When the police arrive at the murder scene, they enter the living room cautiously, their expressions serious and focused. The lead officer immediately assesses the situation, his eyes narrowing as he takes in the sight of your husband's lifeless body. The other officers and forensic experts begin to spread out, carefully examining the area for evidence. There's a palpable tension in the air as they work, exchanging brief, whispered conversations as they document the scene. Despite their professional demeanor, you can sense their urgency to solve the case and bring justice for the victim.
 [continue]";
+
             }//only get here if husband is dead //police arrives
-            else { return ""; }
+            else if (Game.gameScript<8) 
+            {
+                return @"You are in the living room. You can:
+- [i]: Display inventory
+- [bedroom]: Return to your room
+- Look were your [husband] body was lying.
+- Approach the [drinks] cart 
+- Check the [closet]
+- Officers are searching for evidence in the [kitchen]
+- Go to the [bathroom]
+- Aproach the [fireplace]
+- [talk] to one of the officers
+";
+            }//Do the correct actions to get to the good ending
+            else { return "Go [back] to the Title Page or [exit] Game"; }
         }
         internal override void ReceiveChoice(string choice)
         {
@@ -181,6 +197,9 @@ the course of your life. What will you do next?
                         {
                         case "i":
                             Game.DisplayInventory();
+                            break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "sew":
                             Console.WriteLine("You continue sewing a pair of boots for a baby");
@@ -201,6 +220,9 @@ the course of your life. What will you do next?
                     {
                         case "i":
                             Game.DisplayInventory();
+                            break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "bedroom":
                             Console.WriteLine("You returned to the room.");
@@ -248,6 +270,9 @@ the course of your life. What will you do next?
                         case "i":
                             Game.DisplayInventory();
                             break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
+                            break;
                         case "greet":
                             Console.WriteLine(@"You kiss your Husband, Patrick.
 “Hullo darling,” you say.
@@ -275,6 +300,9 @@ on his sofa");
                     {
                         case "i":
                             Game.DisplayInventory();
+                            break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "chair":
                             Console.WriteLine(@"Your husband looks weirdly at you, but 
@@ -392,6 +420,9 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                         case "i":
                             Game.DisplayInventory();
                             break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
+                            break;
                         case "bedroom":
                             Console.WriteLine("You returned to the room, your husband is waiting for you in the living room. Maybe you can get his slippers");
                             Game.Transition<Bedroom>();
@@ -485,6 +516,9 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "continue":
                         Game.gameScript = 4;
                         Console.WriteLine(@"You start to feel frightened when he tells you to sit down. You sit back slowly, watching him with large, confused eyes. 
@@ -508,6 +542,9 @@ let's keep this quiet for my job's sake.""""[continue]");
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "continue":
                         Game.gameScript = 5;
                         Console.WriteLine(@"Your first instinct is to disbelieve everything he said, to reject it all.
@@ -528,6 +565,9 @@ Maybe if you just carry on as if you hadn't heard anything, you might wake up la
                     {
                         case "i":
                             Game.DisplayInventory();
+                            break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "talk":
                             Console.WriteLine(@"You try to speak to Patrick,
@@ -591,6 +631,9 @@ Your mind races as you weigh the possible outcomes and repercussions.");
                     {
                         case "i":
                             Game.DisplayInventory();
+                            break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "aproach":
                             if (Game.inventory.Contains("Lamb leg"))
@@ -765,6 +808,9 @@ distance between you and Patrick feels almost insurmountable in this moment.");
                         case "i":
                             Game.DisplayInventory();
                             break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
+                            break;
                         case "talk":
                             Console.WriteLine(@"Your husband lies lifeless on the floor. 
 You try to speak, but the room is filled with an eerie silence.
@@ -818,6 +864,9 @@ and you are acutely aware that you must face the consequences of your next move 
                     {
                         case "i":
                             Game.DisplayInventory();
+                            break;
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
                             break;
                         case "examine":
                             Console.WriteLine(@"You approach Patrick's body cautiously,
@@ -934,6 +983,9 @@ actions begins to sink in.");
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "continue":
                         if(Game.inventory.Contains("note")|| Game.inventory.Contains("Lamb Leg with blood")|| Game.inventory.Contains("stained baseball bat")|| Game.inventory.Contains("stained knife")||examineBody==false||!Game.PlayerClean)
                         {
@@ -958,6 +1010,9 @@ actions begins to sink in.");
                 {
                     case "i":
                         Game.DisplayInventory();
+                        break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
                         break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room, the officers are waiting for you in the living room.");
@@ -1023,6 +1078,9 @@ actions begins to sink in.");
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room, the officers are waiting for you in the Kitchen");
                         Game.PoliceSuspicion++;
@@ -1087,6 +1145,9 @@ actions begins to sink in.");
                     case "i":
                         Game.DisplayInventory();
                         break;
+                    case "save":
+                        GameSaveSystem.SaveGame(Game.filePath);
+                        break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room.");
                         Game.Transition<Bedroom>();
@@ -1115,6 +1176,14 @@ actions begins to sink in.");
                     case "sew":
                         Console.WriteLine("You continue sewing a pair of baby boots");
                         break;
+                    case "back":
+                        Start.IsStartMenu = true;
+                        Game.Transition<Start>();
+                        break;
+                    case "exit":
+                        Console.WriteLine("Bye");
+                        Environment.Exit(0);
+                        break;
                     default:
                         Console.WriteLine("Invalid command.");
                         break;
@@ -1134,8 +1203,6 @@ actions begins to sink in.");
                 Console.WriteLine("You lit the fireplace");
             }
         }
-        
-        //Ramdom assigned drink every time player aproach drink car
         internal string RandomDrink()
         {
             string[] drinks = new[]
@@ -1150,7 +1217,7 @@ actions begins to sink in.");
             Game.AddInventory("drink");
 
             return drinks[randomNumber];
-        }
+        }//Ramdom assigned drink every time player aproach drink car
         internal string LikedDrink()
         {
             // Dictionary mapping each random number to a response and temperament adjustment
