@@ -13,7 +13,6 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace NarrativeProject.Rooms
 {
-
     internal class LivingRoom : Room
     {
         internal static bool sittingOnChair = true;
@@ -24,8 +23,6 @@ namespace NarrativeProject.Rooms
         internal static bool insist = false;
         internal static bool examineBody;
         internal static int stepsUntilNext =0;
-        
-        
         internal override string CreateDescription()
         {
             if (Game.gameScript == 0)

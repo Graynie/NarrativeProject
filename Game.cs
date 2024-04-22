@@ -114,7 +114,7 @@ namespace NarrativeProject
         {
             MethodColorBlue();
             if (Start.IsStartMenu==true) { }
-            else if(Game.gameScript == 0)
+            else if (Game.gameScript == 0)
             {
                 Console.WriteLine("Your husband will arrive at 5");
             }
@@ -123,7 +123,7 @@ namespace NarrativeProject
                 Console.WriteLine("It's 5 o'clock, Your husband have arrived");
                 Console.WriteLine("You begin to listen, and a few moments later, punctually as always, you hear the tires on the gravel outside, the car door slamming, the footsteps passing the window, and the key turning in the lock.");
             }
-            else if (Game.gameScript ==2)
+            else if (Game.gameScript == 2)
             {
                 if (inventory.Contains("coat"))
                 {
@@ -132,16 +132,28 @@ namespace NarrativeProject
                 }
                 else
                 {
-                    Console.WriteLine();
+                    Console.WriteLine("You can try sitting on your chair to talk with Patrick");
                 }
+            }
+            else if (Game.gameScript == 3)
+            {
+
             }
             else if (Game.gameScript == 5)
             {
-                Console.WriteLine("Cook souper for Patrick");
+                Console.WriteLine("You can cook souper for Patrick or try to resolve things in another way");
+            }
+            else if (Game.gameScript == 6)
+            {
+                Console.WriteLine("Your husband is dead, find a way to not get caugth, create an alibi");
+            }
+            else if (Game.gameScript == 8)
+            {
+                Console.WriteLine("You can talk with the Police Officers");
             }
             else
             {
-                Console.WriteLine("Alert");
+                Console.WriteLine("");
             }
             MethodColorBasic();
             Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
