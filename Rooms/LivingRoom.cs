@@ -203,6 +203,7 @@ the course of your life. What will you do next?
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "sew":
                             Console.WriteLine("You continue sewing a pair of boots for a baby");
@@ -226,6 +227,7 @@ the course of your life. What will you do next?
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "bedroom":
                             Console.WriteLine("You returned to the room.");
@@ -275,6 +277,7 @@ the course of your life. What will you do next?
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "greet":
                             Console.WriteLine(@"You kiss your Husband, Patrick.
@@ -306,6 +309,7 @@ on his sofa");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "chair":
                             Console.WriteLine(@"Your husband looks weirdly at you, but 
@@ -397,7 +401,10 @@ You took his coat");
                         case "i":
                             Game.DisplayInventory();
                             break;
-
+                        case "save":
+                            GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
+                            break;
                         case "ignore":
                             Console.WriteLine(@"Your husband has an odd look on his face, but ultimately chooses to unwind on his sofa. Despite his hesitation, it appears he has something to say to you.");
                             Game.gameScript = 3;
@@ -427,6 +434,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "bedroom":
                             Console.WriteLine("You returned to the room, your husband is waiting for you in the living room. Maybe you can get his slippers");
@@ -522,6 +530,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "continue":
                         Game.gameScript = 4;
@@ -548,6 +557,7 @@ let's keep this quiet for my job's sake.""[continue]");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "continue":
                         Game.gameScript = 5;
@@ -569,6 +579,7 @@ let's keep this quiet for my job's sake.""[continue]");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "talk":
                             Console.WriteLine(@"You try to speak to Patrick, but he remains distant and unresponsive. His decision seems final, and you struggle to find words to bridge the gap between you.
@@ -614,6 +625,7 @@ Your mind races as you weigh the possible outcomes and repercussions.");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "aproach":
                             if (Game.inventory.Contains("Lamb leg"))
@@ -790,6 +802,7 @@ distance between you and Patrick feels almost insurmountable in this moment.");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "talk":
                             Console.WriteLine(@"Your husband lies lifeless on the floor. 
@@ -841,6 +854,7 @@ Patrick's lifeless body nearby is a stark reminder of your actions, casting a ch
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Game.Transition<Start>();
                             break;
                         case "examine":
                             Console.WriteLine(@"You approach Patrick's body cautiously, taking in the details of his final moments.
@@ -954,6 +968,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "continue":
                         if(Game.inventory.Contains("note")|| Game.inventory.Contains("Lamb Leg with blood")|| Game.inventory.Contains("stained baseball bat")|| Game.inventory.Contains("stained knife")||examineBody==false||!Game.PlayerClean)
@@ -961,6 +976,10 @@ Your thoughts race as you plan your next move.");
 
                         Console.WriteLine();
                         Game.Transition<BadEndingTwo>();
+                        }
+                        else if (Game.inventory.Contains("knife"))
+                        {
+                            Game.PoliceSuspicion += 15;
                         }
                         else
                         {
@@ -982,6 +1001,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room, the officers are waiting for you in the living room.");
@@ -1049,6 +1069,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room, the officers are waiting for you in the Kitchen");
@@ -1116,6 +1137,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "bedroom":
                         Console.WriteLine("You returned to the room.");

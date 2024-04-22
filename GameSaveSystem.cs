@@ -1,10 +1,10 @@
-﻿using NarrativeProject.Rooms;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using static NarrativeProject.GameSaveSystem.GameSaveData.GameDataClass;
+using Newtonsoft.Json.Linq; // Added for JObject
+using NarrativeProject.Rooms;
+using static NarrativeProject.GameSaveSystem.GameSaveData;
 
 namespace NarrativeProject
 {
@@ -16,10 +16,8 @@ namespace NarrativeProject
             {
                 GameData = new GameSaveData.GameDataClass()
                 {
-                    Rooms = Game.rooms,
                     Inventory = Game.inventory,
                     Thing = Game.thing,
-                    CurrentRoom = Game.currentRoom,
                     IsFinished = Game.isFinished,
                     NextRoom = Game.nextRoom,
                     NameOfRoom = Game.nameOfRoom,
@@ -42,7 +40,7 @@ namespace NarrativeProject
                     TalkToOfficers = Game.TalkToOfficers,
                     LambLegOven = Game.lambLegOven
                 },
-                LivingRoomData = new GameSaveData.LivingRoomSaveData()
+                LivingRoomData = new LivingRoomSaveData()
                 {
                     SittingOnChair = LivingRoom.sittingOnChair,
                     GreetHusband = LivingRoom.greetHusband,
@@ -53,27 +51,25 @@ namespace NarrativeProject
                     ExamineBody = LivingRoom.examineBody,
                     StepsUntilNext = LivingRoom.stepsUntilNext
                 },
-                KitchenData = new GameSaveData.KitchenSaveData()
+                KitchenData = new KitchenSaveData()
                 {
                     DishesClean = Kitchen.dishesClean,
                     CheckedFridge = Kitchen.checkedFridge,
                     CheckedFreezer = Kitchen.checkedFreezer,
                     Insist = Kitchen.insist
                 },
-                BedroomData = new GameSaveData.BedroomSaveData()
+                BedroomData = new BedroomSaveData()
                 {
                     BedDone = Bedroom.bedDone,
                     Bat = Bedroom.bat
                 },
-                StartData = new GameSaveData.StartSaveData()
+                StartData = new StartSaveData()
                 {
                     IsStartMenu = Start.IsStartMenu
                 }
             };
 
-            JsonSerializerSettings settings = new JsonSerializerSettings();
-            settings.Converters.Add(new GameSaveData.RoomConverter());
-            string jsonData = JsonConvert.SerializeObject(saveData, Formatting.Indented, settings);
+            string jsonData = JsonConvert.SerializeObject(saveData, Formatting.Indented);
             File.WriteAllText(filePath, jsonData);
             Console.WriteLine("Game saved successfully.");
         }
@@ -89,15 +85,10 @@ namespace NarrativeProject
             try
             {
                 string jsonData = File.ReadAllText(filePath);
-                GameSaveData saveData = JsonConvert.DeserializeObject<GameSaveData>(jsonData, new JsonSerializerSettings
-                {
-                    Converters = { new GameSaveData.RoomConverter() }
-                });
+                GameSaveData saveData = JsonConvert.DeserializeObject<GameSaveData>(jsonData);
 
-                Game.rooms = saveData.GameData.Rooms;
                 Game.inventory = saveData.GameData.Inventory;
                 Game.thing = saveData.GameData.Thing;
-                Game.currentRoom = saveData.GameData.CurrentRoom;
                 Game.isFinished = saveData.GameData.IsFinished;
                 Game.nextRoom = saveData.GameData.NextRoom;
                 Game.nameOfRoom = saveData.GameData.NameOfRoom;
@@ -159,10 +150,8 @@ namespace NarrativeProject
 
             public class GameDataClass
             {
-                public List<Room> Rooms { get; set; }
                 public List<string> Inventory { get; set; }
                 public string Thing { get; set; }
-                public Room CurrentRoom { get; set; }
                 public bool IsFinished { get; set; }
                 public string NextRoom { get; set; }
                 public string NameOfRoom { get; set; }
@@ -212,7 +201,6 @@ namespace NarrativeProject
             {
                 public bool IsStartMenu { get; set; }
             }
-
             internal class RoomConverter : JsonConverter
             {
                 public override bool CanConvert(Type objectType)
@@ -222,24 +210,28 @@ namespace NarrativeProject
 
                 public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
                 {
-                    JObject jo = JObject.Load(reader);
-                    string type = (string)jo["$type"];
+                    JObject item = JObject.Load(reader);
+                    string type = item["Type"].ToObject<string>();
 
-                    if (type == typeof(LivingRoom).FullName)
-                        return jo.ToObject<LivingRoom>();
-                    else if (type == typeof(Kitchen).FullName)
-                        return jo.ToObject<Kitchen>();
-                    else if (type == typeof(Bedroom).FullName)
-                        return jo.ToObject<Bedroom>();
-                    else
-                        throw new NotSupportedException($"The room type '{type}' is not supported.");
+                    switch (type)
+                    {
+                        case "LivingRoom":
+                            return item.ToObject<LivingRoom>();
+                        case "Kitchen":
+                            return item.ToObject<Kitchen>();
+                        case "Bedroom":
+                            return item.ToObject<Bedroom>();
+                        default:
+                            return item.ToObject<LivingRoom>();
+                    }
                 }
 
                 public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
                 {
-                    serializer.Serialize(writer, value);
+                    throw new NotImplementedException();
                 }
             }
         }
     }
 }
+

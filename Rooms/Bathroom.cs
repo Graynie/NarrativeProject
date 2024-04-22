@@ -50,6 +50,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "mirror":
                         if (!Game.husbandDead)
@@ -87,6 +88,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "mirror":
                         if (!Game.husbandDead)
@@ -125,6 +127,14 @@ that seem larger darker than before.");
                             Game.IncreaseSanity();
                             Game.SinkDirty=true;
                         }
+                        else if (Game.inventory.Contains("stained knife"))
+                        {
+                            Console.WriteLine("You meticulously clean the knife you used, now it doesn't have any trace of blood, You can leave it at the kitchen by entering [examine]");
+                            Game.IncreaseSanity();
+                            Game.AddInventory("knife");
+                            Game.RemoveInventory("stained knife");
+                            Game.cleanKill = true;
+                        }
                         else if(Game.inventory.Contains("Cleaning suply") && !Game.cleanKill)
                         {
                             Console.WriteLine("You meticulously clean the sink, now it doesn't have any trace of blood");
@@ -132,6 +142,7 @@ that seem larger darker than before.");
                             Game.RemoveInventory("Cleaning suply");
                             Game.SinkDirty = false;
                         }
+                        
                         else
                         {
                             Console.WriteLine("You clean your hands hopping that the warm watter will calm you");
@@ -198,6 +209,7 @@ You rehearsed it several times more. Until it feels more natural");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "mirror":
                         Console.WriteLine(@"As you gaze into the mirror, you see your reflection, your skin glowing with the radiance of pregnancy.
@@ -225,6 +237,7 @@ you contemplate whether everything is proceeding smoothly, even with the police 
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "mirror":
                         if (!Game.husbandDead)
@@ -252,7 +265,6 @@ that seem larger darker than before.");
                         break;
                 }
             }
-               
         }
     }
 }

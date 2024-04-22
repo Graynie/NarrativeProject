@@ -61,6 +61,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -95,6 +96,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -129,6 +131,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -165,6 +168,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -192,6 +196,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -211,6 +216,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");

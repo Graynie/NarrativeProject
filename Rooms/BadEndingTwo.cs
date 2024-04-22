@@ -58,9 +58,9 @@ Reason why you failed:" +Failed()+ "\n Go [back] to the Title Page or [exit] Gam
             {
                 text += "\n- For having a stained with blood knife with you when the police arrived";
             }
-            else if (Game.inventory.Contains("note"))
+            else if (Game.inventory.Contains("knife")&& !Game.cleanKill)
             {
-                text += "\n- For having a stained with blood knife with you when the police arrived";
+                text += "\n- For having a knife with you when the police arrived";
             }
             else if (Game.notedestroyed && Game.inventory.Contains("note"))
             {

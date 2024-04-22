@@ -24,7 +24,8 @@ namespace NarrativeProject.Rooms
                 return @"You are in the Kitchen. 
 You can check the [fridge] for vegetables,
 check the [freezer] for meat or ice cream,
-approach the [sink] to wash dishes, or go back to the [living room].";
+[examine] the room, approach the [sink] to wash dishes,
+or go back to the [living room].";
             }//alone at home, waiting for husband
             else if (Game.gameScript == 1)
             {
@@ -110,6 +111,10 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
+                        break;
+                    case "examine":
+                        Console.WriteLine("There is knife in the countertop but you don't need it rigth now");
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -150,6 +155,12 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
+                        break;
+                    case "examine":
+                        Console.WriteLine(@"There is knife in the countertop, you take it
+now you have a knife in the inventory");
+                        Game.AddInventory("knife");
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -214,6 +225,7 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -284,6 +296,15 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                             Console.WriteLine("Invalid command.");
                         }
                         break;
+                    case "examine":
+                        if (Game.inventory.Contains("knife"))
+                        {
+                            Console.WriteLine(@"Upon inspecting the kitchen counter, you decide to store the knife in one of the drawers with other kitchen appliances to prevent it from protruding among the visible items in the kitchen.");
+                            Game.RemoveInventory("knife");
+                            Game.cleanKill=true;
+                        }
+                        
+                        break;
                     default:
                         Console.WriteLine("Invalid command.");
                         break;
@@ -298,6 +319,7 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -385,6 +407,7 @@ listening to their voices as they spoke with their mouths full.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Game.Transition<Start>();
                         break;
                     case "living room":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -417,8 +440,6 @@ listening to their voices as they spoke with their mouths full.");
                 }
             }
         }
-
-
         internal void RamdomCall()
         {
             Random random = new Random();

@@ -39,12 +39,13 @@ will arrive at 5 o'clock as everyday");
                     break;
                 case "saved":
                     GameSaveSystem.LoadGame(Game.filePath);
+                    Game.Transition<LivingRoom>();
                     break;
                 case "exit":
                     Console.WriteLine("Bye");
                     Environment.Exit(0);
                     break;
-
+                    
 
                 default:
                     Console.WriteLine("Invalid command.");
