@@ -902,11 +902,15 @@ You could wash away any traces of the incident or search for medication to calm 
                             Game.sanity += 5;
                             break;
                         case "grocery":
-                            if (!examineBody|| !Game.PlayerClean)
+                            if (!examineBody || !Game.PlayerClean ||Game.SinkDirty|| Game.inventory.Contains("knife") || Game.inventory.Contains("Lamb Leg with blood") || Game.inventory.Contains("stained baseball bat") || Game.inventory.Contains("bat") || Game.inventory.Contains("stained knife"))
                             {
 
-                            Console.WriteLine(@"You shouldn`t leave the body in that state,or your appeareance how it looks. Are you sure you want to go? if yes enter[insist]");
+                            Console.WriteLine(@"You shouldn`t leave the body in that state,have you checked your appeareance in the mirror or your inventory[i]. Are you sure you want to go? if yes enter[insist]. If you need help to know where to dispose each object write[help]");
                             Game.sanity -= 5;
+                            }
+                            else
+                            {
+                                Game.Transition<Grocery>();
                             }
                             break;
                         case "fireplace":
@@ -949,6 +953,13 @@ The liquid's warmth calms you, but your mind remains alert to the task at hand."
                             Console.WriteLine(@"You sit on your husband's sofa, taking in the scene from a new vantage point. The comfort you once associated with the space is replaced by a sense of dread. 
 Your thoughts race as you plan your next move.");
                             Game.sanity -= 10;
+                            break;
+                        case "help":
+                            Console.WriteLine(@"- It is possible to burn either a baseball bat or a secret note in the fireplace.
+- Make sure to keep the knife clean on the kitchen counter.
+- In case there are traces of blood on either the knife or your face, you have the option of cleaning them in the bathroom sink.
+- You can clean the bathroom sink with cleaning liquids from the bathroom cabinet
+");
                             break;
                         case "chair":
                             Console.WriteLine(@"You return to your chair, seeking a moment of respite from the weight of the situation. The chair feels cold now, and as you sit, the full gravity of your actions begins to sink in.");
