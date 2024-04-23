@@ -15,7 +15,7 @@ namespace NarrativeProject.Rooms
 The lead officer nods in acknowledgment, thanking you for your cooperation. They offer their condolences and suggest helping you get to your mom's house for support, but you decline, opting to stay.
 As they leave, expressing gratitude for your assistance, you're left alone in the room, a sense of relief washing over you. You've managed to deceive them and evade the consequences of your actions, at least for now.
 
-Ending(4/3): Best Ending?
+    Ending(3/3): Best Ending?
 Your husband has been killed and you haven't been caught.
 
  Go [back] to the Title Page or [exit] Game";

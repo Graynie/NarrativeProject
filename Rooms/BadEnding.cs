@@ -18,8 +18,8 @@ The note in your hand serves as a stark reminder of his departure and his promis
 You take a deep breath, trying to steady your nerves as you contemplate the uncertain future. 
 It's a bittersweet moment, filled with both sadness and a glimmer of hope for what may come next.
 
-Ending(1/3): Not completely alone
-\n Go [back] to the Title Page or [exit] Game";
+    Ending(1/3): Not completely alone
+ Go [back] to the Title Page or [exit] Game";
         }
 
         internal override void ReceiveChoice(string choice)

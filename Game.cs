@@ -107,7 +107,7 @@ namespace NarrativeProject
             {
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("   Room: " + nameOfRoom+ "                                                                    State: " + DetermineCharacterState(sanity)+"                ") ;
+                Console.WriteLine("   Room: " + nameOfRoom+ "                                                       State: " + DetermineCharacterState(sanity)+"      ") ;
                 MethodColorBasic();
                 
             }
@@ -137,9 +137,9 @@ namespace NarrativeProject
                     Console.WriteLine("You can try sitting on your chair to talk with Patrick");
                 }
             }
-            else if (Game.gameScript == 3)
+            else if (Game.gameScript == 3|| Game.gameScript == 4)
             {
-
+                Console.WriteLine("You are having a conversation with Patrick, your husband.");
             }
             else if (Game.gameScript == 5)
             {

@@ -144,13 +144,15 @@ The living room feels heavy with silence and tension.
 Time is of the essence, and you must act quickly to avoid suspicion and consequences.
 Your choices are limited, and each decision could change
 the course of your life. What will you do next?
-- [hide the body]: Conceal Patrick's body in a discreet place,out of sight.
-- [stage the scene]: Make the scene look like an accident or intruder attack to deflect blame.
-- [clean up the mess]: Assess the scene and clean up any evidence that could incriminate you.
-- [sit in shock]: Take a moment to sit and process the gravity of your actions.
-- [pack a bag]: Prepare a bag with essentials in case you decide to flee the scene.
-- [compose yourself]: Take a deep breath and try to calm your racing thoughts.
-- [plan your alibi]: Construct a believable story to account for your whereabouts.";
+- [examine] your surroundings: Look around the living room, assessing what needs to be addressed to avoid suspicion.
+- [think] carefully: Take a moment to process your actions and consider your options.
+- Plan your [alibi]: Construct a believable story to account for your whereabouts.
+- Aproach the [fireplace]
+- Go to the [Grocery] store
+- Sit on the [chair]
+- Check the [closet]
+- Go to one of the other rooms: [kitchen], [bedroom], [bathroom]
+";
                 }
             }//Husband is dead
             else if (Game.gameScript == 7)
@@ -509,14 +511,22 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             fireplace();
                             break;
                         case "chair":
-                            Console.WriteLine("You are confortably sitting in your chair");
-                            if (Game.HusbandDrunk >= 5)
+                            if (Game.HusbandDrunk < 5)
                             {
-                                Game.gameScript = 3;
-                                Game.MethodColorGray();
-                                Console.WriteLine(@"If you’re too tired to eat out"", You said to him,"" it’s still not too late. There’s plenty of meat and other things in the freezer, so you can stay right here and not even have to leave the chair.""You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.""Anyway,"" you continued, ""I'll get you some cheese and crackers to start."" ""I don't want it,"" he replied.");
-                                Game.MethodColorBasic();
+                                Console.WriteLine("You are confortably sitting in your chair. But you hove not give your husband a drink, yet");
                             }
+                            else if (Game.HusbandDrunk >= 5)
+                            {
+                                Console.WriteLine("You are confortably sitting in your chair.");
+                                Game.MethodColorGray();
+                                Console.WriteLine(@"If you’re too tired to eat out"", You said to him,"" it’s still not too late. 
+There’s plenty of meat and other things in the freezer, so you can stay right here and not even have to leave the chair.
+"" You watched him, waiting for him to respond with a smile or a nod, but he didn't show any reaction.
+""""Anyway,"" you continued, ""I'll get you some cheese and crackers to start."" ""I don't want it,"" he replied.");
+                                Game.MethodColorBasic();
+                                Game.gameScript = 3;
+                            }
+                            sittingOnChair = true;
                             break;
                         default:
                             Console.WriteLine("Invalid command.");
@@ -544,7 +554,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
 ""This will be a shock,"" he continues. ""But I've thought a lot about it and decided I must tell you now. I hope you don't blame me too much.""
 He tells you quickly, in four or five minutes. You sit very still, watching him with a sense of dazed horror as his words distance him from you.
 ""So there it is,"" he adds. ""I know this is a bad time to tell you, but I had no choice. I'll give you money and make sure you're taken care of. Please,
-let's keep this quiet for my job's sake.""[continue]");
+let's keep this quiet for my job's sake.""");
                         Game.MethodColorBasic();
                         break;
                     default:
@@ -566,7 +576,9 @@ let's keep this quiet for my job's sake.""[continue]");
                         break;
                     case "continue":
                         Game.gameScript = 5;
-                        Console.WriteLine(@"Your first instinct is to disbelieve everything he said, to reject it all. You wonder if he even spoke or if you imagined it all.  Maybe if you just carry on as if you hadn't heard anything, you might wake up later to find it never happened. ""I'll get supper,"" you whisper, and this time, he doesn't stop you.");
+                        Console.WriteLine(@"Your first instinct is to disbelieve everything he said, to reject it all. You wonder if he even spoke or if you imagined it all.
+Maybe if you just carry on as if you hadn't heard anything, you might wake up later to find it never happened. 
+""I'll get supper,"" you whisper, and this time, he doesn't stop you.");
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -620,6 +632,9 @@ Patrick's declaration has thrown you off balance, but you know you must consider
 Your mind races as you weigh the possible outcomes and repercussions.");
                             Game.sanity += 5;
                             break;
+                        default:
+                            Console.WriteLine("Invalid command.");
+                            break;
                     }
                 }
                 else
@@ -635,7 +650,7 @@ Your mind races as you weigh the possible outcomes and repercussions.");
                             Game.Transition<Start>();
                             break;
                         case "aproach":
-                            if (Game.inventory.Contains("Lamb leg"))
+                            if (Game.inventory.Contains("Lamb Leg"))
                             {
                                 Console.WriteLine(@"You quietly rise from your seat, weapon in hand, 
 and approach Patrick from behind.
@@ -647,7 +662,7 @@ you strike him with the weapon. He collapses immediately,
 his body falling to the floor with a heavy thud.
 The room is suddenly filled with silence,
 leaving you standing over him, weapon in hand.");
-                                Game.AddInventory("Lamb Leg with blood");
+                                Game.AddInventory("Lamb leg with blood");
                                 Game.RemoveInventory("Lamb Leg");
                                 Game.cleanKill = true;
                                 Game.husbandDead = true;

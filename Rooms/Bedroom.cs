@@ -22,13 +22,13 @@ or go back to the [living] room.";
                 if (!bedDone)
                 {
                     return @"You are in the Bedroom. 
-You can examine the [room] to find hidden items,
+You can [examine] the room to find hidden items,
 make the [bed], or go back to the [living] room.";
                 }
                 else
                 {
                     return @"You are in the Bedroom. 
-You can examine the [room] to find hidden items, or go back to the [living] room.";
+You can [examine] the room to find hidden items, or go back to the [living] room.";
                 }
             }
             else if (Game.gameScript == 6)

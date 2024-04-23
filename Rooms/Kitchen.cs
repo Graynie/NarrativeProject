@@ -50,7 +50,7 @@ or go back to the [living room].";
 You can check the [fridge] for vegetables,
 check the [freezer] for meat or ice cream, approach the [sink] to wash dishes,
 check the [oven], call someone with the [phone],
-or go back to the [living room].";
+or go back to the [living] room.";
             }//Patrick is sitting in his sofa
             else if (Game.gameScript == 5)
             {
@@ -71,7 +71,8 @@ look out the [window] to see the backyard, or go back to the [living room].";
 - [think] carefully: Take a moment to process your actions and consider your options.
 - [examine] your surroundings: Look around the kitchen, assessing what needs to be addressed to avoid suspicion.
 - [Marinate] the leg Lamb to cook it and hide the murder weapon.
-- [call] the police";
+- Call the police with the [phone]
+- GoodEnding back to the [Living] Room";
                 }
                 else if (Game.inventory.Contains("Marinated Leg Lamb"))
                 {
@@ -81,6 +82,7 @@ look out the [window] to see the backyard, or go back to the [living room].";
 - [examine] your surroundings: Look around the kitchen, assessing what needs to be addressed to avoid suspicion.
 - prepare an [alibi]: Begin to construct a story to account for your whereabouts and actions, creating a plausible cover for the events that transpired.
 - Put the Lamb Leg in the [oven]
+- GoodEnding back to the [Living] Room""
 - [call] the police";
                 }
                 else
@@ -92,6 +94,7 @@ look out the [window] to see the backyard, or go back to the [living room].";
 - [examine] your surroundings: Look around the kitchen, assessing what needs to be addressed to avoid suspicion.
 - prepare an [alibi]: Begin to construct a story to account for your whereabouts and actions, creating a plausible cover for the events that transpired.
 - [call] the police
+- GoodEnding back to the [Living] Room""
 ";
                 }
                 }//Husband is dead
@@ -117,7 +120,10 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                     case "examine":
                         Console.WriteLine("There is knife in the countertop but you don't need it rigth now");
                         break;
-                    case "living room":
+                    case "oven":
+                        Console.WriteLine("There is nothing in the oven");
+                        break;
+                    case "living":
                         Console.WriteLine("You decide to go back to the living room.");
                         Game.Transition<LivingRoom>();
                         break;
@@ -240,14 +246,15 @@ now you have a knife in the inventory");
                             Console.WriteLine(@"As you dial the emergency number, your hands tremble with nervousness and fear. You know the police need to be called, but the sight of the bloodied weapon still in your hands fills you with dread. Knowing they will notice you are the one who killed Patrick");
                             Game.Transition<BadEndingTwo>();
                         }
-                        else if (Game.inventory.Contains("stained knife") || Game.inventory.Contains("stained knife") || Game.inventory.Contains("Not Marinated Lamb leg"))
+                        else if (Game.inventory.Contains("stained knife") || Game.inventory.Contains("stained knife") || Game.inventory.Contains("Lamb leg with blood"))
                         {
                             Console.WriteLine(@"Are you sure you want to call the police, You have something that can make them suspicious of you in your inventory.Check inventory entering [i] If you still ant to call the police you can try again");
                             insist = true;
                         }
                         else if (Game.PlayerClean == false)
                         {
-                            Console.WriteLine(@"Are you sure you want to call the police, You have blood iin your face maybe you can clean in the bathroom");
+                            Console.WriteLine(@"Are you sure you want to call the police, You have blood in your face maybe you can clean in the bathroom. If you still want to call try again");
+                            insist = true;
                         }
                         else
                         {
