@@ -9,7 +9,6 @@ namespace NarrativeProject.Rooms
 {
     internal class GoodEnding : Room
     {
-
         internal override string CreateDescription()
         {
             return @"As the police arrive and enter the room, their expressions shift from curiosity to somber understanding. Their eyes scan the area, taking in the scene without any immediate suspicion.

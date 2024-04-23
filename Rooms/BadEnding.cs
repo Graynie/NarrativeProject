@@ -11,7 +11,7 @@ namespace NarrativeProject.Rooms
 
         internal override string CreateDescription()
         {
-            return @"As you stand in the living room, alone with the note your husband left behind, a mix of emotions washes over you. 
+            return @"You stand in the living room, alone with the note your husband left behind, a mix of emotions washes over you. 
 The weight of his decision to leave hangs heavy in the air, mingling with the uncertainty of what lies ahead for you and your baby. 
 You glance around the room, noticing the empty space where he used to sit, the familiar objects now imbued with a sense of loss.
 The note in your hand serves as a stark reminder of his departure and his promise to provide for you and the baby. 
@@ -24,6 +24,7 @@ Ending(1/3): Not completely alone
 
         internal override void ReceiveChoice(string choice)
         {
+            Game.inventory.Clear();
             switch (choice)
             {
                 case "back":

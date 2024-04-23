@@ -111,6 +111,7 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "examine":
@@ -155,6 +156,7 @@ approach the[sink] to wash dishes, or go back to the[living room]."; }//if error
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "examine":
@@ -225,6 +227,7 @@ now you have a knife in the inventory");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living room":
@@ -252,6 +255,10 @@ now you have a knife in the inventory");
                             Game.Callpolice = true;
                             Game.gameScript = 7;
                             Console.WriteLine(@"When the police have arrived, the atmosphere in the room is tense and charged with anxiety. You stand near the front door, your heart racing as you prepare to face them. The weight of the recent events hangs heavily on your shoulders as you hope desperately that they won't find you guilty.");
+                            Console.WriteLine(@"You tell your story tearfully, recounting how you found him on the floor when you returned from the grocery. There's a lot of whispering and questioning from the detectives, but they treat you kindly. You explain everything again, from Patrick being tired to you going to the grocer for vegetables.
+
+“One of the detectives asked which grocer,” you answer, and the other detective leaves to investigate. He returns with notes, and there's more whispering. Amidst your sobbing, you catch fragments of their conversation — ""...acted quite normal...very cheerful...wanted to give him a good supper...peas...cheesecake...impossible that she...""
+*While talking to them you put the things you were carrying down");
                             Game.Transition<LivingRoom>();
                         }
                         break;
@@ -319,6 +326,7 @@ now you have a knife in the inventory");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living room":
@@ -407,6 +415,7 @@ listening to their voices as they spoke with their mouths full.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living room":

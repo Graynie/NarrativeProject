@@ -38,6 +38,8 @@ namespace NarrativeProject
         public static bool TalkToOfficers;
         public static bool lambLegOven=false;
         public static bool SinkDirty = false;
+        public static bool practice = false;
+        public static bool sucessStore = false;
 
         #endregion
 

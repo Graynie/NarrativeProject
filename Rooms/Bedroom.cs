@@ -61,6 +61,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living":
@@ -96,6 +97,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living":
@@ -131,6 +133,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living":
@@ -168,6 +171,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living":
@@ -196,6 +200,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living":
@@ -216,6 +221,7 @@ You can examine the [room] to find hidden items, or go back to the [living] room
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "living":

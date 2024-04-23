@@ -81,8 +81,8 @@ to the [Grocery] store, or go to one of the other rooms:
                 }
                 else
                 {
-                    return @"You can try talking with your [husband], prepare a
-[drink] for him, lit the [fireplace], or go to another room: 
+                    return @"You can try talking with your [husband], prepare a [drink] for him,
+lit the [fireplace], approach the [closet] or go to another room: 
 [kitchen], [bathroom], [bedroom], or sit in your [chair] ";
                 }
             }//Patrick is sitting in his sofa
@@ -200,6 +200,7 @@ the course of your life. What will you do next?
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "sew":
@@ -224,6 +225,7 @@ the course of your life. What will you do next?
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "bedroom":
@@ -274,6 +276,7 @@ the course of your life. What will you do next?
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "greet":
@@ -306,6 +309,7 @@ on his sofa");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "chair":
@@ -400,6 +404,7 @@ You took his coat");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "ignore":
@@ -431,6 +436,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu=true;
                             Game.Transition<Start>();
                             break;
                         case "bedroom":
@@ -527,6 +533,7 @@ You watched him, waiting for him to respond with a smile or a nod, but he didn't
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "continue":
@@ -554,6 +561,7 @@ let's keep this quiet for my job's sake.""[continue]");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "continue":
@@ -576,6 +584,7 @@ let's keep this quiet for my job's sake.""[continue]");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "talk":
@@ -622,6 +631,7 @@ Your mind races as you weigh the possible outcomes and repercussions.");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "aproach":
@@ -799,6 +809,7 @@ distance between you and Patrick feels almost insurmountable in this moment.");
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "talk":
@@ -851,6 +862,7 @@ Patrick's lifeless body nearby is a stark reminder of your actions, casting a ch
                             break;
                         case "save":
                             GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                             Game.Transition<Start>();
                             break;
                         case "examine":
@@ -976,6 +988,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "continue":
@@ -1009,6 +1022,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "bedroom":
@@ -1077,6 +1091,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "bedroom":
@@ -1145,6 +1160,7 @@ Your thoughts race as you plan your next move.");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "bedroom":

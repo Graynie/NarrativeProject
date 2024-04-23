@@ -6,8 +6,6 @@ namespace NarrativeProject.Rooms
 {
     internal class Bathroom : Room
     {
-
-
         internal static bool takenCleaning = false;
         internal override string CreateDescription() 
         {
@@ -37,8 +35,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
                 return @"*out of bundaries*"; 
             }//if error happen
         }
-
-    internal override void ReceiveChoice(string choice)
+        internal override void ReceiveChoice(string choice)
         {
             if (Game.gameScript <= 0||Game.gameScript>=5)
             {
@@ -50,6 +47,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "mirror":
@@ -88,6 +86,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "mirror":
@@ -177,6 +176,7 @@ that seem larger darker than before.");
 Try again.“Hullo Sam,” you said brightly, aloud. The voice sounded peculiar too.“I want some potatoes please,
 Sam. Yes, and I think a can of peas. That was better.  Both the smile and the voice were coming out better now.
 You rehearsed it several times more. Until it feels more natural");
+                        Game.practice = true;
                         break;
                     case "living":
                         Console.WriteLine("You decide to go back to the living room.");
@@ -209,6 +209,7 @@ You rehearsed it several times more. Until it feels more natural");
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                        Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "mirror":
@@ -237,6 +238,7 @@ you contemplate whether everything is proceeding smoothly, even with the police 
                         break;
                     case "save":
                         GameSaveSystem.SaveGame(Game.filePath);
+                            Start.IsStartMenu = true;
                         Game.Transition<Start>();
                         break;
                     case "mirror":
