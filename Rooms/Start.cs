@@ -31,6 +31,7 @@ dinner as usual.
             switch (choice)
             {
                 case "start":
+                    GameSaveSystem.ResetGame();
                     Console.WriteLine(
 @"You awaken in your quaint suburban home, the evening sun casting long shadows across the room. Your husband, Patrick, 
 will arrive at 5 o'clock as everyday");

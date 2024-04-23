@@ -38,7 +38,9 @@ namespace NarrativeProject
                     NoteDestroyed = Game.notedestroyed,
                     PoliceSuspicion = Game.PoliceSuspicion,
                     TalkToOfficers = Game.TalkToOfficers,
-                    LambLegOven = Game.lambLegOven
+                    LambLegOven = Game.lambLegOven,
+                    practice = Game.practice,
+                    sucessStore = Game.sucessStore
                 },
                 LivingRoomData = new LivingRoomSaveData()
                 {
@@ -110,6 +112,8 @@ namespace NarrativeProject
                 Game.PoliceSuspicion = saveData.GameData.PoliceSuspicion;
                 Game.TalkToOfficers = saveData.GameData.TalkToOfficers;
                 Game.lambLegOven = saveData.GameData.LambLegOven;
+                Game.practice = saveData.GameData.practice;
+                Game.sucessStore = saveData.GameData.sucessStore;
 
                 LivingRoom.sittingOnChair = saveData.LivingRoomData.SittingOnChair;
                 LivingRoom.greetHusband = saveData.LivingRoomData.GreetHusband;
@@ -173,6 +177,9 @@ namespace NarrativeProject
                 public int PoliceSuspicion { get; internal set; }
                 public bool TalkToOfficers { get; internal set; }
                 public bool LambLegOven { get; internal set; }
+                
+                public bool sucessStore { get; internal set; }
+                public bool practice { get; internal set; }
             }
             internal class LivingRoomSaveData
             {
@@ -231,6 +238,55 @@ namespace NarrativeProject
                     throw new NotImplementedException();
                 }
             }
+        }
+
+        public static void ResetGame()
+        {
+            // Reset all game properties to their initial values
+            Game.inventory.Clear();
+            Game.thing = "";
+            Game.isFinished = false;
+            Game.nextRoom = "";
+            Game.nameOfRoom = "";
+            Game.sanity = 80;
+            Game.lambLeg = false;
+            Game.gameScript = 0;
+            Game.husbandDead = false;
+            Game.shownOnce = false;
+            Game.HusbandTemperament = 5;
+            Game.HusbandDrunk = 0;
+            Game.TalkToHusband = false;
+            Game.cleanKill = false;
+            Game.HusbandLeaves = false;
+            Game.DrunkPlayer = false;
+            Game.insistGocery = false;
+            Game.Callpolice = false;
+            Game.PlayerClean = false;
+            Game.notedestroyed = false;
+            Game.PoliceSuspicion = 0;
+            Game.TalkToOfficers = false;
+            Game.lambLegOven = false;
+            Game.practice = false;
+            Game.sucessStore = false;
+
+            LivingRoom.sittingOnChair = true;
+            LivingRoom.greetHusband = false;
+            LivingRoom.fireplaceOn = false;
+            LivingRoom.randomNumber = 0;
+            LivingRoom.LikeDrink = "Yes";
+            LivingRoom.insist = false;
+            LivingRoom.examineBody = false;
+            LivingRoom.stepsUntilNext = 0;
+
+            Kitchen.dishesClean = false;
+            Kitchen.checkedFridge = false;
+            Kitchen.checkedFreezer = false;
+            Kitchen.insist = false;
+
+            Bedroom.bedDone = false;
+            Bedroom.bat = false;
+
+            Start.IsStartMenu = false;
         }
     }
 }
