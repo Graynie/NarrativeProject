@@ -243,7 +243,7 @@ namespace NarrativeProject
         }
         public static void checkTemperament()
         {
-            if (HusbandTemperament>80)
+            if (HusbandTemperament>=70)
             {
                 Game.Transition<BadEnding>();
             }
@@ -298,9 +298,14 @@ namespace NarrativeProject
         }
         internal static void CheckPoliceSuspicion()
         {
-            if (PoliceSuspicion > 6)
+            if (PoliceSuspicion > 5)
             {
                 Console.WriteLine("Your action made the police officers seem suspicious. Later with the proofs they found out your actions");
+                Game.Transition<BadEndingTwo>();
+            }
+            else if ( sanity < 30&& gameScript>5)
+            {
+                Console.WriteLine("You couldn’t handle the weight of your actions so you decided to call the police and turn yourself in ");
                 Game.Transition<BadEndingTwo>();
             }
             else  if(PoliceSuspicion < -1)
