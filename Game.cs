@@ -107,7 +107,7 @@ namespace NarrativeProject
             {
                 Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                 MethodColorReverse();
-                Console.WriteLine("   Room: " + nameOfRoom+ "                                                       State: " + DetermineCharacterState(sanity)+"      ") ;
+                Console.WriteLine("       Room: " + nameOfRoom+ "                                                       State: " + DetermineCharacterState(sanity)+"             ") ;
                 MethodColorBasic();
                 
             }

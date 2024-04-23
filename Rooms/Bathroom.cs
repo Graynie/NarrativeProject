@@ -54,6 +54,7 @@ You can also use the [toilet] or return to the [living] room, where the tension 
                         if (!Game.husbandDead)
                         {
                             Console.WriteLine(@"You see yourself in the mirror.Your skin — for this your sixth month with child — had acquired a wonderful translucent quality, your mouth looking soft, and your eyes, showing a placid look, that seem larger darker than before.");
+                        Game.IncreaseSanity();
                         }
                         else if (Game.TalkToHusband)
                         {

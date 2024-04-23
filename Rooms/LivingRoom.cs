@@ -30,16 +30,18 @@ namespace NarrativeProject.Rooms
                 if (sittingOnChair == true)
                 {
                     return @"You are in the Living Room. Sitting on your chair,
-You can [sew] until your husband arrives, 
-or [stand] up";
+- You can [sew] until your husband arrives, 
+- Or [stand] up to move around";
                 }
                 else
                 {
                     return @"You are in the Living Room. 
-You can sit on your [chair], sit on your husband's [sofa],
-aproach the [drinks] car, aproach the [fireplace], go 
-outtside to the [Grocery] store, or go to one of the other 
-rooms: [closet], [kitchen], [bathroom], [bedroom]";
+- You can sit on your [chair]
+- Sit on your husband's [sofa],
+- Aproach the [drinks] car
+- Aproach the [fireplace]
+- Go outside to the [Grocery] store,
+- Or go to one of the other rooms: [closet], [kitchen], [bathroom], [bedroom]";
                 }
             }//alone at home, waiting for husband
             else if (Game.gameScript == 1)
@@ -47,30 +49,35 @@ rooms: [closet], [kitchen], [bathroom], [bedroom]";
                 if (greetHusband == false && sittingOnChair == false)
                 {
                     return @"You are in the Living Room.
-You can [Greet] your husband, sit on your [chair],
-sit on your husbands [sofa], aproach the [drinks] 
-car, aproach the [fireplace],go outtside to the 
-[Grocery] store, or go to one of the other rooms:
-[closet], [kitchen], [bathroom], [bedroom].";
+- You can [Greet] your husband
+- Sit on your [chair],
+- Sit on your husbands [sofa]
+- Aproach the [drinks] car
+- Aproach the [fireplace]
+- Go outtside to the [Grocery] store
+- Or go to one of the other rooms: [closet], [kitchen], [bathroom], [bedroom].";
                 }
                 else if (greetHusband == false && sittingOnChair == true)
                 {
                     return @"You are in the Living Room.
-You can stand up and [Greet] your husband, or 
-[ignore] him and continue sewing.";
+-You can stand up and [Greet] your husband
+- Or [ignore] him and continue sewing.";
                 }
                 else if (greetHusband == true && sittingOnChair == true && Game.husbandDead == true)
                 {
                     return @"You are in the Living Room. Sitting on your chair,
-You can [sew], or [stand] up";
+- You can [sew]
+- Or [stand] up";
                 }
                 else
                 {
                     return @"You are in the Living Room. 
-You can do sit on your [chair], sit on your husband's [sofa],
-aproach the [drinks] car, aproach the [fireplace], go outtside
-to the [Grocery] store, or go to one of the other rooms: 
-[closet], [kitchen], [bathroom], [bedroom]";
+- You can do sit on your [chair]
+- Sit on your husband's [sofa],
+- Aproach the [drinks] car
+- Aproach the [fireplace]
+- Go outside to the [Grocery] store
+- Or go to one of the other rooms: [closet], [kitchen], [bathroom], [bedroom]";
                 }
             }//husband arrives, Greet him
             else if (Game.gameScript == 2)
@@ -556,6 +563,7 @@ He tells you quickly, in four or five minutes. You sit very still, watching him 
 ""So there it is,"" he adds. ""I know this is a bad time to tell you, but I had no choice. I'll give you money and make sure you're taken care of. Please,
 let's keep this quiet for my job's sake.""");
                         Game.MethodColorBasic();
+                        Game.sanity -= 20;
                         break;
                     default:
                         Console.WriteLine("Invalid command.");
@@ -668,6 +676,7 @@ leaving you standing over him, weapon in hand.");
                                 Game.husbandDead = true;
                                 examineBody = false;
                                 Game.gameScript = 6;
+
                             }
                             else if (Game.inventory.Contains("baseball bat"))
                             {
